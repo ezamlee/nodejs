@@ -1,0 +1,11 @@
+{
+  "name": "Otlobly",
+  "description": "Group Ordering Application",
+  "version": "1.0.0",
+  "packages": {},
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "repository": "https://github.com/dohaes/nodejs.git",
+  "license": "Apache-2.0"
+}
