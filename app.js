@@ -11,9 +11,8 @@ app.use(express.static('public'));
 app.get("/",function(req,resp){
     resp.render("login");
 })
-
 app.get("/friends" , function(req,resp){
-    resp.render("friends");
+    resp.render("friends",{title:"My Friends"});
 })
 app.listen(8090,function(){
     console.log("Server up");
