@@ -9,9 +9,12 @@ app.set("views", "./views");
 app.use(express.static('public'));
 
 app.get("/",function(req,resp){
-    app.render("/login");
+    resp.render("login");
 })
+
 app.get("/friends" , function(req,resp){
-    app.render("friends.ejs");
+    resp.render("friends");
 })
-app.listen(8090);
+app.listen(8090,function(){
+    console.log("Server up");
+});
