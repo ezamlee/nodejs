@@ -14,6 +14,12 @@ app.get("/",function(req,resp){
 app.get("/friends" , function(req,resp){
     resp.render("friends",{title:"My Friends"});
 })
+app.get("/groups" , function(req,resp){
+    resp.render("groups",{title:"My Groups"});
+})
+app.get("/orders" , function(req,resp){
+    resp.render("orders",{title:"Orders"});
+})
 app.listen(8090,function(){
     console.log("Server up");
 });
