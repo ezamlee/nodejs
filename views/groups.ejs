@@ -31,6 +31,14 @@
                    </div>
                  </div>
               </div>
+
+           </div>
+           <div class="text-center" style="margin-top: 30px;">
+             <ul class="pagination mar-no">
+               <li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
+               <li class="active"><a href="#">1</a></li>
+               <li><a class="fa fa-angle-double-right" href="#"></a></li>
+             </ul>
            </div>
       </div>
       <!--===================================================-->
@@ -49,20 +57,53 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"><button class="btn btn-primary btn-labeled fa fa-plus-square">Add New Friend</button></h4>
+            <h4 class="modal-title"><button class="btn btn-primary btn-labeled fa fa-plus-square" data-toggle="modal" data-target="#addGroup">Add New Friend</button></h4>
           </div>
           <div class="modal-body">
             <div id="frnds">
               <div class="row">
+                <div class="col-md-12">
+                <div class="carousel slide multi-item-carousel" id="theCarousel">
+                  <div class="carousel-inner">
 
-                <!-- friends list -->
-                <div class="col-xs-6 frnd">
-                  <img src="img/1.png" class="frndImg">
-                  <h3>Heba</h3>
-                  <button class="btn btn-danger">remove</button>
+                    <div class="item active text-center">
+                      <div class="col-xs-4">
+                        <a href="#1">
+                          <img src="img/av1.png" class="img-responsive">
+                        </a>
+                        <h4>Heba</h4>
+                        <button class="btn btn-danger">Remove</button>
+                      </div>
+                    </div>
+                    <div class="item text-center">
+                      <div class="col-xs-4">
+                        <a href="#1">
+                          <img src="img/av2.png" class="img-responsive">
+                        </a>
+                        <h4>Heba</h4>
+                        <button class="btn btn-danger">Remove</button>
+                      </div>
+                    </div>
+
+                    <div class="item text-center">
+                      <div class="col-xs-4">
+                        <a href="#1">
+                          <img src="img/av3.png" class="img-responsive">
+                        </a>
+                        <h4>Heba</h4>
+                        <button class="btn btn-danger">Remove</button>
+                      </div>
+                    </div>
+                    <!-- add  more items here -->
+                    <!-- Example item start:  -->
+                    <!--  Example item end -->
+                  </div>
+                  <a class="left carousel-control" href="#theCarousel" data-slide="prev"> <i class="fa fa-angle-left" style="position:absolute;font-size:40px;top:25%;color:blue;left:00px; float:left">
+</i></a>
+                  <a class="right carousel-control" href="#theCarousel" data-slide="next"> <i class="fa fa-angle-right" style="position:absolute;font-size:40px;top:25%;color:blue;left:65px; float:right">
+</i></a>
                 </div>
-                <!-- end friend list -->
-
+              </div>
               </div>
             </div>
           </div>
@@ -86,7 +127,13 @@
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
-            <p>Some text in the modal.</p>
+            <form>
+               <div class="form-group">
+                 <label for="name">Group Name:</label>
+                 <input type="text" class="form-control" id="name">
+               </div>
+               <button type="submit" class="btn btn-default">Submit</button>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
