@@ -1,5 +1,38 @@
 var express = require("express");
 var app = express();
+var mongoose=require("mongoose");
+
+//Database Connections
+mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
+//Users Schema
+var usersSchema = new mongoose.Schema({
+  name: String
+, email: String
+, password: String
+, groups: []
+,orders: []
+,friends:[]
+});
+var users = mongoose.model('users', usersSchema);
+//Groups Schema
+var groupsSchema = new mongoose.Schema({
+  name: String
+, members: []
+});
+var groups = mongoose.model('groups', groupsSchema);
+//Orders Schema
+var ordersSchema = new mongoose.Schema({
+  owner: String
+, meal: String
+, restaurant_name: String
+, users_invited: []
+,users_joined: []
+,status:String
+,date:{ type: Date, default: Date.now }
+});
+var orders = mongoose.model('orders', usersSchema);
+//ORDER Details object will be discussed and added
+
 
 //application setting
 app.set("view engine", "ejs");
