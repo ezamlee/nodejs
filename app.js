@@ -9,7 +9,7 @@ app.set("views", "./views");
 app.use(express.static('public'));
 
 app.get("/",function(req,resp){
-    resp.render("login");
+    resp.render("login",{title:"Login"});
 })
 app.get("/friends" , function(req,resp){
     resp.render("friends",{title:"My Friends"});
