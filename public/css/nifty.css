@@ -897,7 +897,7 @@ h6,
     #container.mainnav-sm #mainnav-menu a {
         white-space: nowrap;
         position: relative;
-        padding: 12px 0 12px 19.5px
+        padding: 12px 0 12px 15px
     }
     #container.mainnav-sm #mainnav-menu a:hover {
         box-shadow: inset 4px 0 0 0 #2986b8
@@ -912,7 +912,8 @@ h6,
         top: 25%
     }
     #container.mainnav-sm #mainnav-menu a i {
-        display: inline
+        display: inline;
+        font-size: 18px;
     }
     #container.mainnav-sm #mainnav-menu .active-link>a,
     #container.mainnav-sm #mainnav-menu .active-sub>a {
@@ -928,7 +929,7 @@ h6,
         left: 0
     }
     #container.mainnav-sm #navbar .navbar-content {
-        margin-left: 50px
+        margin-left: 0px
     }
     #container.mainnav-sm #content-container,
     #container.mainnav-sm #footer {
