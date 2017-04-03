@@ -8,6 +8,9 @@ app.set("views", "./views");
 // Routing
 app.use(express.static('public'));
 
+app.get("/register",function(req,resp){
+    resp.render("register",{title:"Register Me"})
+})
 app.get("/",function(req,resp){
     resp.render("login",{title:"Login"});
 })
