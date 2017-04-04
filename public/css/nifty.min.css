@@ -196,7 +196,7 @@ h6,
     }
 }
 
-/*.cls-container {
+.cls-container {
     background-color: #212124;
     color: #fff;
     text-align: center
@@ -212,7 +212,7 @@ h6,
 .cls-container .text-light a:hover,
 .cls-container .text-light a:focus {
     color: #fff
-}*/
+}
 
 .bg-img {
     position: absolute;
@@ -254,10 +254,10 @@ h6,
     width: 60px;
     height: 60px
 }
-/*
+
 #container.cls-container .cls-header .cls-header.cls-header-lg .cls-brand .brand-title {
     font-size: 27px
-}*/
+}
 
 .cls-brand {
     display: inline-block;
@@ -289,7 +289,7 @@ h6,
     line-height: 1.42857
 }
 
-/*#container.cls-container .cls-brand .brand-icon,
+#container.cls-container .cls-brand .brand-icon,
 #container.cls-container .cls-brand .brand-title {
     background-color: transparent;
     color: inherit;
@@ -301,9 +301,9 @@ h6,
     padding: 5px;
     vertical-align: middle;
     width: auto
-}*/
+}
 
-/*.cls-content {
+.cls-content {
     padding: 50px 15px 15px;
     padding-top: 10vh;
     position: relative
@@ -335,7 +335,7 @@ h6,
     .cls-content .cls-content-lg {
         width: 700px
     }
-}*/
+}
 
 .nano {
     position: relative;
@@ -400,13 +400,13 @@ h6,
     background-color: #2986b8
 }
 
-/*.pace .pace-progress-inner {
+.pace .pace-progress-inner {
     box-shadow: 0 0 10px #54abd9, 0 0 5px #54abd9
 }
 
 .pace .pace-activity {
     background-color: #54abd9
-}*/
+}
 
 #navbar {
     position: absolute;
@@ -627,29 +627,25 @@ h6,
         padding: 0 1.5em 0 40px
     }
     #container.mainnav-in .navbar-brand,
-    /*#container.mainnav-lg .navbar-brand,*/
-    #container.mainnav-in .brand-title
-    /*,
-    #container.mainnav-lg .brand-title {*/
+    #container.mainnav-lg .navbar-brand,
+    #container.mainnav-in .brand-title,
+    #container.mainnav-lg .brand-title {
         width: 220px
     }
     #container.mainnav-in .brand-icon,
-    #container.mainnav-sm .brand-icon
-    /*,
-    #container.mainnav-lg .brand-icon */{
+    #container.mainnav-sm .brand-icon,
+    #container.mainnav-lg .brand-icon {
         background-color: transparent
     }
     #container.mainnav-in .brand-title,
-    #container.mainnav-sm .brand-title
-    /*,#container.mainnav-lg .brand-title*/
-     {
+    #container.mainnav-sm .brand-title,
+    #container.mainnav-lg .brand-title {
         color: #fff
     }
     #container.effect .brand-title,
     #container.effect.mainnav-in .brand-title,
-    #container.effect.mainnav-sm .brand-title
-    /*,#container.effect.mainnav-lg .brand-title*/
-     {
+    #container.effect.mainnav-sm .brand-title,
+    #container.effect.mainnav-lg .brand-title {
         -webkit-transition: color .35s;
         transition: color .35s
     }
@@ -720,9 +716,9 @@ h6,
     height: 100%
 }
 
-/*#mainnav-shortcut {
+#mainnav-shortcut {
     overflow: hidden
-}*/
+}
 
 #mainnav-menu-wrap {
     margin-top: -50px;
@@ -730,7 +726,7 @@ h6,
 }
 
 #mainnav-menu ul,
-/*.mainnav-widget ul,*/
+.mainnav-widget ul,
 .menu-popover ul,
 .menu-popover .sub-menu ul {
     list-style: none;
@@ -852,7 +848,8 @@ h6,
 }
 
 #mainnav-menu i {
-    padding: 0 10px 0 0
+    padding: 0 10px 0 0;
+    font-size: 17px;
 }
 
 #mainnav-menu .hide-lg {
@@ -866,7 +863,7 @@ h6,
     background-color: #2986b8;
     box-shadow: none
 }
-/*
+
 #mainnav-shortcut {
     max-height: 50px;
     overflow: hidden
@@ -939,8 +936,8 @@ h6,
 .mainnav-widget .show-small a {
     display: none
 }
-*/
-/*#container.mainnav-fixed #mainnav-container {
+
+#container.mainnav-fixed #mainnav-container {
     position: fixed
 }
 
@@ -951,15 +948,15 @@ h6,
 #container.mainnav-fixed #mainnav .nano-content {
     position: absolute
 }
-*/
+
 @media (min-width:768px) {
-    /*#container.mainnav-fixed.mainnav-lg #mainnav-menu-wrap {
+    #container.mainnav-fixed.mainnav-lg #mainnav-menu-wrap {
         height: 100%
     }
     #container.mainnav-fixed.mainnav-sm #mainnav-menu-wrap {
         height: 100%;
         padding-bottom: 100px
-    }*/
+    }
     #container.mainnav-sm #mainnav .menu-popover .nano>.nano-content {
         top: auto;
         max-height: 100%;
@@ -969,7 +966,7 @@ h6,
         position: static
     }
 }
-/*
+
 #container.mainnav-fixed:not(.navbar-fixed) #mainnav-container.affix {
     top: -40px;
     position: fixed
@@ -978,9 +975,9 @@ h6,
 #container.mainnav-fixed:not(.navbar-fixed) #mainnav-container.affix-top {
     top: 0;
     position: absolute
-}*/
+}
 
-/*@media (min-width:992px) {
+@media (min-width:992px) {
     #container.mainnav-lg #mainnav-container {
         left: 0
     }
@@ -1005,7 +1002,7 @@ h6,
         height: 100%
     }
 }
-*/
+
 @media (min-width:768px) {
     #mainnav-menu .list-header,
     #mainnav-menu .list-divider,
@@ -1036,15 +1033,15 @@ h6,
         -webkit-transition: background-color 0.2s, padding-left 0.3s, box-shadow 0.4s;
         transition: background-color 0.2s, padding-left 0.3s, box-shadow 0.4s
     }
-    /*#container.mainnav-sm .shortcut-grid:hover,
+    #container.mainnav-sm .shortcut-grid:hover,
     #container.mainnav-sm .popover.mainnav-shortcut {
         background-color: #345;
         color: #fff
-    }*/
+    }
     #container.mainnav-sm #mainnav-menu a {
         white-space: nowrap;
         position: relative;
-        padding: 12px 0 12px 19.5px
+        padding: 12px 0 12px 15px
     }
     #container.mainnav-sm #mainnav-menu a:hover {
         box-shadow: inset 4px 0 0 0 #2986b8
@@ -1085,7 +1082,7 @@ h6,
     #container.mainnav-sm #mainnav {
         position: relative
     }
-    /*#container.mainnav-sm #mainnav .mainnav-widget>.show-small a {
+    #container.mainnav-sm #mainnav .mainnav-widget>.show-small a {
         display: block;
         color: #abb1b7;
         padding: 12px 0 12px 19.5px
@@ -1102,7 +1099,7 @@ h6,
     #container.mainnav-sm #mainnav .mainnav-widget .hover {
         color: #fff;
         background-color: #345
-    }*/
+    }
     .top-auto {
         top: auto !important
     }
@@ -1200,15 +1197,15 @@ h6,
         width: 220px;
         margin-bottom: 0
     }
-    /*.menu-popover .mainnav-widget-content {
+    .menu-popover .mainnav-widget-content {
         background-color: #345
     }
     .menu-popover .mainnav-widget-content>.list-group {
         display: block;
         width: auto
-    }*/
+    }
 }
-/*
+
 .popover.mainnav-shortcut {
     white-space: nowrap
 }
@@ -1245,7 +1242,7 @@ h6,
 
 .mainnav-sm .popover.mainnav-shortcut>.arrow {
     display: none
-}*/
+}
 
 #container.mainnav-in.footer-fixed #footer,
 #container.mainnav-in #navbar,
@@ -1370,7 +1367,7 @@ h6,
         -webkit-transition: background-color 0.2s, padding-left 0.3s, box-shadow 0.4s;
         transition: background-color 0.2s, padding-left 0.3s, box-shadow 0.4s
     }
-    /*#mainnav-shortcut {
+    #mainnav-shortcut {
         -webkit-transition: all .7s;
         transition: all .7s
     }
@@ -1393,7 +1390,7 @@ h6,
     #container.mainnav-sm #mainnav-shortcut>ul>li i {
         -webkit-transition: font-size .7s;
         transition: font-size .7s
-    }*/
+    }
     #mainnav-menu .list-header,
     #mainnav-menu .list-divider,
     #mainnav-menu .menu-title,
@@ -1556,11 +1553,11 @@ h6,
     #container.mainnav-sm.aside-left.aside-in #footer {
         padding-left: 220px
     }
-    /*div#container.mainnav-lg.aside-left.aside-in #content-container,
+    div#container.mainnav-lg.aside-left.aside-in #content-container,
     div#container.mainnav-lg.aside-left.aside-in #footer {
         padding-left: 220px;
         text-align: left
-    }*/
+    }
 }
 
 @media (min-width:768px) {
@@ -1605,7 +1602,7 @@ h6,
         padding-left: 220px;
         padding-right: 0
     }
-    /*#container.aside-in.aside-left.mainnav-lg #content-container,
+    #container.aside-in.aside-left.mainnav-lg #content-container,
     #container.aside-in.aside-left.mainnav-lg #footer {
         padding-left: 440px;
         padding-right: 0
@@ -1613,7 +1610,7 @@ h6,
     #container.aside-in.aside-left.mainnav-lg #aside-container {
         left: 220px;
         right: auto
-    }*/
+    }
     #container.aside-in.aside-left.mainnav-sm #content-container,
     #container.aside-in.aside-left.mainnav-sm #footer {
         padding-left: 270px;
