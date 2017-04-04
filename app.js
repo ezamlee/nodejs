@@ -44,6 +44,11 @@ app.use(express.static('public'));
 app.get("/register",function(req,resp){
     resp.render("register",{title:"Register Me"})
 })
+
+app.get("/add",function(req,resp){
+    resp.render("add_order",{title:"Make Order"});
+})
+
 app.get("/",function(req,resp){
     resp.render("login",{title:"Login"});
 })
