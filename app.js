@@ -4,9 +4,17 @@ var mongoose=require("mongoose");
 
 //Database Connections
 mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
-//Users Schema
+//Login Schema
+var loginSchema = new mongoose.Schema({
+  _id: String
+, password: String
+});
+var login = mongoose.model('login', loginSchema);
+
+//Users Schema  // validator $and (name,email,password)
 var usersSchema = new mongoose.Schema({
-  name: String
+_id:String
+,name: String
 , email: String
 , password: String
 , groups: []
@@ -14,13 +22,15 @@ var usersSchema = new mongoose.Schema({
 ,friends:[]
 });
 var users = mongoose.model('users', usersSchema);
-//Groups Schema
+//Groups Schema   // validator name
 var groupsSchema = new mongoose.Schema({
   name: String
+  ,owner: {}
 , members: []
 });
 var groups = mongoose.model('groups', groupsSchema);
-//Orders Schema
+
+//Orders Schema  // validator owner
 var ordersSchema = new mongoose.Schema({
   owner: String
 , meal: String
@@ -28,7 +38,9 @@ var ordersSchema = new mongoose.Schema({
 , users_invited: []
 ,users_joined: []
 ,status:String
+,image:String
 ,date:{ type: Date, default: Date.now }
+,order_detail:{}
 });
 var orders = mongoose.model('orders', usersSchema);
 //ORDER Details object will be discussed and added
