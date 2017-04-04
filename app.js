@@ -16,19 +16,21 @@ var usersSchema = new mongoose.Schema({
 _id:String
 ,name: String
 , email: String
+,img:String
 , password: String
 , groups: []
 ,orders: []
 ,friends:[]
 });
 var users = mongoose.model('users', usersSchema);
+
 //Groups Schema   // validator name
-var groupsSchema = new mongoose.Schema({
-  name: String
-  ,owner: {}
-, members: []
-});
-var groups = mongoose.model('groups', groupsSchema);
+// var groupsSchema = new mongoose.Schema({
+//   name: String
+//   ,owner: {}
+// , members: []
+// });
+// var groups = mongoose.model('groups', groupsSchema);
 
 //Orders Schema  // validator owner
 var ordersSchema = new mongoose.Schema({
@@ -38,12 +40,17 @@ var ordersSchema = new mongoose.Schema({
 , users_invited: []
 ,users_joined: []
 ,status:String
-,image:String
+,menu_image:String
 ,date:{ type: Date, default: Date.now }
 ,order_detail:{}
 });
 var orders = mongoose.model('orders', usersSchema);
-//ORDER Details object will be discussed and added
+//Notifications
+var notificationsSchema = new mongoose.Schema({
+  _id:String
+  ,notifications:[]
+});
+var notifications = mongoose.model('notifications', notificationsSchema);
 
 
 //application setting
