@@ -68,9 +68,18 @@ app.get("/add",function(req,resp){
     resp.render("add_order",{title:"Make Order"});
 })
 
+app.get("/home",function(req,resp){
+    resp.render("home",{title:"Home"});
+})
+
 app.get("/",function(req,resp){
     resp.render("login",{title:"Login"});
 })
+
+app.get("/profile",function(req,resp){
+    resp.render("profile",{title:"Profile"});
+})
+
 app.get("/friends" , function(req,resp){
     resp.render("friends",{title:"My Friends"});
 })

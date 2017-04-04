@@ -10,8 +10,7 @@
       <!--Page Title-->
       <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
       <div id="page-title">
-        <h1 class="page-header text-overflow"><%= title%></h1>
-        <button class="btn btn-primary btn-labeled fa fa-plus-square" data-toggle="modal" data-target="#addFriend">Add Friend</button>
+        <h1 class="page-header text-overflow" ><%= title%></h1>
       </div>
       <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
       <!--End page title-->
@@ -19,16 +18,33 @@
       <!--Page content-->
       <!--===================================================-->
       <div id="page-content">
-           <h3 class="text-thin"></h3>
+           <h3 class="text-thin">Latest Orders</h3>
            <div class="row">
-               <div id="friends">
+               <div id="latestOrders">
+                 <!---- start latestorder ---->
                  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                   <div class="frnd">
-                     <img src="img/av1.png" class="frndImg">
-                     <p>Heba Bahaa Eldin Amer</p>
-                     <button class="btn btn-danger btn-lg unfrnd"><i class="fa fa-times"></i></button>
+                   <div class="latestOrder">
+                     <h3><a href="/order_details/id" class="text-pink" style="text-decoration: underline">Launch</a></h3>
+                     <p>on</p>
+                     <h4>13/1/2013</h4>
                    </div>
                  </div>
+                 <!---- end latestorder ---->
+              </div>
+           </div>
+           <hr>
+           <h3 class="text-thin">Friends Activity</h3>
+           <div class="row">
+               <div id="latestOrders">
+                 <!---- start friend activity ---->
+                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                   <div class="activity">
+                     <a href="" data-toggle="modal" data-target="#profile"><img src="img/av1.png"></a>
+                     <h4><a href="" data-toggle="modal" data-target="#profile">Ahmad</a></h4>
+                     <h5>has created an order for launch from mac</h5>
+                   </div>
+                 </div>
+                 <!---- end friend activity ---->
               </div>
            </div>
       </div>
@@ -40,8 +56,8 @@
     <!--===================================================-->
     <!--END CONTENT CONTAINER-->
 
-    <!-- start add friend Modal -->
-    <div id="addGroup" class="modal fade" role="dialog">
+    <!-- start profile Modal -->
+    <div id="profile" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -51,13 +67,15 @@
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
-            <form action="" method="post">
-               <div class="form-group">
-                 <label for="name">Friend Name:</label>
-                 <input type="text" class="form-control" id="name" required>
-               </div>
-               <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-2">
+                <img src="img/av1.png">
+              </div>
+              <div class="col-xs-6">
+                <h4>Ahmed Essam</h4>
+                <h4>ahmedessam@yahoo.com</h4>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -66,7 +84,9 @@
 
       </div>
     </div>
-    <!-- end add friend Modal -->
+    <!-- end profile modal -->
+
+
 
     <%include nav%>
   </div>
@@ -76,7 +96,7 @@
       <!-- FOOTER -->
       <!--===================================================-->
       <footer id="footer">
-          <p class="pad-lft">&#0169; 2017 Otlob</p>
+          <p class="pad-lft">&#0169; 2017 Yala Otlob</p>
       </footer>
       <!--===================================================-->
       <!-- END FOOTER -->
