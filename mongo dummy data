@@ -1,0 +1,98 @@
+use NodeProject
+	
+db.logins.insert([
+    { 
+        _id : "ahmed@gmail.com",
+        password:"thisnewpassword"
+    },
+    { 
+        _id : "heba@gmail.com",
+        password:"thisnewpassword"
+    },
+    { 
+        _id : "omar@gmail.com",
+        password:"thisnewpassword"
+    }
+])
+db.users.insert([
+    {
+        _id:"ahmed@gmail.com",
+        name:"Ahmed Essam",
+        email:"ahmed@gmail.com",
+        img: "av1.png",
+        groups:[{name:"os",members:["heba@gmail.com"]},{_id:2,name:"cloud",members:["omar@gmail.com"]}],
+        order:[1],
+        friends:["heba@gmail.com","omar@gmail.com"]   
+    },
+    {
+        _id:"heba@gmail.com",
+        name:"Heba Bahaa",
+        email:"heba@gmail.com",
+        img: "av2.png",
+        groups:[{name:"iot",members:["ahmed@gmail.com"]}],
+        order:[2],
+        friends:["ahmed@gmail.com","omar@gmail.com"] 
+    },
+    {
+        _id:"omar@gmail.com",
+        name:"Omar Saleh",
+        email:"omar@gmail.com",
+        img: "av2.png",
+        groups:[{name:"iot",members:["ahmed@gmail.com"]}],
+        order:[3],
+        friends:["ahmed@gmail.com","heba@gmail.com"] 
+    }
+])
+db.orders.insert([
+    {
+        _id:1,
+        owner:"ahmed@gmail.com",
+        meal:"breakfast",
+        restaurant_name:"mac",
+        users_invited:["omar@gmail.com","heba@gmail.com"],
+        users_joined:["heba@gmail.com"],
+        status:"ongoing",
+        menu:"menu1.jpg",
+        order_detail:[
+            {
+                _id:"heba@gmail.com",name:"Heba Bahaa",item:"Big Mac" , amount:1 , price:43 , comment:"no cheese"
+            }
+        ]
+        
+    },
+    {
+        _id:2,
+        owner:"hebaa@gmail.com",
+        meal:"lunch",
+        restaurant_name:"abo tarek",
+        users_invited:["omar@gmail.com","ahmed@gmail.com"],
+        users_joined:["ahmed@gmail.com"],
+        status:"finished",
+        menu:"menu1.jpg",
+        order_detail:[
+            {
+                _id:"ahmed@gmail.com",name:"Ahmed Essam",item:"Grilled Chicken" , amount:1 , price:60 , comment:"extra rice"
+            },
+            {
+                _id:"omar@gmail.com",name:"Omar Saleh",item:"Grilled Chicken" , amount:1 , price:60 , comment:"extra rice"
+            },
+        ]
+        
+    },
+    {
+        _id:3,
+        owner:"omar@gmail.com",
+        meal:"breakfast",
+        restaurant_name:"mac",
+        users_invited:["ahmed@gmail.com","heba@gmail.com"],
+        users_joined:["heba@gmail.com"],
+        status:"ongoing",
+        menu:"menu1.jpg",
+        order_detail:[
+            {
+                _id:"heba@gmail.com",name:"Heba Bahaa",item:"Big Mac" , amount:1 , price:43 , comment:"no cheese"
+            }
+        ]
+        
+    },
+])
