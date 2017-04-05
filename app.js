@@ -77,9 +77,6 @@ app.get("/orders" , function(req,resp){
 app.get("/details" , function(req,resp){
     resp.render("details",{title:"Order Details"});
 })
-app.get("/regist" , function(req,resp){
-    resp.render("regist",{title:"for test"});
-})
 app.get("/signup" , function(req,resp){
     resp.render("signup",{title:"for test"});
 })
