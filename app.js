@@ -80,6 +80,9 @@ app.get("/details" , function(req,resp){
 app.get("/signup" , function(req,resp){
     resp.render("signup",{title:"for test"});
 })
+app.get("/sign" , function(req,resp){
+    resp.render("sign",{title:"for test"});
+})
 
 
 app.listen(8090,function(){
