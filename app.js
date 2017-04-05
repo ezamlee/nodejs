@@ -4,54 +4,34 @@ var mongoose=require("mongoose");
 
 //Database Connections
 mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
-//Login Schema
-var loginSchema = new mongoose.Schema({
-  _id: String
-, password: String
-});
-var login = mongoose.model('logins', loginSchema);
 
-//Users Schema  // validator $and (name,email,password)
-var usersSchema = new mongoose.Schema({
-_id:String
-,name: String
-, email: String
-,img:String
-, password: String
-, groups: []
-,orders: []
-,friends:[]
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("we're connected!");
 });
-var users = mongoose.model('users', usersSchema);
 
-//Groups Schema   // validator name
-// var groupsSchema = new mongoose.Schema({
-//   name: String
-//   ,owner: {}
-// , members: []
-// });
-// var groups = mongoose.model('groups', groupsSchema);
 
-//Orders Schema  // validator owner
-var ordersSchema = new mongoose.Schema({
-_id:Number
-, owner: String
-, meal: String
-, restaurant_name: String
-, users_invited: []
-,users_joined: []
-,status:String
-,menu_image:String
-,date:{ type: Date, default: Date.now }
-,order_detail:{}
-});
-var orders = mongoose.model('orders', usersSchema);
-//Notifications
-var notificationsSchema = new mongoose.Schema({
-  _id:String
-  ,notifications:[]
-});
-var notifications = mongoose.model('notifications', notificationsSchema);
+var login = require("./models/logins");
+var users = require("./models/users");
+var orders = require("./models/orders");
+var notifications = require("./models/notifications");
+
+
+
+users.find({},function(err,data){
+    console.log(data[0]);
+})
+orders.find({},function(err,data){
+    console.log(data[0]);
+})
+login.find({},function(err,data){
+    console.log(data[0]);
+})
+notifications.find({},function(err,data){
+    console.log(data);
+})
+
 
 
 //application setting
@@ -67,10 +47,6 @@ app.get("/register",function(req,resp){
 
 app.get("/add",function(req,resp){
     resp.render("add_order",{title:"Make Order"});
-})
-
-app.get("/regist",function(req,resp){
-    resp.render("regist",{title:"Make Order"});
 })
 
 app.get("/allnotifications",function(req,resp){

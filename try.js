@@ -8,3 +8,5 @@ list.forEach(function(item){
 var str = `this is mutlo
 line ${list[0]} text`;
 console.log(str)
+
+
