@@ -18,38 +18,29 @@ _id:String
 , email: String
 ,img:String
 , password: String
-, groups: []
-,orders: []
-,friends:[]
+, groups: [String]
+,orders: [String]
+,friends:[String]
 });
 var users = mongoose.model('users', usersSchema);
 
-//Groups Schema   // validator name
-// var groupsSchema = new mongoose.Schema({
-//   name: String
-//   ,owner: {}
-// , members: []
-// });
-// var groups = mongoose.model('groups', groupsSchema);
-
-//Orders Schema  // validator owner
 var ordersSchema = new mongoose.Schema({
 _id:String   
 , owner: String
 , meal: String
 , restaurant_name: String
-, users_invited: []
-,users_joined: []
+, users_invited: [String]
+,users_joined: [String]
 ,status:String
 ,menu_image:String
 ,date:{ type: Date, default: Date.now }
-,order_detail:{}
+,order_detail:Object
 });
 var orders = mongoose.model('orders', usersSchema);
 //Notifications
 var notificationsSchema = new mongoose.Schema({
   _id:String
-  ,notifications:[]
+  ,notifications:[Object]
 });
 var notifications = mongoose.model('notifications', notificationsSchema);
 
