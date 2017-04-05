@@ -94,8 +94,8 @@ app.get("/groups" , function(req,resp){
 app.get("/orders" , function(req,resp){
     resp.render("orders",{title:"Orders"});
 })
-app.get("/order_details" , function(req,resp){
-    resp.render("order_details",{title:"Order Details"});
+app.get("/details" , function(req,resp){
+    resp.render("details",{title:"Order Details"});
 })
 app.listen(8090,function(){
     console.log("Server up");
