@@ -9,7 +9,7 @@ var loginSchema = new mongoose.Schema({
   _id: String
 , password: String
 });
-var login = mongoose.model('login', loginSchema);
+var login = mongoose.model('logins', loginSchema);
 
 //Users Schema  // validator $and (name,email,password)
 var usersSchema = new mongoose.Schema({
@@ -34,7 +34,8 @@ var users = mongoose.model('users', usersSchema);
 
 //Orders Schema  // validator owner
 var ordersSchema = new mongoose.Schema({
-  owner: String
+_id:number   
+, owner: String
 , meal: String
 , restaurant_name: String
 , users_invited: []
