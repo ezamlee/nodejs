@@ -69,7 +69,7 @@ app.get("/add",function(req,resp){
 })
 
 app.get("/allnotifications",function(req,resp){
-    resp.render("allnotifications",{title:"Notifications"});
+    resp.render("allNotifications",{title:"Notifications"});
 })
 
 app.get("/home",function(req,resp){
