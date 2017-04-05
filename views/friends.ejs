@@ -26,7 +26,7 @@
                    <div class="frnd">
                      <img src="img/av1.png" class="frndImg">
                      <p>Heba Bahaa Eldin Amer</p>
-                     <button class="btn btn-danger btn-lg unfrnd"><i class="fa fa-times"></i></button>
+                     <button class="btn btn-danger btn-labeled fa fa-times" id="1" data-toggle="modal" data-target="#unfriend">Unfriend</button>
                    </div>
                  </div>
               </div>
@@ -39,9 +39,8 @@
     </div>
     <!--===================================================-->
     <!--END CONTENT CONTAINER-->
-
     <!-- start add friend Modal -->
-    <div id="addGroup" class="modal fade" role="dialog">
+    <div id="addFriend" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -67,6 +66,29 @@
       </div>
     </div>
     <!-- end add friend Modal -->
+
+    <!-- start remove friend Modal -->
+    <div id="unfriend" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <h5>Are you want to remove <span class="text-info">heba</span> from your friends</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" id="remove" data-dismiss="modal">Remove</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end remove friend Modal -->
 
     <%include nav%>
   </div>
