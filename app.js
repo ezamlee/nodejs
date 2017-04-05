@@ -61,6 +61,10 @@ app.get("/add",function(req,resp){
     resp.render("add_order",{title:"Make Order"});
 })
 
+app.get("/allnotifications",function(req,resp){
+    resp.render("allnotifications",{title:"Notifications"});
+})
+
 app.get("/home",function(req,resp){
     resp.render("home",{title:"Home"});
 })
