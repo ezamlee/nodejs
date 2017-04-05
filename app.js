@@ -34,7 +34,7 @@ var users = mongoose.model('users', usersSchema);
 
 //Orders Schema  // validator owner
 var ordersSchema = new mongoose.Schema({
-_id:Number   
+_id:Number
 , owner: String
 , meal: String
 , restaurant_name: String
@@ -67,6 +67,10 @@ app.get("/register",function(req,resp){
 
 app.get("/add",function(req,resp){
     resp.render("add_order",{title:"Make Order"});
+})
+
+app.get("/regist",function(req,resp){
+    resp.render("regist",{title:"Make Order"});
 })
 
 app.get("/allnotifications",function(req,resp){
