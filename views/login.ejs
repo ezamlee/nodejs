@@ -17,13 +17,13 @@
             <div class=" col-lg-6 col-lg-offset-3">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-sm-2 loginLable" for="email">Email:</label>
+                        <label style="font-size:15px" class="control-label col-sm-2 loginLable" for="email">Email:</label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" id="email" placeholder="Enter email" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2 loginLable" for="pwd">Password:</label>
+                        <label style="font-size:15px" class="control-label col-sm-2 loginLable" for="pwd">Password:</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="pwd" placeholder="Enter password" required>
                         </div>
@@ -35,21 +35,42 @@
                     </div>
                 </form>
             </div>
-            <div class="col-xs-6 col-xs-offset-3">
-                <div style="text-align:center;margin:0 auto;font-size:1.6em; ">
-                    <a style="color:blue" href="#">New User? Click to Register.</a><br>
-                    <a style="color:blue" href="#">Forget Your Password? Click to Retreive.</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-3">
+                <div class="col-lg-4 col-xs-12 col-lg-offset-3">
+                    <a href="#">
+                        <p style="color:blue;padding:0px;text-align:center;font-size:18px;float:left;border-right:2px solid grey;padding-right:10px;">Register</p>
+                    </a>
+
+                    <a href="#">
+                        <p style="color:blue;padding:0px;text-align:center;font-size:18px">Reset Password</p>
+                    </a>
                 </div>
             </div>
 
-            <div class="col-md-4 col-md-offset-4 col-xs-12">
-               <hr>
-                <a href="#"><img class="img-responsive" style="margin:0 auto;border-radius:5px;" src="img/facebook-login.png" width="602" height="102" ></a>
-                <a href="#"><img class="img-responsive" style="margin:0 auto;border-radius:5px;" src="img/XzoRm.png" width="602" height="102" ></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <hr>
+                <div class="col-lg-4 col-xs-12 col-lg-offset-2">
+                    <a href="#">
+                        <p style="color:white;background-color:#3b5998;padding:20px;text-align:center;font-size:18px">Login With Facebook</p>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-12">
+                    <a href="#">
+                        <p style="color:white;background-color:#dd4b39;padding:20px;text-align:center;font-size:18px">Login With Google</p>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
     <div class="horizontal-spacer" style="height:5xvh;">
     </div>
-    
-    <%include footer %>
+
+        <%include footer %>
