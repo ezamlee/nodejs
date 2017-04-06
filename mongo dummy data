@@ -14,6 +14,24 @@ db.logins.insert([
         password:"thisnewpassword"
     }
 ])
+
+
+db.notifications.insert([
+    {
+        _id : "ahmed@gmail.com",
+        notifications:[{message:"heba invite you to a lunch",is_invited:true,is_read:false}]
+    },
+    {
+        _id : "heba@gmail.com",
+      notifications:[{message:"omar invite you to a lunch",is_invited:true,is_read:false}]
+    },
+    {
+        _id : "omar@gmail.com",
+        notifications:[{message:"ahmed joined your lunch",is_invited:false,is_read:true}]
+    }
+])
+
+
 db.users.insert([
     {
         _id:"ahmed@gmail.com",
