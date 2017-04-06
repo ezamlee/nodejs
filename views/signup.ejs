@@ -1,0 +1,85 @@
+<%include header %>
+	<div id="container" class="cls-container">
+
+		<!-- BACKGROUND IMAGE -->
+		<!--===================================================-->
+		<div id="bg-overlay" class="bg-img">
+      <div id="demo-carousel" class="carousel slide" data-ride="carousel">
+
+        <div class="carousel-inner text-center">
+
+          <!--Item 1-->
+          <div class="item">
+            <img src="img/1.jpg" style="width:1400px; height:650px">
+          </div>
+
+          <!--Item 2-->
+          <div class="item">
+            <img src="img/2.jpg" style="width:1400px; height:650px">
+          </div>
+
+          <!--Item 3-->
+          <div class="item active">
+            <img src="img/3.jpg" style="width:1400px; height:650px">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+		<!-- LOGIN FORM -->
+		<!--===================================================-->
+		<div class="cls-content">
+			<div class="cls-content-lg panel">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-uppercase">Registration</h3>
+                    </div>
+
+                    <!--Horizontal Form-->
+                    <!--===================================================-->
+                    <form class="form-horizontal" action="/home">
+                        <div class="panel-body">
+                          <div class="input-group mar-btm">
+      											<span class="input-group-addon"><i class="fa fa-user fa-lg"></i></span>
+      											<input type="text" class="form-control input-lg" placeholder="Name">
+      										</div>
+                          <div class="input-group mar-btm">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa-lg"></i></span>
+                            <input type="email" class="form-control input-lg" placeholder="Email">
+                          </div>
+                          <div class="input-group mar-btm">
+                            <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
+                            <input type="password" class="form-control input-lg" placeholder="NaPasswordme">
+                          </div>
+                          <div class="input-group mar-btm">
+                            <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
+                            <input type="password" class="form-control input-lg" placeholder="Confirm Password">
+                          </div>
+                          <div class="input-group mar-btm text-center">
+                            <span class="input-group-addon"><i class="fa fa-upload fa-lg"></i></span>
+                            <span class="pull-left btn btn-default btn-file">
+                            Upload Image... <input type="file">
+                            </span>
+                          </div>
+                        </div>
+                        <div class="panel-footer text-center">
+                            <button class="btn btn-primary btn-lg" type="submit"><i class="fa fa-sign-in"></i>&nbsp;Sign up</button>
+                        </div>
+                    </form>
+                    <!--===================================================-->
+                    <!--End Horizontal Form-->
+
+                </div>
+
+			</div>
+		</div>
+		<!--===================================================-->
+
+
+
+	</div>
+	<!--===================================================-->
+	<!-- END OF CONTAINER -->
+
+<%include footer %>
