@@ -23,95 +23,19 @@ app.set("views", "./views");
 
 //middlewear
 app.use(express.static('public'));
-
-app.get("/register",function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("register",{title:"Register Me"})
-  //  }
-})
-
-app.get("/add",function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("add_order",{title:"Make Order"});
-  //  }
-})
-
-app.get("/allnotifications",function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("allNotifications",{title:"Notifications"});
-  //  }
-})
-
-app.get("/home",function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("home",{title:"Home"});
-  //  }
-})
+app.use("/register" , require("./controllers/register.js"));
+app.use("/allnotifications",require("./controllers/allnotifications.js"));
+app.use("/add",require("./controllers/add.js"));
+app.use("/details",require("./controllers/details.js"));
+app.use("/friends",require("./controllers/friends.js"));
+app.use("/groups",require("./controllers/groups.js"));
+app.use("/home",require("./controllers/home.js"));
+app.use("/login",require("./controllers/login.js"));
+app.use("/order",require("./controllers/order.js"));
+app.use("/profile",require("./controllers/profile.js"));
 
 app.get("/",function(req,resp){
-
         resp.render("login",{title:"Login"});
-
-})
-
-app.get("/profile",function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("profile",{title:"Profile"});
-    //}
-})
-
-app.get("/friends" , function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("friends",{title:"My Friends"});
-    //}
-})
-app.get("/groups" , function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-
-        resp.render("groups",{title:"My Groups"});
-    //}
-})
-app.get("/orders" , function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("orders",{title:"Orders"});
-    //}
-})
-app.get("/details" , function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("details",{title:"Order Details"});
-  //  }
-})
-app.get("/signup" , function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("signup",{title:"for test"});
-    //}
-})
-app.get("/sign" , function(req,resp){
-    // if (!(req.session && req.session.user)) {
-    //     resp.redirect("/");
-    // }else{
-        resp.render("sign",{title:"for test"});
-    //}
 })
 
 
