@@ -78,15 +78,10 @@ app.get("/friends" , function(req,resp){
     //}
 })
 app.get("/groups" , function(req,resp){
-<<<<<<< HEAD
-    if (!(req.session && req.session.user)) {
-        resp.redirect("/");
-    }else{
-=======
     // if (!(req.session && req.session.user)) {
     //     resp.redirect("/");
     // }else{
->>>>>>> a43748d73516def8b9e936e5564dd5cefc3faee9
+
         resp.render("groups",{title:"My Groups"});
     //}
 })
