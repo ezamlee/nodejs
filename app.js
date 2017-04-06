@@ -4,34 +4,12 @@ var mongoose=require("mongoose");
 var session = require('client-sessions');
 //Database Connections
 mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("we're connected!");
-});
-
-
 var login = require("./models/logins");
 var users = require("./models/users");
 var orders = require("./models/orders");
 var notifications = require("./models/notifications");
 
-
-
-users.find({},function(err,data){
-    console.log(data[0]);
-})
-orders.find({},function(err,data){
-    console.log(data[0]);
-})
-login.find({},function(err,data){
-    console.log(data[0]);
-})
-notifications.find({},function(err,data){
-    console.log(data[0]);
-})
-
+//middleear to set session module
 app.use(session({
   cookieName: 'session',
   secret: 'abcdefghijk',
@@ -39,15 +17,11 @@ app.use(session({
   activeDuration: 5 * 60 * 1000,
 }));
 
-
 //application setting
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
 //middlewear
-
-
-// Routing
 app.use(express.static('public'));
 
 app.get("/register",function(req,resp){
