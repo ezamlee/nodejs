@@ -15,6 +15,20 @@ router.get("/list",function(req,resp){
         resp.send(data[0].groups);
     })
 })
+router.delete("/:groupname",(req,resp) => {
+    var id = "ahmed@gmail.com";
+    console.log(req.params.groupname)
+    users.update( {"_id":id},{ $pull: { "groups" : { "name": req.params.groupname } } }, (err,data) =>{
+        if(err){
+            console.log("err: "+ err);
+            resp.send("0");
+        }
+        else{
+            console.log("data:" + data);
+            resp.send("1");
+        }
+    });
+})
 
 
 module.exports = router;

@@ -10,7 +10,7 @@ var popGroupCard = function(groupname){
                     `;
 };
 
-$(document).ready(() => {
+var list_group = function(){
     $.ajax({
         url:"groups/list",
         success:(data)=>{
@@ -23,14 +23,27 @@ $(document).ready(() => {
             console.log(err);
         }
     });
+};
+
+$(document).ready(() => {
+    list_group();
     var group2remove;
     $("html").on("click",".groupremover",(e) => {
         $('span.text-info:nth-child(1)').text(e.target.value);
         group2remove = e.target.value
     })
     $("html").on("click","button#1.btn.btn-info", (e)=>{
-        console.log(group2remove);
-        
+        $.ajax({
+            url:"/groups/"+group2remove,
+            method:"DELETE",
+            success : (data) =>{
+                list_group();
+                console.log(data);
+            },
+            fail : (err) => {
+                console.log(err);
+            }
+        })        
     })
 
     
