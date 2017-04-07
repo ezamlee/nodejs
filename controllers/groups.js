@@ -15,11 +15,6 @@ router.get("/list",function(req,resp){
         resp.send(data[0].groups);
     })
 })
-router.get("/member/:email",function(req,resp){
-    var id = "ahmed@gmail.com";
-    users.find({"_id":req.params.email},{"_id":1,"name":1,"img":1},(error,data) => {
-        resp.send(data);    
-    })
-})
+
 
 module.exports = router;
