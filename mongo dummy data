@@ -35,17 +35,17 @@ db.notifications.insert([
 db.users.insert([
     {
         _id:"ahmed@gmail.com",
-				password:"thisnewpassword"
+        password:"thisnewpassword",
         name:"Ahmed Essam",
         email:"ahmed@gmail.com",
         img: "av1.png",
-        groups:[{name:"os",members:["heba@gmail.com"]},{_id:2,name:"cloud",members:["omar@gmail.com"]}],
+        groups:[{name:"os",members:["heba@gmail.com"]},{name:"cloud",members:["omar@gmail.com"]}],
         order:[1],
         friends:["heba@gmail.com","omar@gmail.com"]
     },
     {
         _id:"heba@gmail.com",
-				password:"thisnewpassword"
+        password:"thisnewpassword",
         name:"Heba Bahaa",
         email:"heba@gmail.com",
         img: "av2.png",
@@ -55,7 +55,7 @@ db.users.insert([
     },
     {
         _id:"omar@gmail.com",
-				password:"thisnewpassword"
+        password:"thisnewpassword",
         name:"Omar Saleh",
         email:"omar@gmail.com",
         img: "av2.png",
