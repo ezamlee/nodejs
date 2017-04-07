@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var mongoose=require("mongoose");
 var session = require('client-sessions');
+var cors = require("cors");
 //Database Connections
 mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
 var login = require("./models/logins");
