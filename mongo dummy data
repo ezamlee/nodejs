@@ -117,3 +117,29 @@ db.orders.insert([
 
     },
 ])
+
+
+
+db.activities.insert([
+    {
+        _id: 1,
+        name:"Ahmed Essam",
+        email:"ahmed@gmail.com",
+        img: "av1.png",
+        activity: "create new order"
+    },
+    {
+        _id: 2,
+        name:"Heba Bahaa",
+        email:"heba@gmail.com",
+        img: "av2.png",
+        activity: "create new order"
+    },
+    {
+        _id: 3,
+        name:"Omar Saleh",
+        email:"omar@gmail.com",
+        img: "av3.png",
+        activity: "create new order"
+    }
+])
