@@ -33,6 +33,7 @@ app.use("/home",require("./controllers/home.js"));
 app.use("/login",require("./controllers/login.js"));
 app.use("/order",require("./controllers/order.js"));
 app.use("/profile",require("./controllers/profile.js"));
+app.use("/api",require("./controllers/api.js"));
 
 app.get("/",function(req,resp){
         resp.render("login",{title:"Login"});
