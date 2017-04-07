@@ -1,8 +1,8 @@
-function friendActivity(id, img, name,email, activity)
+function friendActivity(id, img, name, email, activity)
 {
   var blockActivity = '<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">';
       blockActivity += '<div class="activity">'
-      blockActivity += '<a href="" data-toggle="modal" data-target="#' + id + '"><img src="' + img + '"></a>';
+      blockActivity += '<a href="" data-toggle="modal" data-target="#' + id + '"><img src="img/' + img + '"></a>';
       blockActivity += '<h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="#' + id + '">' + name + '</a></h4>'
       blockActivity += '<h5>' + activity + '</h5>';
       blockActivity += '</div> </div>';

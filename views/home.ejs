@@ -41,7 +41,7 @@
                  <% data.forEach(function(activity){ %>
                    <script>
                       $(document).ready(function(){
-                        friendActivity("<%=activity._id %>", "img/av2.png", "<%=activity.owner %>", "<%=activity.owner %>",  "activity")
+                        friendActivity("<%=activity._id %>", "<%=activity.img %>", "<%=activity.name %>", "<%=activity.email %>",  "activity")
                       })
                    </script>
                 <% })%>

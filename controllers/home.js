@@ -6,7 +6,7 @@ var users = require("../models/users");
 
 router.get("/",function(req,resp){
   var usersEmail = [];
-  
+  var allUsers = [];
   //get user's friends
   users.find({}, function(err,data){
     for (var i = 0; i < data.length; i++) {
@@ -16,8 +16,23 @@ router.get("/",function(req,resp){
 
     //get all orders data that created by those friends
     orders.find({"owner":{$in: usersEmail}},function(err,data){
-      console.log(data);
-      resp.render("home",{title:"Home", 'data': data});
+      var allData = data;
+
+      for (var i = 0; i < data.length; i++) {
+        console.log("owner email = ",data[i].owner);
+
+        users.find({"email":data[i].owner},function(err,data){
+
+          for (var i = 0; i <= data.length; i++) {
+
+              allData[i].key = "data";
+              console.log('allData[i]', allData[i]);
+          }
+          // console.log("allData", allData);
+        });
+      }
+      resp.render("home",{title:"Home", 'data': allData});
+
     });
 
   });
