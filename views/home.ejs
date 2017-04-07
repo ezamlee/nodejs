@@ -35,17 +35,21 @@
            <hr>
            <h3 class="text-normal text-mint">Friends Activity</h3>
            <div class="row">
-               <div id="latestOrders">
-                 <!---- start friend activity ---->
-                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                   <div class="activity">
-                     <a href="" data-toggle="modal" data-target="#profile"><img src="img/av1.png"></a>
-                     <h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="#profile">Ahmad</a></h4>
-                     <h5>has created an order for launch from mac</h5>
-                   </div>
-                 </div>
-                 <!---- end friend activity ---->
+
+               <div id="activities">
+
+                 <% data.forEach(function(activity){ %>
+                   <script>
+                      $(document).ready(function(){
+
+                        // $("#activities").append(friendActivity("<%=activity._id %>", "img/av2.png", "<%=activity.owner %>",  "activity"));
+                        friendActivity("<%=activity._id %>", "img/av2.png", "<%=activity.owner %>", "<%=activity.owner %>",  "activity")
+                      })
+                   </script>
+                <% })%>
+
               </div>
+
            </div>
       </div>
       <!--===================================================-->
@@ -56,35 +60,7 @@
     <!--===================================================-->
     <!--END CONTENT CONTAINER-->
 
-    <!-- start profile Modal -->
-    <div id="profile" class="modal fade" role="dialog">
-      <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-2">
-                <img src="img/av1.png">
-              </div>
-              <div class="col-xs-6">
-                <h4>Ahmed Essam</h4>
-                <h4>ahmedessam@yahoo.com</h4>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <!-- end profile modal -->
 
 
 
@@ -106,5 +82,6 @@
       <!--===================================================-->
       <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
       <!--===================================================-->
+
 
 <%include footer%>
