@@ -1,24 +1,28 @@
 var express = require("express");
 var router = express.Router();
-var mongoose=require("mongoose");
+var orders = require("../models/orders");
+var users = require("../models/users");
 
-var ordersSchema = new mongoose.Schema({
-_id:String
-, owner: String
-, meal: String
-, restaurant_name: String
-, users_invited: {}
-,users_joined: {}
-,status:String
-,menu_image:String
-,date:{ type: Date, default: Date.now }
-,order_detail:{}
-});
 
 router.get("/",function(req,resp){
-  mongoose.model("orders").find(function(err,data){
-    resp.render("home",{title:"Home", 'data': data});
+  var usersEmail = [];
+  
+  //get user's friends
+  users.find({}, function(err,data){
+    for (var i = 0; i < data.length; i++) {
+      usersEmail.push(data[i].email);
+    }
+    console.log("usersEmail= ", usersEmail);
+
+    //get all orders data that created by those friends
+    orders.find({"owner":{$in: usersEmail}},function(err,data){
+      console.log(data);
+      resp.render("home",{title:"Home", 'data': data});
+    });
+
   });
+
+
 })
 
 module.exports = router;

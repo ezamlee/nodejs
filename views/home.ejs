@@ -41,8 +41,6 @@
                  <% data.forEach(function(activity){ %>
                    <script>
                       $(document).ready(function(){
-
-                        // $("#activities").append(friendActivity("<%=activity._id %>", "img/av2.png", "<%=activity.owner %>",  "activity"));
                         friendActivity("<%=activity._id %>", "img/av2.png", "<%=activity.owner %>", "<%=activity.owner %>",  "activity")
                       })
                    </script>
