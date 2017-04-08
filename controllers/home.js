@@ -1,27 +1,41 @@
+var login = require("../models/logins");
+var users = require("../models/users");
+var orders = require("../models/orders");
+var notifications = require("../models/notifications");
 var express = require("express");
 var router = express.Router();
-var orders = require("../models/orders");
-var users = require("../models/users");
+var async = require("async");
 
+router.get("/", function (req, resp) {
+        resp.render("home", { title: "Home",});
+})
+var friendsArray ;
+var newData;
+var allData;
+router.get("/activityList",function(req,resp){
+    var id = "heba@gmail.com";
 
-router.get("/",function(req,resp){
-  var usersEmail = [];
-  
-  //get user's friends
-  users.find({}, function(err,data){
-    for (var i = 0; i < data.length; i++) {
-      usersEmail.push(data[i].email);
-    }
-    console.log("usersEmail= ", usersEmail);
+    users.find({"_id":id},(err,data) => {
+        friendsArray = data[0].friends;
 
-    //get all orders data that created by those friends
-    orders.find({"owner":{$in: usersEmail}},function(err,data){
-      console.log(data);
-      resp.render("home",{title:"Home", 'data': data});
-    });
+        orders.find({"owner": {$in: friendsArray}}, (err, data)=>{
+          console.log(data);
+          resp.send(data);
 
-  });
+        })
+    })
 
+})
+
+router.get("/userData",function(req,resp){
+
+    var friendEmail = req.query.q;
+    console.log('friendEmail', friendEmail);
+
+    users.find({"_id":friendEmail},(err,data) => {
+        //console.log(data);
+        resp.send(data);
+    })
 
 })
 

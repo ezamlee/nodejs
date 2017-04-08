@@ -38,13 +38,7 @@
 
                <div id="activities">
 
-                 <% data.forEach(function(activity){ %>
-                   <script>
-                      $(document).ready(function(){
-                        friendActivity("<%=activity._id %>", "img/av2.png", "<%=activity.owner %>", "<%=activity.owner %>",  "activity")
-                      })
-                   </script>
-                <% })%>
+
 
               </div>
 
@@ -80,6 +74,6 @@
       <!--===================================================-->
       <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
       <!--===================================================-->
-
+      <script src="js/clientjs/home.js"></script>
 
 <%include footer%>

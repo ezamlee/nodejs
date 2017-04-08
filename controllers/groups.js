@@ -5,9 +5,11 @@ var notifications = require("../models/notifications");
 var express = require("express");
 var router = express.Router();
 var async = require("async");
+
 router.get("/", function (req, resp) {
         resp.render("groups", { title: "My Groups",});
 })
+
 router.get("/list",function(req,resp){
     var id = "ahmed@gmail.com";
     users.find({"_id":id},(err,data) => {

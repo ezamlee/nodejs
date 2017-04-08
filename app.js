@@ -40,7 +40,6 @@ app.get("/",function(req,resp){
         resp.render("login",{title:"Login"});
 })
 
-
 app.listen(8090,function(){
     console.log("Server up");
 });
