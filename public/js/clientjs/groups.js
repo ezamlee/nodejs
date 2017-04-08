@@ -95,7 +95,6 @@ $(document).ready(() => {
                        url:"groups/"+$("#newGroupName").val().toLocaleLowerCase(),
                        method:"PUT",
                        success :(data) => {
-                           console.log("group add" + data);
                            list_group();
                            display_error("Group Added")
                        },
