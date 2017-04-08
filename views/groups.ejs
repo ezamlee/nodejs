@@ -1,6 +1,9 @@
 <%include header %>
     <%include topNav %>
+<<<<<<< HEAD
+=======
 
+>>>>>>> c33401dd26d388570debc328240bdf5bf15f5042
   <div class="boxed">
 
     <!--CONTENT CONTAINER-->
@@ -58,61 +61,10 @@
                 <div class="col-md-12">
                 <div class="carousel slide multi-item-carousel" id="theCarousel">
                   <div class="carousel-inner">
-
-                    <div class="item  text-center">
-                        <div class="col-xs-4">
-                            <a href="#1">
-                                <img src="img/av2.png" class="img-responsive">
-                            </a>
-                            <h4>Heba</h4>
-                            <button class="btn btn-danger">Remove</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="#1">
-                                <img src="img/av2.png" class="img-responsive">
-                            </a>
-                            <h4>Heba</h4>
-                            <button class="btn btn-danger">Remove</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="#1">
-                                <img src="img/av2.png" class="img-responsive">
-                            </a>
-                            <h4>Heba</h4>
-                            <button class="btn btn-danger">Remove</button>
-                        </div>
+                    <div class="item active text-center" id="groupMembers">
+                        
                     </div>
-                    <div class="item active text-center">
-                        <div class="col-xs-4">
-                            <a href="#1">
-                                <img src="img/av2.png" class="img-responsive">
-                            </a>
-                            <h4>Heba</h4>
-                            <button class="btn btn-danger">Remove</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="#1">
-                                <img src="img/av2.png" class="img-responsive">
-                            </a>
-                            <h4>Heba</h4>
-                            <button class="btn btn-danger">Remove</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="#1">
-                                <img src="img/av2.png" class="img-responsive">
-                            </a>
-                            <h4>Heba</h4>
-                            <button class="btn btn-danger">Remove</button>
-                        </div>
-                    </div>
-                    <!-- add  more items here -->
-                    <!-- Example item start:  -->
-                    <!--  Example item end -->
                   </div>
-                  <a class="left carousel-control" href="#theCarousel" data-slide="prev"> <i class="fa fa-angle-left" style="position:absolute;font-size:40px;top:25%;color:blue;left:00px; float:left">
-                  </i></a>
-                  <a class="right carousel-control" href="#theCarousel" data-slide="next"> <i class="fa fa-angle-right" style="position:absolute;font-size:40px;top:25%;color:blue;left:4px; float:right">
-                  </i></a>
                 </div>
               </div>
               </div>
@@ -163,16 +115,16 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Friend To <i>Open Source Group</i></h4>
+            <h4 class="modal-title">Add Friend</h4>
           </div>
           <div class="modal-body">
-            <form action="" method="post">
+            <div>
                <div class="form-group">
-                 <label for="name">Friend Name:</label>
-                 <input type="text" class="form-control" id="frndname" required>
+                 <label for="name">Friend E-mail:</label>
+                 <input type="text" class="form-control" id="addFriendEmail" required>
                </div>
-               <button type="submit" class="btn btn-success">Add</button>
-            </form>
+               <button type="submit" id="btAddFriend" class="btn btn-success">Add</button>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -208,9 +160,6 @@
 
     <%include nav%>
   </div>
-
-
-
       <!-- FOOTER -->
       <!--===================================================-->
       <footer id="footer">
