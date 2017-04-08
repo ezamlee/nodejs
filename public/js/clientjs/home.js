@@ -9,6 +9,35 @@ var activityBlock = function(ownerId, ownerImg, ownerName, activityStat){
               </div>
                     `;
 };
+var friendModal = function(id, img, name, email){
+    return `
+            <div id="${id}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-xs-4 col-xs-offset-2">
+                          <img src="/img/${img}">
+                        </div>
+                        <div class="col-xs-6">
+                          <h4>${name}</h4>
+                          <h4>${email}</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+                    `;
+};
+
 var latestOrder = function(id, meal, date){
     return `
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -31,6 +60,7 @@ var activityList = function(){
                 method:'get',
                 success:(userData)=>{
                   $("#activities").append(activityBlock(obj._id, userData[0].img, userData[0].name, obj.meal));
+                  $(".boxed").append(friendModal(obj._id, userData[0].img, userData[0].name, userData[0]._id));
                 },
                 fail:(err) => {
                     console.log(err);
