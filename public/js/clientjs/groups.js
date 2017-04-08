@@ -6,7 +6,7 @@ var popGroupCard = function(groupname){
                     <button class="btn btn-danger groupremover" data-toggle="modal" data-target="#removeGroup" value="${groupname}">Remove</button>
                 </div>
             </div>
-            
+
                     `;
 };
 
@@ -43,9 +43,9 @@ $(document).ready(() => {
             fail : (err) => {
                 console.log(err);
             }
-        })        
+        })
     })
 
-    
+
 
 })
