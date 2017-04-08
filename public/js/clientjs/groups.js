@@ -91,29 +91,49 @@ $(document).ready(() => {
     $("html").on("click", ".text-info", (e) => {
 
         var groupname = e.target.innerText || e.target.children[0].innerText;
-        $("#groupMembers").html("")
-        $.ajax({
-            url: "groups/m/" + groupname,
-            method: "get",
-            success: (data) => {
-                var mlist = data[0].groups[0].members;
-                mlist.forEach((str) => {
-                    $.ajax({
-                        url: "/api/user/" + str,
-                        method: "get",
-                        success: (data) => {
-                            data = data[0]
-                            $("#groupMembers").append(memberTem(data.img, data.name, data._id));
-                        },
-                        fail: (err) => {
+        var list_m = function(){
+            $("#groupMembers").html("")
+            $.ajax({
+                url: "groups/m/" + groupname,
+                method: "get",
+                success: (data) => {
+                    var mlist = data[0].groups[0].members;
+                    mlist.forEach((str) => {
+                         $.ajax({
+                            url: "/api/user/" + str,
+                            method: "get",
+                            success: (data) => {
+                                data = data[0]
+                                $("#groupMembers").append(memberTem(data.img, data.name, data._id));
+                            },
+                            fail: (err) => {
 
-                        }
+                            }
+                        })
                     })
-                })
-            },
-            fail: (err) => {
-                console.log(err);
-            }
+                },
+                fail: (err) => {
+                    console.log(err);
+                }
+            })
+        }
+        list_m();
+        $("html").on("click",".btRemove",(ev) =>{
+            console.log(ev.target.value)
+            $.ajax({
+                url:`/groups/remove/${groupname}/${ev.target.value}`,
+                method:"delete",
+                success:(data)=>{
+                    display_error("user removed");
+                    list_m()
+                },
+                fail : (data)=>{
+
+                }
+
+                
+            })
         })
     })
+    
 })

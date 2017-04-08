@@ -51,6 +51,27 @@ router.get("/m/:groupname",(req,resp)=>{
     })    
 })
 
+router.delete("/remove/:g/:m",(req,resp)=>{
+    var id = "ahmed@gmail.com";
+    users.find({"_id":id},(err,data) => {
+        console.log(data[0]);
+        var i = 0,j=0;
+        data[0].groups.forEach((obj)=>{
+            console.log(obj.name)
+          if(obj.name == req.params.g){
+              j =i;
+          }
+            i++;
+        })
+        if(data[0].groups[j].members.indexOf(req.params.m) != -1){
+            data[0].groups[j].members.splice(data[0].groups[j].members.indexOf(req.params.m),1)
+            console.log(data[0].groups)
+            users.update({"_id":id},{$set:{"groups" : data[0].groups}},()=>{
+                resp.send("1");
+            })
+        }
+    })
+})
 
 
 
