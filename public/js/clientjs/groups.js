@@ -9,9 +9,6 @@ var popGroupCard = function(groupname){
             
                     `;
 };
-
-
-
 var list_group = function(){
     $.ajax({
         url:"groups/list",
@@ -26,7 +23,6 @@ var list_group = function(){
         }
     });
 };
-
 $(document).ready(() => {
     list_group();
     var group2remove;
@@ -47,7 +43,6 @@ $(document).ready(() => {
             }
         })        
     })
-
     $("#btAddGroup").click((e)=>{
         var my_group_list = [];
         $.ajax({
@@ -80,6 +75,9 @@ $(document).ready(() => {
             }
         });
         
+    })
+    $("html").on("click",".text-info",(e) => {
+        console.log(e.target.children[0].innerText);
     })
 
 })
