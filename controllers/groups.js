@@ -9,7 +9,6 @@ var async = require("async");
 router.get("/", function (req, resp) {
         resp.render("groups", { title: "My Groups",});
 })
-
 router.get("/list",function(req,resp){
     var id = "ahmed@gmail.com";
     users.find({"_id":id},(err,data) => {
@@ -31,7 +30,6 @@ router.delete("/:groupname",(req,resp) => {
         }
     });
 })
-
 router.put("/:groupname",(req,resp)=>{
     var obj = {
         name:req.params.groupname,
@@ -50,7 +48,6 @@ router.get("/m/:groupname",(req,resp)=>{
       resp.send(data);  
     })    
 })
-
 router.delete("/remove/:g/:m",(req,resp)=>{
     var id = "ahmed@gmail.com";
     users.find({"_id":id},(err,data) => {
@@ -72,7 +69,46 @@ router.delete("/remove/:g/:m",(req,resp)=>{
         }
     })
 })
-
+router.get("/add/:g/:email",(req,resp)=>{
+    var validateEmail = function (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    var id = "ahmed@gmail.com";
+    if(!validateEmail(req.params.email)){
+        resp.send("Not Proper mail");
+    }
+    else{
+        users.find({"_id":id},(err,data) => {
+            console.log(data)
+            var friend_list  = data[0].friends;
+            var i =0,j=0;
+            data[0].groups.forEach((obj)=>{
+                console.log(obj.name)
+              if(obj.name == req.params.m){
+                  j =i;
+              }
+                i++;
+            })
+            var members_list =  data[0].groups[j].members
+            console.log(friend_list);
+            console.log(members_list);
+            if(members_list.includes(req.params.email)){
+                resp.send("user already exits");
+            }else if(!(friend_list.includes(req.params.email))){
+               
+                resp.send("Not a friend to add to a group");
+            }else{
+                console.log(friend_list);
+                console.log(friend_list.includes(req.params.email));
+                data[0].groups[j].members.push(req.params.email);
+                users.update({"_id":id},{$set : {"groups":data[0].groups}},(data)=>{
+                    resp.send("Friend added to the group");
+                })
+            }
+        })
+    }
+})
 
 
 module.exports = router;

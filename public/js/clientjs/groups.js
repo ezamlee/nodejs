@@ -130,7 +130,11 @@ $(document).ready(() => {
                 fail : (data)=>{
 
                 }
-
+            })
+        })
+        $("#btAddFriend").click((eve)=>{
+            var email = $("#addFriendEmail").value;
+            $.ajax({
                 
             })
         })
