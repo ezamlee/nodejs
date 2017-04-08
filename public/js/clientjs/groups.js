@@ -6,7 +6,7 @@ var popGroupCard = function(groupname){
                     <button class="btn btn-danger groupremover" data-toggle="modal" data-target="#removeGroup" value="${groupname}">Remove</button>
                 </div>
             </div>
-            
+
                     `;
 };
 var list_group = function(){
@@ -29,6 +29,8 @@ $(document).ready(() => {
     $("html").on("click",".groupremover",(e) => {
         $('span.text-info:nth-child(1)').text(e.target.value);
         group2remove = e.target.value
+        console.log('group2remove: ', group2remove);
+        console.log($('span.text-info:nth-child(1)'));
     })
     $("html").on("click","button#1.btn.btn-info", (e)=>{
         $.ajax({
@@ -41,13 +43,14 @@ $(document).ready(() => {
             fail : (err) => {
                 display_error("Server Error please try again")
             }
-        })        
+        })
     })
     $("#btAddGroup").click((e)=>{
         var my_group_list = [];
         $.ajax({
             url:"groups/list",
             success:(data)=>{
+              console.log('data', data);
                 data.forEach((obj) => {
                     my_group_list[my_group_list.length] = obj.name.toLowerCase();
                 })
@@ -63,18 +66,18 @@ $(document).ready(() => {
                       fail : (err) => {
                           display_error("Server Error please try again")
                       }
-                        
+
                     })
                 }else{
                     console.log("eror")
                     display_error("Group Name Already Exists");
-                }                
+                }
             },
             fail:(err) => {
                 console.log(err);
             }
         });
-        
+
     })
     $("html").on("click",".text-info",(e) => {
         console.log(e.target.children[0].innerText);
