@@ -68,8 +68,6 @@ $(document).ready(() => {
     $("html").on("click", ".groupremover", (e) => {
         $('span.text-info:nth-child(1)').text(e.target.value);
         group2remove = e.target.value
-        console.log('group2remove: ', group2remove);
-        console.log($('span.text-info:nth-child(1)'));
     })
     $("html").on("click", "button#1.btn.btn-info", (e) => {
         $.ajax({
@@ -77,7 +75,6 @@ $(document).ready(() => {
             method: "DELETE",
             success: (data) => {
                 list_group();
-                
             },
             fail: (err) => {
                 display_error("Server Error please try again")
@@ -87,20 +84,14 @@ $(document).ready(() => {
     $("#btAddGroup").click((e) => {
         var my_group_list = [];
         $.ajax({
-<<<<<<< HEAD
             url:"groups/list",
+            method:"get",
             success:(data)=>{
-              console.log('data', data);
-=======
-            url: "groups/list",
-            success: (data) => {
->>>>>>> 7e905dd386029d1bd81b50a53d28a106d9313e86
                 data.forEach((obj) => {
                     my_group_list[my_group_list.length] = obj.name.toLowerCase();
                 })
                 if (!my_group_list.includes($("#newGroupName").val().toLocaleLowerCase())) {
                     $.ajax({
-<<<<<<< HEAD
                        url:"groups/"+$("#newGroupName").val().toLocaleLowerCase(),
                        method:"PUT",
                        success :(data) => {
@@ -111,20 +102,9 @@ $(document).ready(() => {
                       fail : (err) => {
                           display_error("Server Error please try again")
                       }
-=======
-                        url: "groups/" + $("#newGroupName").val().toLocaleLowerCase(),
-                        method: "PUT",
-                        success: (data) => {
-                            list_group();
-                            display_error("Group Added")
-                        },
-                        fail: (err) => {
-                            display_error("Server Error please try again")
-                        }
->>>>>>> 7e905dd386029d1bd81b50a53d28a106d9313e86
-
                     })
-                } else {
+                } 
+                else {
                     display_error("Group Name Already Exists");
                 }
             },
@@ -133,14 +113,11 @@ $(document).ready(() => {
         });
 
     })
-    $("html").on("click", ".groupname", (e) => {
-        groupname = e.target.innerText || e.target.children[0].innerText;
-        list_m(groupname);
-    })
-<<<<<<< HEAD
 
-})
-=======
+        $("html").on("click", ".groupname", (e) => {
+            groupname = e.target.innerText || e.target.children[0].innerText;
+            list_m(groupname);
+        })
         $("html").on("click",".btRemove",(ev) =>{
             $.ajax({
                 url:`/groups/remove/${groupname}/${ev.target.value}`,
@@ -168,6 +145,5 @@ $(document).ready(() => {
             })
             list_m(groupname);
         })
-    
 })
->>>>>>> 7e905dd386029d1bd81b50a53d28a106d9313e86
+        
