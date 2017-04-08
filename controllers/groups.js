@@ -44,6 +44,12 @@ router.put("/:groupname",(req,resp)=>{
         else resp.send("0");
     })
 })
+router.get("/m/:groupname",(req,resp)=>{
+    var id = "ahmed@gmail.com";
+    users.find({"_id":id}, {"groups":{"$elemMatch":{"name":req.params.groupname}},"_id":0},(err,data)=>{
+      resp.send(data);  
+    })    
+})
 
 
 
