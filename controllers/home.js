@@ -19,9 +19,7 @@ router.get("/activityList",function(req,resp){
         friendsArray = data[0].friends;
 
         orders.find({"owner": {$in: friendsArray}}, (err, data)=>{
-          console.log(data);
           resp.send(data);
-
         })
     })
 
@@ -30,10 +28,17 @@ router.get("/activityList",function(req,resp){
 router.get("/userData",function(req,resp){
 
     var friendEmail = req.query.q;
-    console.log('friendEmail', friendEmail);
-
     users.find({"_id":friendEmail},(err,data) => {
         //console.log(data);
+        resp.send(data);
+    })
+
+})
+
+router.get("/latestActivity",function(req,resp){
+    var id = "ahmed@gmail.com";
+    orders.find({"owner":id},(err,data) => {
+        console.log("orders",data);
         resp.send(data);
     })
 
