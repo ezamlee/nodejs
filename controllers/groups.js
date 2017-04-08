@@ -32,5 +32,20 @@ router.delete("/:groupname",(req,resp) => {
     });
 })
 
+router.put("/:groupname",(req,resp)=>{
+    var obj = {
+        name:req.params.groupname,
+        members:[]
+    }
+    var id = "ahmed@gmail.com";
+    users.update({"_id":id},{"$push":{"groups":obj}}, (err,data) => {
+                
+        if(!err)resp.send("1");
+        else resp.send("0");
+    })
+})
+
+
+
 
 module.exports = router;
