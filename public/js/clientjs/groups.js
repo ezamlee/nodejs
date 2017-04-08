@@ -1,3 +1,30 @@
+var groupname;
+var list_m = function(groupname){
+            $("#groupMembers").html("")
+            $.ajax({
+                url: "groups/m/" + groupname,
+                method: "get",
+                success: (data) => {
+                    var mlist = data[0].groups[0].members;
+                    mlist.forEach((str) => {
+                         $.ajax({
+                            url: "/api/user/" + str,
+                            method: "get",
+                            success: (data) => {
+                                data = data[0]
+                                $("#groupMembers").append(memberTem(data.img, data.name, data._id));
+                            },
+                            fail: (err) => {
+                                display_error("sERVER eRROR");
+                            }
+                        })
+                    })
+                },
+                fail: (err) => {
+                    display_error("server error");
+                }
+            })
+        }
 var memberTem = function (img, name, email) {
     return `
                         <div class="col-xs-4" style="margin:2px 0px">
@@ -14,7 +41,7 @@ var popGroupCard = function (groupname) {
     return `
             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12" style="margin:5px;">
                 <div class="grp">
-                    <a href="" data-toggle="modal" data-target="#friendslist"><h3 class="text-info"><u>${groupname}</u></h3></a>
+                    <a href="" data-toggle="modal" data-target="#friendslist"><h3 class="text-info groupname"><u>${groupname}</u></h3></a>
                     <button class="btn btn-danger groupremover" data-toggle="modal" data-target="#removeGroup" value="${groupname}">Remove</button>
                 </div>
             </div>
@@ -48,7 +75,7 @@ $(document).ready(() => {
             method: "DELETE",
             success: (data) => {
                 list_group();
-                console.log(data);
+                
             },
             fail: (err) => {
                 display_error("Server Error please try again")
@@ -68,7 +95,6 @@ $(document).ready(() => {
                         url: "groups/" + $("#newGroupName").val().toLocaleLowerCase(),
                         method: "PUT",
                         success: (data) => {
-                            console.log("group add" + data);
                             list_group();
                             display_error("Group Added")
                         },
@@ -78,66 +104,44 @@ $(document).ready(() => {
 
                     })
                 } else {
-                    console.log("eror")
                     display_error("Group Name Already Exists");
                 }
             },
             fail: (err) => {
-                console.log(err);
-            }
+                            }
         });
 
     })
-    $("html").on("click", ".text-info", (e) => {
-
-        var groupname = e.target.innerText || e.target.children[0].innerText;
-        var list_m = function(){
-            $("#groupMembers").html("")
-            $.ajax({
-                url: "groups/m/" + groupname,
-                method: "get",
-                success: (data) => {
-                    var mlist = data[0].groups[0].members;
-                    mlist.forEach((str) => {
-                         $.ajax({
-                            url: "/api/user/" + str,
-                            method: "get",
-                            success: (data) => {
-                                data = data[0]
-                                $("#groupMembers").append(memberTem(data.img, data.name, data._id));
-                            },
-                            fail: (err) => {
-
-                            }
-                        })
-                    })
-                },
-                fail: (err) => {
-                    console.log(err);
-                }
-            })
-        }
-        list_m();
+    $("html").on("click", ".groupname", (e) => {
+        groupname = e.target.innerText || e.target.children[0].innerText;
+        list_m(groupname);
+    })
         $("html").on("click",".btRemove",(ev) =>{
-            console.log(ev.target.value)
             $.ajax({
                 url:`/groups/remove/${groupname}/${ev.target.value}`,
                 method:"delete",
                 success:(data)=>{
                     display_error("user removed");
-                    list_m()
                 },
                 fail : (data)=>{
-
+                    display_error("server eRROR")
                 }
             })
+            list_m(groupname)
         })
         $("#btAddFriend").click((eve)=>{
-            var email = $("#addFriendEmail").value;
+            var email = $("#addFriendEmail").val();
             $.ajax({
-                
+                url:`/groups/add/${groupname}/${email}`,
+                method:"put",
+                success:(data) =>{
+                    display_error(data);
+                },
+                fail:(err)=>{
+                  display_error("server error try again later");  
+                }
             })
+            list_m(groupname);
         })
-    })
     
 })

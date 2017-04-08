@@ -12,20 +12,16 @@ router.get("/", function (req, resp) {
 router.get("/list",function(req,resp){
     var id = "ahmed@gmail.com";
     users.find({"_id":id},(err,data) => {
-        console.log(data[0].groups);
         resp.send(data[0].groups);
     })
 })
 router.delete("/:groupname",(req,resp) => {
     var id = "ahmed@gmail.com";
-    console.log(req.params.groupname)
     users.update( {"_id":id},{ $pull: { "groups" : { "name": req.params.groupname } } }, (err,data) =>{
         if(err){
-            console.log("err: "+ err);
             resp.send("0");
         }
         else{
-            console.log("data:" + data);
             resp.send("1");
         }
     });
@@ -51,10 +47,8 @@ router.get("/m/:groupname",(req,resp)=>{
 router.delete("/remove/:g/:m",(req,resp)=>{
     var id = "ahmed@gmail.com";
     users.find({"_id":id},(err,data) => {
-        console.log(data[0]);
         var i = 0,j=0;
         data[0].groups.forEach((obj)=>{
-            console.log(obj.name)
           if(obj.name == req.params.g){
               j =i;
           }
@@ -62,14 +56,13 @@ router.delete("/remove/:g/:m",(req,resp)=>{
         })
         if(data[0].groups[j].members.indexOf(req.params.m) != -1){
             data[0].groups[j].members.splice(data[0].groups[j].members.indexOf(req.params.m),1)
-            console.log(data[0].groups)
             users.update({"_id":id},{$set:{"groups" : data[0].groups}},()=>{
                 resp.send("1");
             })
         }
     })
 })
-router.get("/add/:g/:email",(req,resp)=>{
+router.put("/add/:g/:email",(req,resp)=>{
     var validateEmail = function (email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -80,27 +73,21 @@ router.get("/add/:g/:email",(req,resp)=>{
     }
     else{
         users.find({"_id":id},(err,data) => {
-            console.log(data)
             var friend_list  = data[0].friends;
             var i =0,j=0;
             data[0].groups.forEach((obj)=>{
-                console.log(obj.name)
-              if(obj.name == req.params.m){
+              if(obj.name == req.params.g){
                   j =i;
               }
                 i++;
             })
             var members_list =  data[0].groups[j].members
-            console.log(friend_list);
-            console.log(members_list);
             if(members_list.includes(req.params.email)){
                 resp.send("user already exits");
             }else if(!(friend_list.includes(req.params.email))){
                
                 resp.send("Not a friend to add to a group");
             }else{
-                console.log(friend_list);
-                console.log(friend_list.includes(req.params.email));
                 data[0].groups[j].members.push(req.params.email);
                 users.update({"_id":id},{$set : {"groups":data[0].groups}},(data)=>{
                     resp.send("Friend added to the group");
