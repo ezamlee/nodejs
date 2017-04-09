@@ -39,12 +39,17 @@ var friendModal = function(id, img, name, email){
 };
 
 var latestOrder = function(id, meal, date){
+    var dt = new Date(date);
+    var d = dt.getDate();
+    var m = dt.getMonth() + 1;
+    var y = dt.getFullYear();
+    var newDate = d + '/' + m + '/' + y;
     return `
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="latestOrder">
                   <h3><a href="/details/${id}" class="text-pink"><u>${meal}</u></a></h3>
                   <p>on</p>
-                  <h4>${date}</h4>
+                  <h4>${newDate}</h4>
                 </div>
               </div>
                     `;
