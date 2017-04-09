@@ -5,7 +5,7 @@ var friendsBlock = function(id, img, name){
                   <img src="img/${img}" class="frndImg">
                   <p class='name'>${name}</p>
                   <p>${id}</p>
-                  <button class="btn btn-danger btn-labeled fa fa-times removeFriend" data-toggle="modal" data-target="#${1}">Unfriend</button>
+                  <button class="btn btn-danger btn-labeled fa fa-times removeFriend" data-toggle="modal" value="${id}" data-target="#${1}">Unfriend</button>
                 </div>
               </div>
                     `;
@@ -15,7 +15,6 @@ var deleteModal = function(id, name){
             <!-- start remove friend Modal -->
             <div id="${1}" class="modal fade" role="dialog">
               <div class="modal-dialog">
-
                 <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
@@ -38,7 +37,24 @@ var deleteModal = function(id, name){
 };
 
 
+var paging = function(){
+  return `
+
+        <div class="text-center" style="margin-top: 30px;">
+          <ul class="pagination mar-no">
+            <li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a class="fa fa-angle-double-right" href="#"></a></li>
+          </ul>
+        </div>
+
+  `;
+}
+
+
 var listFriends = function(){
+  $("#friends").html("");
     $.ajax({
         url:"friends/list",
         success:(data)=>{
@@ -47,6 +63,7 @@ var listFriends = function(){
                 url:"/api/user/"+obj,
                 method:'get',
                 success:(userData)=>{
+                  console.log("userData.length = ",userData.length);
                   $("#friends").append(friendsBlock(userData[0]._id, userData[0].img, userData[0].name));
                   $('#friends').append(deleteModal(userData[0]._id, userData[0].name));
                 },
@@ -68,32 +85,44 @@ $(document).ready(() => {
     listFriends();
 
     var frndName;
-    $("html").on("click",".removeFriend",(e) => {
-      $('p:nth-child(1)').text(e.target.value);
-      frndName = e.target.value
-      console.log('frndName: ', frndName);
-      console.log($('p.name:nth-child(1)'));
-    });
+    $("html").on("click", ".removeFriend", (e) => {
+        $('span.text-info:nth-child(1)').text(e.target.value);
+        frndName = e.target.value;
+        console.log("friend name = ", frndName);
 
+    })
 
+    $("html").on("click", "button#remove", (e) => {
+        $.ajax({
+            url: "/friends/" + frndName,
+            method: "DELETE",
+            success: (data) => {
+                listFriends();
+            },
+            fail: (err) => {
+                display_error("Server Error please try again")
+            }
+        })
+    })
 
-    $(".add").click((e)=>{
+    $("#btAddFriend").click((e)=>{
+        //to close modal
+        $('.modal').removeClass('in');
         var my_friend_list = [];
         $.ajax({
             url:"friends/list",
             success:(data)=>{
+                console.log("array of friends ", data);
                 data.forEach((obj) => {
-                    my_friend_list[my_friend_list.length] = obj.toLowerCase();
+                    my_friend_list[my_friend_list.length] = obj;
                 })
-                console.log("MYFRIENDS",my_friend_list);
-                if(!my_friend_list.includes($("#newfriend").val().toLocaleLowerCase())){
+                if(!my_friend_list.includes($("#newfriend").val()) && $("#newfriend").val() != "ahmed@gmail.com" ){
                     $.ajax({
-                       url:"friends/"+$("#newfriend").val().toLocaleLowerCase(),
+                       url:"friends/"+$("#newfriend").val(),
                        method:"PUT",
                        success :(data) => {
-                           console.log("friend add" + data);
+                          display_error(data)
                            listFriends();
-                           display_error("Friend Added")
                        },
                       fail : (err) => {
                           display_error("Server Error please try again")

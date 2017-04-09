@@ -21,15 +21,56 @@ router.get("/list",function(req,resp){
 })
 
 router.put("/:friendname",(req,resp)=>{
-    var obj = {
-        name:req.params.friendname
-    }
+  var validateEmail = function (email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  }
+  if(!validateEmail(req.params.friendname))resp.send("Not an Email")
+  else{
+    var obj = req.params.friendname
     var id = "ahmed@gmail.com";
-    users.update({"_id":id},{"$push":{"friends":obj}}, (err,data) => {
+    users.find({},{"_id":'true'},(err,data) => {
+      // console.log("all ",data);//[{'_id':""},{'_id':""}]
 
-        if(!err)resp.send("1");
-        else resp.send("0");
+      var inArray= function(needle,haystack)
+      {
+          var count=haystack.length;
+          for(var i=0;i<count;i++)
+          {
+              if(haystack[i]._id===needle){return true;}
+          }
+          return false;
+      }
+
+      var res = inArray(obj, data);
+      if (res) {
+          users.update({"_id":id},{"$push":{"friends":obj}}, (err,data) => {
+              if(!err)resp.send("Friend Added");
+              else resp.send("Server Error Please try again later");
+          })
+      }
+      else {
+        resp.send("User doesnt exist");
+      }
     })
+
+}
+})
+
+router.delete("/:friendname",(req,resp)=>{
+    var obj = req.params.friendname
+    var id = "ahmed@gmail.com";
+
+    users.find({"_id":id},(err,data) => {
+      var list = data[0].friends;
+      users.update({"_id":id},{"$pull":{"friends":obj}}, (err,data) => {
+          if(!err)resp.send("1");
+          else resp.send("0");
+      })
+
+    })
+
+
 })
 
 module.exports = router;
