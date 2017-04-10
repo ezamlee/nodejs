@@ -1,10 +1,6 @@
-var login = require("../models/logins");
 var users = require("../models/users");
-var orders = require("../models/orders");
-var notifications = require("../models/notifications");
 var express = require("express");
 var router = express.Router();
-var async = require("async");
 
 router.get("/", function (req, resp) {
         resp.render("groups", { title: "My Groups",});

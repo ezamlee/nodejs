@@ -77,7 +77,15 @@ db.orders.insert([
         order_detail:[
             {
                 _id:"heba@gmail.com",name:"Heba Bahaa",item:"Big Mac" , amount:1 , price:43 , comment:"no cheese"
+            },
+            {
+                _id:"omar@gmail.com",name:"Omar Saleh",item:"Grilled Chicken" , amount:1 , price:60 , comment:"extra rice"
+            },
+            {
+
+                _id:"ahmed@gmail.com",name:"ahmed essam",item:"Grilled Chicken" , amount:1 , price:60 , comment:"extra rice"
             }
+        
         ],
 	date: "13/1/2013"
     },
@@ -96,7 +104,7 @@ db.orders.insert([
             },
             {
                 _id:"omar@gmail.com",name:"Omar Saleh",item:"Grilled Chicken" , amount:1 , price:60 , comment:"extra rice"
-            },
+            }
         ],
 	date: "16/11/2015"
 
