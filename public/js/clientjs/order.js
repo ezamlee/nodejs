@@ -1,10 +1,10 @@
 function orderTemplate(id,meal,nInvited,nJoined, rest,status,user,owner){
  return `
-	   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+	   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin:5px">
 	        <div class="order">
 	            <span href=""><h3>${meal}</h3></span>
 	            <p>From</p>
-	            <a   href="" data-toggle="modal" data-target="#view"><h3 value=${id} class="menume">${rest}</h3></a>
+	            <a   href="" data-toggle="modal" data-target="#invited"><h3 value=${id} class="menume">${rest}</h3></a>
 	            <p value=${id} > <a value=${id} href="" data-target="#invited" data-toggle="modal" class="num invitedme"><span value=${id} >Invited Friends</span> ${nInvited} </a></p>
 	            <p value=${id} > <a value=${id} href="" data-target="#invited" data-toggle="modal" class="num joinedme"><span  value=${id} >Joined Friends</span> ${nJoined}</a></p>
 	            <div class="ftr">
@@ -49,13 +49,17 @@ $(document).ready(()=>{
 			url:"/order/menu/"+$(ev.target).attr("value"),
 			method:"get",
 			success:(data)=>{
-				$("#view").find(".img-responsive").attr("src","img/menu/"+data.menu)
+				$("#modal-title").text("");
+				$("#modal-title").text("The Menu");
+				$("#modal-body").html("");
+				$("#modal-body").append(`<img src="img/menu/${data.menu}" class="img-responsive">`)
 			},
 			fail:(err)=>{
 				console.log(err);
 			}
 		})
 	}).on("click",".viewme",(ev)=>{
+
 		window.location.assign("/details?id="+$(ev.target).attr("value"))
 	}).on("click",".invitedme",(ev)=>{
 		modal_header = $("#modal-title")
