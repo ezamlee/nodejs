@@ -20,7 +20,7 @@ router.get("/list",(req,resp)=>{
 				})
 		    },
 		    function(arg1, callback) {
-		    	orders.find( {},{ order_detail: { $elemMatch: { "_id": id } },id:1,owner:1,meal:1,restaurant_name:1,users_invited:1,users_joined:1,status:1,menu:1 },(err,data)=>{
+		    	orders.find( {users_invited:id},{ id:1,owner:1,meal:1,restaurant_name:1,users_invited:1,users_joined:1,status:1,menu:1 },(err,data)=>{
 					callback(null, arg1,data);
 				})
 		        
@@ -49,6 +49,16 @@ router.get("/list",(req,resp)=>{
 router.get("/menu/:id",(req,resp)=>{
 	orders.find({"_id":parseInt(req.params.id)},{"menu":1,"_id":0},(err,data)=>{
 		resp.send(data[0])
+	})
+})
+router.get("/invited/:id",(req,resp)=>{
+	orders.find({"_id":req.params.id},{"users_invited":1,"_id":0},(err,data)=>{
+		resp.send(data[0]);
+	})
+})
+router.get("/joined/:id",(req,resp)=>{
+	orders.find({"_id":req.params.id},{"users_joined":1,"_id":0},(err,data)=>{
+		resp.send(data[0]);
 	})
 })
 module.exports = router;
