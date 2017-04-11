@@ -46,5 +46,10 @@ router.get("/list",(req,resp)=>{
 	);  
 
 })
+router.get("/menu/:id",(req,resp)=>{
+	orders.find({"_id":parseInt(req.params.id)},{"menu":1,"_id":0},(err,data)=>{
+		resp.send(data[0])
+	})
+})
 module.exports = router;
 

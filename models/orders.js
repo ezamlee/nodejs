@@ -1,6 +1,6 @@
 var mongoose=require("mongoose");
 var ordersSchema = new mongoose.Schema({
-_id:String   
+_id:Number   
 , owner: String
 , meal: String
 , restaurant_name: String
