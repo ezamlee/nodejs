@@ -17,9 +17,7 @@ function orderTemplate(id,meal,nInvited,nJoined, rest,status,user,owner){
 function person_template(img,name){
 	return `<div class="item active text-center">
         <div class="col-xs-4">
-            <a href="#1">
-                <img src="img/profile/${img}" class="img-responsive">
-            </a>
+            <img src="img/profile/${img}" class="img-responsive" style="margin:0 auto">
             <h4>${name}</h4>
     	</div>
     </div>`
