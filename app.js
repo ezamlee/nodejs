@@ -1,14 +1,21 @@
 var express = require("express");
 var app = express();
+var server = app.listen(8090);
+var io = require('socket.io').listen(server);
 var mongoose=require("mongoose");
 var session = require('client-sessions');
 var cors = require("cors");
+
 //Database Connections
 mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
 var login = require("./models/logins");
 var users = require("./models/users");
 var orders = require("./models/orders");
 var notifications = require("./models/notifications");
+
+io.on('connection', function (socket) {
+	
+});
 
 //middleear to set session module
 app.use(session({
@@ -36,10 +43,7 @@ app.use("/order",require("./controllers/order.js"));
 app.use("/profile",require("./controllers/profile.js"));
 app.use("/api",require("./controllers/api.js"));
 
-app.get("/",function(req,resp){
+app.get("/index",function(req,resp){
         resp.render("login",{title:"Login"});
 })
 
-app.listen(8090,function(){
-    console.log("Server up");
-});
