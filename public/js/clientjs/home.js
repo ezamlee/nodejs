@@ -99,4 +99,8 @@ var latestActivity = function(){
 $(document).ready(() => {
     activityList();
     latestActivity();
+<<<<<<< HEAD
+=======
+
+>>>>>>> cfa1378d1ebcf09b2d0e32dbba560b73315dbb10
 })

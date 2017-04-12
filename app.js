@@ -19,11 +19,12 @@ var users = require("./models/users");
 var orders = require("./models/orders");
 var notifications = require("./models/notifications");
 
+
 // app passport setting
 
 
  // set up our express application
- // app.use(logger('dev')); // log every request to the console
+
  app.use(cookieParser()); // read cookies (needed for auth)
  app.use(bodyParser()); // get information from html forms
 
@@ -39,6 +40,14 @@ var notifications = require("./models/notifications");
 require('./controllers/passport')(passport);
 // end of passport configuartion
 
+io.on('connection', function (socket) {
+	socket.emit('get', { hello: 'world' });
+	socket.on('my other event', function (data) {
+		console.log(data);
+	});
+});
+
+
 //middleear to set session module
 app.use(session({
   cookieName: 'session',
@@ -53,8 +62,13 @@ app.set("views", "./views");
 
 //middlewear
 app.use(express.static('public'));
+
 // app.use("/signup" , require("./controllers/register.js"));
 require('./controllers/register.js')(app, passport,session);
+
+// app.use("/ws",require("./controllers/ws.js"));
+// app.use("/register" , require("./controllers/register.js"));
+
 app.use("/allnotifications",require("./controllers/allnotifications.js"));
 app.use("/add",require("./controllers/add.js"));
 app.use("/details",require("./controllers/details.js"));
@@ -67,7 +81,11 @@ app.use("/order",require("./controllers/order.js"));
 app.use("/profile",require("./controllers/profile.js"));
 app.use("/api",require("./controllers/api.js"));
 
-app.get("/",function(req,resp){
+
+
+
+app.get("/index",function(req,resp){
+
         resp.render("login",{title:"Login"});
 })
 
