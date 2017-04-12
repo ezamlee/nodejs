@@ -13,7 +13,7 @@ var friendsArray ;
 var newData;
 var allData;
 router.get("/activityList",function(req,resp){
-    var id = "heba@gmail.com";
+    var id = "ahmed@gmail.com";
 
     users.find({"_id":id},(err,data) => {
         friendsArray = data[0].friends;

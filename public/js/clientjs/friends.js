@@ -2,7 +2,7 @@ var friendsBlock = function(id, img, name){
     return `
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="frnd">
-                  <img src="img/profile/${img}" class="frndImg">
+                  <img src="img/${img}" class="frndImg">
                   <p class='name'>${name}</p>
                   <p>${id}</p>
                   <button class="btn btn-danger btn-labeled fa fa-times removeFriend" data-toggle="modal" value="${id}" data-target="#${1}">Unfriend</button>

@@ -1,6 +1,10 @@
 <%include header %>
 	<div id="container" class="cls-container">
 
+		<% if (title.length > 0) { %>
+		<div class="alert alert-danger"><%= title %></div>
+	<% } %>
+
 		<!-- BACKGROUND IMAGE -->
 		<!--===================================================-->
 		<div id="bg-overlay" class="bg-img">
@@ -38,7 +42,7 @@
 
                     <!--Horizontal Form-->
                     <!--===================================================-->
-                    <form class="form-horizontal" action="/home">
+                    <form class="form-horizontal" action="/signup" method="post">
                         <div class="panel-body">
                           <div class="input-group mar-btm">
       											<span class="input-group-addon"><i class="fa fa-user fa-lg"></i></span>
@@ -46,11 +50,11 @@
       										</div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-envelope fa-lg"></i></span>
-                            <input type="email" class="form-control input-lg" placeholder="Email">
+                            <input type="texr" class="form-control input-lg" placeholder="Email" name="email">
                           </div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
-                            <input type="password" class="form-control input-lg" placeholder="NaPasswordme">
+                            <input type="password" class="form-control input-lg" placeholder="NaPasswordme" name="password">
                           </div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
