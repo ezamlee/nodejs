@@ -1,12 +1,12 @@
 var express = require("express");
 var app = express();
+var server = app.listen(8090);
+var io = require('socket.io').listen(server);
 var mongoose=require("mongoose");
-var session = require('client-sessions');
 var cors = require("cors");
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var session = require('express-session');
-var logger = require('morgan');
 
 //passport
 var passport = require('passport');
@@ -87,11 +87,5 @@ app.use("/api",require("./controllers/api.js"));
 
 
 app.get("/index",function(req,resp){
-
         resp.render("login",{title:"Login"});
 })
-
-
-app.listen(8090,function(){
-    console.log("Server up");
-});
