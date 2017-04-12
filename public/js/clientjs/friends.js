@@ -116,7 +116,8 @@ $(document).ready(() => {
                 data.forEach((obj) => {
                     my_friend_list[my_friend_list.length] = obj;
                 })
-                if(!my_friend_list.includes($("#newfriend").val()) && $("#newfriend").val() != "ahmed@gmail.com" ){
+                if(!my_friend_list.includes($("#newfriend").val())){
+                  if ($("#newfriend").val() != "ahmed@gmail.com") {
                     $.ajax({
                        url:"friends/"+$("#newfriend").val(),
                        method:"PUT",
@@ -129,6 +130,11 @@ $(document).ready(() => {
                       }
 
                     })
+                  }
+                  else {
+                    display_error("This is your email address!!");
+                  }
+
                 }else{
                     console.log("eror")
                     display_error("friend Name Already Exists");
