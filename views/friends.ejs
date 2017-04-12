@@ -1,0 +1,88 @@
+<%include header %>
+    <%include topNav %>
+
+
+  <div class="boxed">
+
+    <!--CONTENT CONTAINER-->
+    <!--===================================================-->
+    <div id="content-container">
+
+      <!--Page Title-->
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <div id="page-title">
+        <h1 class="page-header text-overflow"><%= title%></h1>
+        <button class="btn btn-primary btn-labeled fa fa-plus-square add" data-toggle="modal" data-target="#addFriend">Add Friend</button>
+      </div>
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!--End page title-->
+
+      <!--Page content-->
+      <!--===================================================-->
+      <div id="page-content">
+           <h3 class="text-thin"></h3>
+           <div class="row">
+               <div id="friends">
+
+              </div>
+           </div>
+
+
+           
+      </div>
+      <!--===================================================-->
+      <!--End page content-->
+
+
+    </div>
+    <!--===================================================-->
+    <!--END CONTENT CONTAINER-->
+    <!-- start add friend Modal -->
+    <div id="addFriend" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Friend</h4>
+          </div>
+          <div class="modal-body">
+               <div class="form-group">
+                 <label for="name">Friend Name:</label>
+                 <input type="text" class="form-control" id="newfriend" required>
+               </div>
+
+          </div>
+          <div class="modal-footer">
+            <button id="btAddFriend" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end add friend Modal -->
+
+
+
+    <%include nav%>
+  </div>
+
+
+
+      <!-- FOOTER -->
+      <!--===================================================-->
+      <footer id="footer">
+          <p class="pad-lft">&#0169; 2017 Otlob</p>
+      </footer>
+      <!--===================================================-->
+      <!-- END FOOTER -->
+
+
+      <!-- SCROLL TOP BUTTON -->
+      <!--===================================================-->
+      <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+      <!--===================================================-->
+      <script src="js/clientjs/friends.js"></script>
+<%include footer%>

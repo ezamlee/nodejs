@@ -1,0 +1,96 @@
+<%include header %>
+    <%include topNav %>
+
+  <div class="boxed">
+
+    <!--CONTENT CONTAINER-->
+    <!--===================================================-->
+    <div id="content-container">
+
+      <!--Page Title-->
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <div id="page-title">
+        <h1 class="page-header text-overflow"><%= title%></h1>
+        <a href="/add"><button class="btn btn-primary btn-labeled fa fa-plus-square">Add Order</button></a>
+      </div>
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!--End page title-->
+
+      <!--Page content-->
+      <!--===================================================-->
+      <div id="page-content">
+           <h3 class="text-thin"></h3>
+           <div class="row">
+               <div id="orders">
+                 
+              </div>
+
+           </div>
+           <div class="text-center" style="margin-top: 30px;">
+             <ul class="pagination mar-no">
+               <li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
+               <li class="active"><a href="#">1</a></li>
+               <li><a class="fa fa-angle-double-right" href="#"></a></li>
+             </ul>
+           </div>
+      </div>
+      <!--===================================================-->
+      <!--End page content-->
+
+
+    </div>
+    <!--===================================================-->
+    <!--END CONTENT CONTAINER-->
+
+    <!-- start invited Modal -->
+    <div id="invited" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 id="modal-title" class="modal-title">All Invited Friends</h4>
+          </div>
+          <div class="modal-body">
+            <div id="frnds">
+              <div class="row">
+                <div class="col-md-12">
+                <div class="carousel slide multi-item-carousel" id="theCarousel">
+                  <div class="carousel-inner" id="modal-body">
+                    
+                    <!-- add  more items here -->
+                    <!-- Example item start:  -->
+                    <!--  Example item end -->
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end invited modal -->
+
+
+    <%include nav%>
+  </div>
+      <!-- FOOTER -->
+      <!--===================================================-->
+      <footer id="footer">
+          <p class="pad-lft">&#0169; 2017 Yala Otlob</p>
+      </footer>
+      <!--===================================================-->
+      <!-- END FOOTER -->
+
+
+      <!-- SCROLL TOP BUTTON -->
+      <!--===================================================-->
+      <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+      <!--===================================================-->
+      <script src="js/clientjs/order.js"></script>
+<%include footer%>

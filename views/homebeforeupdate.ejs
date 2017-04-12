@@ -1,0 +1,143 @@
+<%include header %>
+    <%include topNav %>
+
+  <div class="boxed">
+
+    <!--CONTENT CONTAINER-->
+    <!--===================================================-->
+    <div id="content-container">
+
+      <!--Page Title-->
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <div id="page-title">
+        <h1 class="page-header text-overflow" ><%= title%></h1>
+      </div>
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!--End page title-->
+
+      <!--Page content-->
+      <!--===================================================-->
+      <div id="page-content">
+           <h3 class="text-normal text-mint">Latest Orders</h3>
+           <div class="row">
+               <div id="latestOrders">
+                 <!-- start latestorder ---->
+                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                   <div class="latestOrder">
+                     <h3><a href="/details" class="text-pink"><u>Launch</u></a></h3>
+                     <p>on</p>
+                     <h4>13/1/2013</h4>
+                   </div>
+                 </div>
+                 <!-- end latestorder ---->
+              </div>
+           </div>
+           <hr>
+           <h3 class="text-normal text-mint">Friends Activity</h3>
+           <div class="row">
+
+               <div id="activities">
+
+                 <% data.forEach(function(activity){ %>
+                   <script>
+                      $(document).ready(function(){
+                        function friendActivity(id, img, name, activity)
+                        {
+                          var blockActivity = '<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">';
+                              blockActivity += '<div class="activity">'
+                              blockActivity += '<a href="" data-toggle="modal" data-target="#' + id + '"><img src="' + img + '"></a>';
+                              blockActivity += '<h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="# ' + id + '">' + name + '</a></h4>'
+                              blockActivity += '<h5>' + activity + '</h5>';
+                              blockActivity += '</div> </div>';
+
+                              $('#activities').append(blockActivity);
+                        }
+                        friendActivity(<%=activity._id %>, "img/av1.png", "<%=activity.owner %>",  "activity");
+
+                      })
+                   </script>
+                  <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="activity">
+                      <a href="" data-toggle="modal" data-target="#<%=activity._id %>"><img src="img/<%=activity.menu %>"></a>
+                      <h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="#<%=activity._id %>"><%=activity.owner %></a></h4>
+                      <h5>has created an order for launch from mac</h5>
+                    </div>
+                  </div> -->
+                <% })%>
+
+
+                 <!-- start friend activity ---->
+                 <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                   <div class="activity">
+                     <a href="" data-toggle="modal" data-target="#profile"><img src="img/av1.png"></a>
+                     <h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="#profile">Ahmad</a></h4>
+                     <h5>has created an order for launch from mac</h5>
+                   </div>
+                 </div> -->
+                 <!-- end friend activity ---->
+
+              </div>
+
+           </div>
+      </div>
+      <!--===================================================-->
+      <!--End page content-->
+
+
+    </div>
+    <!--===================================================-->
+    <!--END CONTENT CONTAINER-->
+
+    <!-- start profile Modal -->
+    <div id="profile" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-2">
+                <img src="img/av1.png">
+              </div>
+              <div class="col-xs-6">
+                <h4>Ahmed Essam</h4>
+                <h4>ahmedessam@yahoo.com</h4>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end profile modal -->
+
+
+
+    <%include nav%>
+  </div>
+
+
+
+      <!-- FOOTER -->
+      <!--===================================================-->
+      <footer id="footer">
+          <p class="pad-lft">&#0169; 2017 Yala Otlob</p>
+      </footer>
+      <!--===================================================-->
+      <!-- END FOOTER -->
+
+
+      <!-- SCROLL TOP BUTTON -->
+      <!--===================================================-->
+      <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+      <!--===================================================-->
+
+
+<%include footer%>

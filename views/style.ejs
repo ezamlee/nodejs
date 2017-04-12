@@ -1,0 +1,217 @@
+<!--Open Sans Font [ OPTIONAL ] -->
+ <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
+
+
+<!--Bootstrap Stylesheet [ REQUIRED ]-->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+<!--Nifty Stylesheet [ REQUIRED ]-->
+<link href="css/nifty.min.css" rel="stylesheet">
+
+
+<!--Font Awesome [ OPTIONAL ]-->
+<link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+
+<!--Switchery [ OPTIONAL ]-->
+<link href="plugins/switchery/switchery.min.css" rel="stylesheet">
+
+
+<!--Bootstrap Select [ OPTIONAL ]-->
+<link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+
+
+<!--Bootstrap Tags Input [ OPTIONAL ]-->
+<link href="plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+
+
+<!--Chosen [ OPTIONAL ]-->
+<link href="plugins/chosen/chosen.min.css" rel="stylesheet">
+
+
+<!--noUiSlider [ OPTIONAL ]-->
+<link href="plugins/noUiSlider/jquery.nouislider.min.css" rel="stylesheet">
+<link href="plugins/noUiSlider/jquery.nouislider.pips.min.css" rel="stylesheet">
+
+
+<!--Bootstrap Timepicker [ OPTIONAL ]-->
+<link href="plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+
+
+<!--Bootstrap Datepicker [ OPTIONAL ]-->
+<link href="plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
+
+
+<!--Dropzone [ OPTIONAL ]-->
+<link href="plugins/dropzone/dropzone.css" rel="stylesheet">
+
+
+<!--Summernote [ OPTIONAL ]-->
+<link href="plugins/summernote/summernote.min.css" rel="stylesheet">
+
+
+<!--Demo [ DEMONSTRATION ]-->
+<link href="css/demo/nifty-demo.min.css" rel="stylesheet">
+
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/script.js"></script>
+<script src="js/clientjs/general.js"></script>
+
+<style>
+  #mainnav{
+    height: 110%;
+  }
+  .menu-title{
+    font-size: 14px
+  }
+  .notification{
+    background-color: #fff;
+    padding: 15px 15px 5px;
+    border-radius: 2%;
+    margin-bottom: 5px;
+  }
+  .frnd, .grp, .order,
+  .activity, .latestOrder{
+    background-color:#fff;
+    text-align:center;
+    padding:30px 15px;
+    border-radius: 2%;
+  }
+  .grp h3, .order h3{
+    overflow: hidden;
+    width: 100%;
+    height: 35px;
+    margin:0 auto;
+  }
+  .frnd p{
+    overflow: hidden;
+    width: 100%;
+    height: 28px;
+    margin:10px auto;
+    font-size: 20px;
+  }
+
+  .frndImg, .activity img{
+    width: 100px;
+    height: 100px;
+    border-radius: 20%;
+    }
+    a.num{
+      font-size: 18px;
+      color: #f00;
+      font-weight: bold;;
+    }
+    a.num :hover{
+      color: #f00;
+    }
+
+    /* start slider */
+    .carousel-control.right{
+      background-image: none;
+    }
+    .carousel-control.left{
+      background-image: none;
+    }
+    @media screen and (min-width:768px) {
+    	.carousel-control .glyphicon-chevron-left,.carousel-control .icon-prev {
+    		margin-left:-50px
+    	}
+    	.carousel-control .glyphicon-chevron-right,.carousel-control .icon-next {
+    		margin-right:-50px
+    	}
+    }
+    div.item > div > a > img{
+      margin: 0 auto!important;
+    }
+    .multi-item-carousel{
+      .carousel-inner{
+        > .item{
+          transition: 500ms ease-in-out left;
+          text-align: center;
+        }
+        .active{
+          &.left{
+            left:-33%;
+          }
+          &.right{
+            left:33%;
+          }
+        }
+        .next{
+          left: 33%;
+        }
+        .prev{
+          left: -33%;
+        }
+        @media all and (transform-3d), (-webkit-transform-3d) {
+          > .item{
+            // use your favourite prefixer here
+            transition: 500ms ease-in-out left;
+            transition: 500ms ease-in-out all;
+            backface-visibility: visible;
+            transform: none!important;
+          }
+        }
+      }
+      .carouse-control{
+        &.left, &.right{
+          background-image: none;
+        }
+      }
+    }
+    /* end slider*/
+    .order>p>.num>span{
+      font-size:14px;
+      color: #000;
+      font-weight:normal;
+    }
+    .order>p>.num:hover{
+      text-decoration: underline;
+      color: #000;
+    }
+    .order .ftr{
+      margin-top: 30px;
+    }
+    .cutlery{
+      font-size: 22px;
+      text-align: center;
+      padding: 5px;
+    }
+    #regist{
+    background: rgba(0,0,0,.5);
+    position: relative;
+    z-index: 99;
+    top: 0;
+    width: 100%;
+    height: 600px;
+    margin-top: -600px;
+    }
+    #regist label{
+      color:#fff;
+    }
+    .bg-img{
+      opacity: 0.2;
+    }
+    .regist .panel{
+      background-color: transparent;
+      color: #fff;
+    }
+    .regist .form-horizontal .control-label{
+      text-align: left;
+      font-size: 16px;
+    }
+    .regist .panel > .panel-heading::after{
+      border: 0;
+    }
+    .regist .input-lg{
+        border-radius: 3px;
+    }
+    .regist .panel-footer{
+        background-color: transparent;
+        border: 0;
+    }
+    .regist .input-group-addon{
+        background-color: #eee;
+    }
+</style>
