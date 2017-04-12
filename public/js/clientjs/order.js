@@ -63,14 +63,16 @@ $(document).ready(()=>{
 		modal_header = $("#modal-title")
 		modal_body   = $("#modal-body")
 		order_id     = $(ev.target).attr("value")
-
+		console.log(order_id)
 		modal_header.text("The Invited People Are: ");
 		$.ajax({
 			url:"order/invited/"+order_id,
 			method:"get",
 			success:(data)=>{
+				console.log(data)
 				data =data.users_invited;
 				modal_body.html("")
+				console.log(data)
 				data.forEach((obj)=>{
 					$.ajax({
 						url:"/api/user/"+obj,
