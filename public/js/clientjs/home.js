@@ -2,7 +2,7 @@ var activityBlock = function(ownerId, ownerImg, ownerName, activityStat){
     return `
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="activity">
-                  <a href="" data-toggle="modal" data-target="#${ownerId}"><img src="img/${ownerImg}"></a>
+                  <a href="" data-toggle="modal" data-target="#${ownerId}"><img src="img/profile/${ownerImg}"></a>
                   <h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="#${ownerId}">${ownerName}</a></h4>
                   <h5>${activityStat}</h5>
                 </div>
@@ -21,7 +21,7 @@ var friendModal = function(id, img, name, email){
                     <div class="modal-body">
                       <div class="row">
                         <div class="col-xs-4 col-xs-offset-2">
-                          <img src="/img/${img}">
+                          <img src="img/profile/${img}">
                         </div>
                         <div class="col-xs-6">
                           <h4>${name}</h4>
@@ -47,7 +47,7 @@ var latestOrder = function(id, meal, date){
     return `
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="latestOrder">
-                  <h3><a href="/details/${id}" class="text-pink"><u>${meal}</u></a></h3>
+                  <h3><a href="/details?id=${id}" class="text-pink"><u>${meal}</u></a></h3>
                   <p>on</p>
                   <h4>${newDate}</h4>
                 </div>
@@ -99,8 +99,4 @@ var latestActivity = function(){
 $(document).ready(() => {
     activityList();
     latestActivity();
-<<<<<<< HEAD
-=======
-
->>>>>>> cfa1378d1ebcf09b2d0e32dbba560b73315dbb10
 })
