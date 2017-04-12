@@ -22,7 +22,21 @@
            <h3 class="text-thin"></h3>
            <div class="row">
                <div id="orders">
-                 
+                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                   <div class="order">
+                     <a href="/details"><h3>Breakfast</h3></a>
+                     <p>From</p>
+                     <a href="" data-toggle="modal" data-target="#view"><h3>Yall Otlob</h3></a>
+                     <p> <a href="" data-target="#invited" data-toggle="modal" class="num"><span>Invited Friends</span> 10</a></p>
+                     <p><a href="" data-target="#joined" data-toggle="modal" class="num"><span>Joined Friends</span> 5</a></p>
+
+                     <div class="ftr">
+                       <button class="btn btn-mint btn-icon btn-circle icon-lg fa fa-eye" data-target="#view" data-toggle="modal"></button>
+                       <button class="btn btn-warning btn-icon btn-circle icon-lg fa fa-stop finish" data-target="#finish" data-toggle="modal"></button>
+                       <button class="btn btn-danger btn-icon btn-circle icon-lg fa fa-times cancel" data-target="#cancel" data-toggle="modal"></button>
+                     </div>
+                   </div>
+                 </div>
               </div>
 
            </div>
@@ -45,23 +59,78 @@
     <!-- start invited Modal -->
     <div id="invited" class="modal fade" role="dialog">
       <div class="modal-dialog">
+
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 id="modal-title" class="modal-title">All Invited Friends</h4>
+            <h4 class="modal-title">All Invited Friends</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end invited modal -->
+
+    <!-- start joined Modal -->
+    <div id="joined" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Members List</h4>
           </div>
           <div class="modal-body">
             <div id="frnds">
               <div class="row">
                 <div class="col-md-12">
                 <div class="carousel slide multi-item-carousel" id="theCarousel">
-                  <div class="carousel-inner" id="modal-body">
-                    
+                  <div class="carousel-inner">
+
+                    <div class="item active text-center">
+                      <div class="col-xs-4">
+                        <a href="#1">
+                          <img src="img/av1.png" class="img-responsive">
+                        </a>
+                        <h4>Heba</h4>
+                        <button class="btn btn-danger">Remove</button>
+                      </div>
+                    </div>
+                    <div class="item text-center">
+                      <div class="col-xs-4">
+                        <a href="#1">
+                          <img src="img/av2.png" class="img-responsive">
+                        </a>
+                        <h4>Heba</h4>
+                        <button class="btn btn-danger">Remove</button>
+                      </div>
+                    </div>
+
+                    <div class="item text-center">
+                      <div class="col-xs-4">
+                        <a href="#1">
+                          <img src="img/av3.png" class="img-responsive">
+                        </a>
+                        <h4>Heba</h4>
+                        <button class="btn btn-danger">Remove</button>
+                      </div>
+                    </div>
                     <!-- add  more items here -->
                     <!-- Example item start:  -->
                     <!--  Example item end -->
                   </div>
+                  <a class="left carousel-control" href="#theCarousel" data-slide="prev"> <i class="fa fa-angle-left" style="position:absolute;font-size:40px;top:25%;color:blue;left:0px; float:left">
+                  </i></a>
+                  <a class="right carousel-control" href="#theCarousel" data-slide="next"> <i class="fa fa-angle-right" style="position:absolute;font-size:40px;top:25%;color:blue;left:7px; float:right">
+                  </i></a>
                 </div>
               </div>
               </div>
@@ -74,11 +143,80 @@
 
       </div>
     </div>
-    <!-- end invited modal -->
+    <!-- end joined modal -->
 
+    <!-- start view Modal -->
+    <div id="view" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">View Restaurant Menu</h4>
+          </div>
+          <div class="modal-body">
+            <img src="img/menu1.jpg" class="img-responsive">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end view modal -->
+
+    <!-- start finish Modal -->
+    <div id="finish" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Finsh an order</h4>
+          </div>
+          <div class="modal-body">
+            <p>You want to Finish this order?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Send</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end finish modal -->
+
+    <!-- start cancel Modal -->
+    <div id="cancel" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end cancel modal -->
     <%include nav%>
   </div>
+
+
+
       <!-- FOOTER -->
       <!--===================================================-->
       <footer id="footer">
@@ -92,5 +230,5 @@
       <!--===================================================-->
       <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
       <!--===================================================-->
-      <script src="js/clientjs/order.js"></script>
+
 <%include footer%>
