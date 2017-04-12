@@ -15,6 +15,7 @@ var notifications = require("./models/notifications");
 
 io.on('connection', function (socket) {
 	socket.emit('get', { hello: 'world' });
+
 	socket.on('my other event', function (data) {
 		console.log(data);
 	});
@@ -34,7 +35,7 @@ app.set("views", "./views");
 
 //middlewear
 app.use(express.static('public'));
-app.use("/ws",require("./controllers/ws.js"));
+//app.use("/ws",require("./controllers/ws.js"));
 app.use("/register" , require("./controllers/register.js"));
 app.use("/allnotifications",require("./controllers/allnotifications.js"));
 app.use("/add",require("./controllers/add.js"));
