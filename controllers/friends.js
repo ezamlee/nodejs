@@ -6,16 +6,18 @@ var orders = require("../models/orders.js");
 var notifications = require("../models/notifications.js");
 var async = require("async");
 
-router.get("/",function(req,resp){
-   resp.render("friends",{title:"My Friends"});
+var id = "ahmed@gmail.com";
 
+router.get("/",function(req,resp){
+  // users.find({"_id":id},(err,data) => {
+  //   resp.render("friends",{title:"My Friends", img: data[0].img, userName: data[0].name});
+  // })
+  resp.render("friends", { title: "Friends", username:"heba bahaa"});
 })
 
 router.get("/list",function(req,resp){
-  var id = "ahmed@gmail.com";
 
   users.find({"_id":id},(err,data) => {
-    console.log(data[0].friends);
     resp.send(data[0].friends);
   })
 })
@@ -28,9 +30,7 @@ router.put("/:friendname",(req,resp)=>{
   if(!validateEmail(req.params.friendname))resp.send("Not an Email")
   else{
     var obj = req.params.friendname
-    var id = "ahmed@gmail.com";
     users.find({},{"_id":'true'},(err,data) => {
-      // console.log("all ",data);//[{'_id':""},{'_id':""}]
 
       var inArray= function(needle,haystack)
       {
@@ -59,8 +59,6 @@ router.put("/:friendname",(req,resp)=>{
 
 router.delete("/:friendname",(req,resp)=>{
     var obj = req.params.friendname
-    var id = "ahmed@gmail.com";
-
     users.find({"_id":id},(err,data) => {
       var list = data[0].friends;
       users.update({"_id":id},{"$pull":{"friends":obj}}, (err,data) => {

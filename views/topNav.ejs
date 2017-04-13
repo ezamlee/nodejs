@@ -1,3 +1,4 @@
+
   <div id="container" class="effect mainnav-sm navbar-fixed">
 
   <!--NAVBAR-->
@@ -82,12 +83,13 @@
 
           <!--User dropdown-->
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
           <li id="dropdown-user" class="dropdown">
             <a href="" data-toggle="dropdown" class="dropdown-toggle text-right">
               <span class="pull-left">
-                <img class="img-circle img-user media-object" src="img/av1.png" alt="Profile Picture">
+                <img class="img-circle img-user media-object" src="img/<%= img %>" alt="Profile Picture">
               </span>
-              <div class="username hidden-xs">John Doe</div>
+              <div class="username hidden-xs" id="username_place"><%= username %> </div>
             </a>
 
 
