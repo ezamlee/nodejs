@@ -44,6 +44,9 @@ io.on('connection', function (socket) {
 	socket.on("get", function (data) {
 		socket.emit("get", { hello: 'world' });
 	});
+	socket.on("detail_update",(data)=>{
+		socket.emit("detail_update", data);
+	})
 
 	
 });

@@ -36,6 +36,8 @@ var load= function(){
 		success:(data)=>{
 			dong = data[0]
 			if((data[1])){
+				$("#btfinish").remove();
+				$("#btcancel").remove();
 				$("#page-title").append(
 		`<button class="btn btn-success btn-labeled" id="btfinish" style="padding:5px 20px;float:right;margin:0px 5px" > Finish </button>
         <button class="btn btn-danger btn-labeled" id="btcancel"  style="padding:5px 20px;float:right"> Cancel </button>
@@ -68,14 +70,40 @@ var load= function(){
 } 
 
 $(document).ready(()=>{
-	socket.on("get",(data)=>{
+	socket.on("detail_update",(data)=>{
 		console.log(data);
-		socket.emit("get" , {data : "data"});
+		if(data.update){
+			load();
+		}
 	})
 	load();
 
 	$("html").on("click",".btdel" , (ev)=>{
-		
+		var index = ev.target.value;
+		var order_detail = dong.order_detail;
+		order_detail.splice(index,1);
+		$.ajax({
+			url:"/details/update/"+orderid,
+			method:"DELETE",
+			data :{"order":order_detail},
+			success:(data)=>{
+				console.log(data);
+				socket.emit("detail_update",{"update":true});
+			},
+			fail: (err)=>{
+				console.log(err);
+			}
+		})
+	})
+
+	$("html").on("click",".btadd" , (ev)=>{
+
+	})
+	$("html").on("click",".btfinish" , (ev)=>{
+
+	})
+	$("html").on("click",".btcancel" , (ev)=>{
+
 	})
 
 })

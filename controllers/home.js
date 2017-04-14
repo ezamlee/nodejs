@@ -7,7 +7,6 @@ var router = express.Router();
 var async = require("async");
 
 router.get("/", function (req, resp) {
-    // console.log(req.session.passport.user)
     if(req.session.user){
         resp.render("home", { title: "Home",username:"ahmed essam",img:"av1.png"});
     }else{
