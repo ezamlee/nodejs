@@ -41,10 +41,8 @@ require('./controllers/passport')(passport);
 // end of passport configuartion
 
 io.on('connection', function (socket) {
-	socket.emit('get', { hello: 'world' });
-
-	socket.on('my other event', function (data) {
-		console.log(data);
+	socket.on("get", function (data) {
+		socket.emit("get", { hello: 'world' });
 	});
 
 	
