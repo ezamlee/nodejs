@@ -13,7 +13,7 @@ router.use("/",(req,resp,next)=>{
         users.find({"_id":req.session.user},(err,data)=>{
             console.log(data)
             if(data.length < 1){
-                resp.send("user doesnt exit");
+                resp.send("user doesn't exit");
             }else{
                 console.log("user loaded successfully")  
                 req.session.name = data[0].name;

@@ -25,8 +25,20 @@ router.use("/",(req,resp,next)=>{
     }
 })
 
-router.get("/", function (req, resp) {
+router.get("/", (req, resp)=> {
         resp.render("details", { title: "Order Details", orderid:req.query.id ,username:req.session.name , img:req.session.img});
+})
+
+router.get("/list/:id",(req,resp)=>{
+	orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1},(err,data)=>{
+		if(req.session.user == data[0].owner){
+			var respond = [data[0] ,true]
+			resp.send(respond);
+		}else{
+			var respond = [data[0] ,false]
+			resp.send(respond);
+		}
+	})
 })
 
 module.exports = router;
