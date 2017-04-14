@@ -1,12 +1,16 @@
+var express = require("express");
 var login = require("../models/logins");
 var users = require("../models/users");
 var orders = require("../models/orders");
 var notifications = require("../models/notifications");
 var express = require("express");
+var qs = require("querystring");
 var bodyParser = require('body-parser');
 
 var router = express.Router();
+var app = express();
 
+app.use(bodyParser.urlencoded());
 var id = "ahmed@gmail.com";
 
 router.use("/",(req,resp,next)=>{
