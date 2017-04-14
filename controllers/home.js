@@ -7,7 +7,13 @@ var router = express.Router();
 var async = require("async");
 
 router.get("/", function (req, resp) {
-        resp.render("home", { title: "Home",});
+    
+    if(req.session.user){
+        resp.render("home", { title: "Home",username:"ahmed essam",img:"av1.png"});
+    }else{
+        req.session.user = "ahmed@gmail.com";
+        resp.redirect("/home")
+    }
 })
 var friendsArray ;
 var newData;
@@ -17,7 +23,6 @@ router.get("/activityList",function(req,resp){
 
     users.find({"_id":id},(err,data) => {
         friendsArray = data[0].friends;
-
         orders.find({"owner": {$in: friendsArray}}, (err, data)=>{
           resp.send(data);
         })
@@ -26,10 +31,8 @@ router.get("/activityList",function(req,resp){
 })
 
 router.get("/userData",function(req,resp){
-
     var friendEmail = req.query.q;
     users.find({"_id":friendEmail},(err,data) => {
-        //console.log(data);
         resp.send(data);
     })
 
@@ -38,7 +41,6 @@ router.get("/userData",function(req,resp){
 router.get("/latestActivity",function(req,resp){
     var id = "ahmed@gmail.com";
     orders.find({"owner":id},(err,data) => {
-        console.log("orders",data);
         resp.send(data);
     })
 

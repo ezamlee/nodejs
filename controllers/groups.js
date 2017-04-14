@@ -6,15 +6,35 @@ var express = require("express");
 var router = express.Router();
 var async = require("async");
 
-router.get("/", function (req, resp) {
-        resp.render("groups", { title: "My Groups",});
+router.use("/",(req,resp,next)=>{
+    if(!(req.session.user)){
+        resp.send("no page to be loaded");
+    }else{
+        users.find({"_id":req.session.user},(err,data)=>{
+            console.log(data)
+            if(data.length < 1){
+                resp.send("user doesnt exit");
+            }else{
+                console.log("user loaded successfully")  
+                req.session.name = data[0].name;
+                req.session.img  = data[0].img;
+                next()        
+            }
+        })
+    }
 })
+
+router.get("/", function (req, resp) {
+        resp.render("groups", { title: "My Groups", username:req.session.name , img:req.session.img});
+})
+
 router.get("/list",function(req,resp){
     var id = "ahmed@gmail.com";
     users.find({"_id":id},(err,data) => {
         resp.send(data[0].groups);
     })
 })
+
 router.delete("/:groupname",(req,resp) => {
     var id = "ahmed@gmail.com";
     users.update( {"_id":id},{ $pull: { "groups" : { "name": req.params.groupname } } }, (err,data) =>{
@@ -33,7 +53,7 @@ router.put("/:groupname",(req,resp)=>{
     }
     var id = "ahmed@gmail.com";
     users.update({"_id":id},{"$push":{"groups":obj}}, (err,data) => {
-                
+
         if(!err)resp.send("1");
         else resp.send("0");
     })
@@ -41,8 +61,8 @@ router.put("/:groupname",(req,resp)=>{
 router.get("/m/:groupname",(req,resp)=>{
     var id = "ahmed@gmail.com";
     users.find({"_id":id}, {"groups":{"$elemMatch":{"name":req.params.groupname}},"_id":0},(err,data)=>{
-      resp.send(data);  
-    })    
+      resp.send(data);
+    })
 })
 router.delete("/remove/:g/:m",(req,resp)=>{
     var id = "ahmed@gmail.com";
@@ -85,7 +105,7 @@ router.put("/add/:g/:email",(req,resp)=>{
             if(members_list.includes(req.params.email)){
                 resp.send("user already exits");
             }else if(!(friend_list.includes(req.params.email))){
-               
+
                 resp.send("Not a friend to add to a group");
             }else{
                 data[0].groups[j].members.push(req.params.email);
