@@ -5,8 +5,8 @@ var notifications = require("../models/notifications");
 var express = require("express");
 var router = express.Router();
 var async = require("async");
-
-
+var bodyParser = require('body-parser');
+var postParser = bodyParser.urlencoded({extended: true})
 router.use("/",(req,resp,next)=>{
     if(!(req.session.user)){
         resp.send("no page to be loaded");
@@ -40,5 +40,11 @@ router.get("/list/:id",(req,resp)=>{
 		}
 	})
 })
-
+router.delete("/update/:id",postParser,(req,resp)=>{
+	orders.update({"_id":parseInt(req.params.id)},{$set:{"order_detail":req.body.order}},(err,result)=>{
+		console.log(parseInt(req.params.id))
+		console.log(req.body.order)
+		resp.send(result);
+	})
+})
 module.exports = router;
