@@ -7,7 +7,7 @@ var router = express.Router();
 var async = require("async");
 
 router.get("/", function (req, resp) {
-    
+
     if(req.session.user){
         resp.render("home", { title: "Home",username:"ahmed essam",img:"av1.png"});
     }else{
@@ -15,9 +15,11 @@ router.get("/", function (req, resp) {
         resp.redirect("/home")
     }
 })
+
 var friendsArray ;
 var newData;
 var allData;
+
 router.get("/activityList",function(req,resp){
     var id = "heba@gmail.com";
 

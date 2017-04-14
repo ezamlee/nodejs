@@ -8,12 +8,28 @@ var async = require("async");
 
 var id = "ahmed@gmail.com";
 
-router.get("/",function(req,resp){
-  // users.find({"_id":id},(err,data) => {
-  //   resp.render("friends",{title:"My Friends", img: data[0].img, userName: data[0].name});
-  // })
-  resp.render("friends", { title: "Friends", username:"heba bahaa"});
+router.use("/",(req,resp,next)=>{
+    if(!(req.session.user)){
+        resp.redirect("/login");
+    }else{
+        users.find({"_id":req.session.user},(err,data)=>{
+            console.log(data)
+            if(data.length < 1){
+                resp.send("user doesnt exit");
+            }else{
+                console.log("user loaded successfully")
+                req.session.name = data[0].name;
+                req.session.img  = data[0].img;
+                next()
+            }
+        })
+    }
 })
+
+router.get("/", function (req, resp) {
+        resp.render("friends", { title: "Friends", username:req.session.name , img:req.session.img});
+})
+
 
 router.get("/list",function(req,resp){
 

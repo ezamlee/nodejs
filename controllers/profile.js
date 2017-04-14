@@ -7,9 +7,31 @@ var bodyParser = require('body-parser');
 
 var router = express.Router();
 
-router.get("/",function(req,resp){
-    resp.render("profile",{title:"Profile",username:"heba bahaa", img: "av3.png"});
+var id = "ahmed@gmail.com";
+
+router.use("/",(req,resp,next)=>{
+    if(!(req.session.user)){
+        resp.redirect("/login");
+    }else{
+        users.find({"_id":req.session.user},(err,data)=>{
+            console.log(data)
+            if(data.length < 1){
+                resp.send("user doesnt exit");
+            }else{
+                console.log("user loaded successfully")
+                req.session.name = data[0].name;
+                req.session.img  = data[0].img;
+                next()
+            }
+        })
+    }
 })
+
+router.get("/", function (req, resp) {
+        resp.render("profile", { title: "Profile", username:req.session.name , img:req.session.img});
+})
+
+
 router.post("/",function(req,resp){
   console.log("the post request data = ", req.body);
     // resp.render("profile",{title:"Profile"});
