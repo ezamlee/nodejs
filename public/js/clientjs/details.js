@@ -73,11 +73,12 @@ var load= function(){
 
 $(document).ready(()=>{
 	socket.on("detail_update",(data)=>{
-		console.log(data);
+		console.log("data triger: " + data);
 		if(data.update){
 			load();
 		}
 	})
+	socket.emit("detail_room",{detail:""+orderid+""})
 	load();
 	$("html").on("click",".btdel" , (ev)=>{
 		var index = ev.target.value;
@@ -93,7 +94,8 @@ $(document).ready(()=>{
 						display_error("This Order is already Closed")
 						$(".btdel").remove();
 					}
-					socket.emit("detail_update",{"update":true});
+					console.log(data);
+					socket.emit("detail_update",{detail:""+orderid+"","update":true});
 				},
 				fail: (err)=>{
 					console.log(err);
@@ -119,8 +121,7 @@ $(document).ready(()=>{
 				if(data == "updated")
 				{
 					display_error(data);
-					load();
-					socket.emit("detail_update",{"update":true});
+					socket.emit("detail_update",{detail:""+orderid+"","update":true});
 				}else{
 					display_error(data);
 				}
@@ -140,7 +141,7 @@ $(document).ready(()=>{
 					load();
 					$("#btfinish").remove();
 					$("#btcancel").remove();
-					socket.emit("detail_update",{"update":true});
+					socket.emit("detail_update",{detail:""+orderid+"","update":true});
 				}else{
 					display_error("you are not allowed to finish this order");
 				}
@@ -157,7 +158,7 @@ $(document).ready(()=>{
 			success:(data)=>{
 				if(data == "canceled"){
 					display_error("Order canceled successfuly");
-					socket.emit("detail_update",{"update":true});
+					socket.emit("detail_update",{detail:""+orderid+"","update":true});
 					window.location.href = "http://localhost:8090/order";
 
 				}else{
