@@ -32,22 +32,27 @@
                   <div class="form-group">
  										<label class="col-md-2 control-label">Email</label>
  										<div class="col-md-10">
-                      <input type="text" class="form-control" name="email" id='email' value="ahmed@gmail.com" readonly>
+                      <input type="text" class="form-control" name="email" id='email' value="<%= email %>" readonly>
                     </div>
  									</div>
                   <!--Text Input-->
  									<div class="form-group">
  										<label class="col-md-2 control-label" for="name">Name</label>
  										<div class="col-md-10">
- 											<input type="text" id="name" name="name" class="form-control" value="ahmed" readonly>
+ 											<input type="text" id="name" name="name" class="form-control" value="<%= username %>" readonly>
  										</div>
  									</div>
  									<!--Password-->
  									<div class="form-group">
  										<label class="col-md-2 control-label" for="password">Password</label>
  										<div class="col-md-10">
- 											<input type="password" id="password" name="password" class="form-control" value="">
- 											<!-- <small class="help-block">Please enter password</small> -->
+ 											<input type="text" id="password" name="password" class="form-control" placeholder="<%= pass %>">
+ 										</div>
+ 									</div>
+                  <div class="form-group">
+ 										<label class="col-md-2 control-label" for="password">Old Img</label>
+ 										<div class="col-md-10">
+ 											<img id="oldImg" name="oldImg" src="/img/profile/<%= img %>">
  										</div>
  									</div>
                   <div class="form-group">

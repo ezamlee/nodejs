@@ -26,6 +26,7 @@ router.use("/",(req,resp,next)=>{
                 console.log("user loaded successfully")
                 req.session.name = data[0].name;
                 req.session.img  = data[0].img;
+                req.session.password  = data[0].password;
                 next()
             }
         })
@@ -33,7 +34,7 @@ router.use("/",(req,resp,next)=>{
 })
 
 router.get("/", function (req, resp) {
-  resp.render("profile", { title: "Profile", username:req.session.name , img:req.session.img});
+  resp.render("profile", { title: "Profile", email:req.session.user, username:req.session.name , img:req.session.img, pass: req.session.password});
 })
 
 
@@ -41,7 +42,7 @@ router.post("/", uploadedFile.single("img"), bodyParser.urlencoded({extended: fa
 
   users.update({_id: req.body.email},{password: req.body.password, img:req.file.filename}, function(err,affectedRows) {
     // console.log('affected rows %d', affectedRows);
-    resp.sendFile('/profile')
+    resp.render("profile", { title: "Profile", email:req.session.user, username:req.session.name, username:req.body.name , img:req.file.filename, pass: req.body.password});
   });
 
 })
