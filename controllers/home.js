@@ -6,13 +6,26 @@ var express = require("express");
 var router = express.Router();
 var async = require("async");
 
-router.get("/", function (req, resp) {
-    if(req.session.user){
-        resp.render("home", { title: "Home",username:"ahmed essam",img:"av1.png"});
+router.use("/",(req,resp,next)=>{
+    if(!(req.session.passport.user)){
+        resp.send("no page to be loaded");
     }else{
-        req.session.user = "ahmed@gmail.com";
-        resp.redirect("/home")
+        users.find({"_id":req.session.passport.user},(err,data)=>{
+            if(data.length < 1){
+                resp.send("user doesn't exit");
+            }else{
+                console.log(data);
+                req.session.name = data[0].name;
+                req.session.img  = data[0].img;
+                next()        
+            }
+        })
     }
+})
+
+router.get("/", function (req, resp) {
+        resp.render("home", { title: "Home",username:req.session.name,img:req.session.img});
+
 })
 
 var friendsArray ;
