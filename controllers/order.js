@@ -7,10 +7,10 @@ var router = express.Router();
 var async = require("async");
 
 router.use("/",(req,resp,next)=>{
-    if(!(req.session.user)){
+    if(!(req.session.passport.user)){
         resp.send("no page to be loaded");
     }else{
-        users.find({"_id":req.session.user},(err,data)=>{
+        users.find({"_id":req.session.passport.user},(err,data)=>{
             if(data.length < 1){
                 resp.send("user doesnt exit");
             }else{
