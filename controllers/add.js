@@ -23,11 +23,12 @@ var async = require("async");
 var id = "ahmed@gmail.com";
 //
 router.use("/",(req,resp,next)=>{
+    req.session.user="ahmed@gmail.com"
     if(!(req.session.user)){
         resp.redirect("/login");
     }else{
         users.find({"_id":req.session.user},(err,data)=>{
-            console.log(data)
+            console.log("retrived session user from db "+data)
             if(data.length < 1){
                 resp.send("user doesnt exit");
             }else{
@@ -91,14 +92,14 @@ router.get("/",function(req,resp){
             var gNames=[];
             data.groups.forEach(function (group) {
                 gNames.push(group.name);
-                console.log(group);
+                console.log("user groups from db "+group.name);
             });
             var fNames=[];
             data.friends.forEach(function (friend) {
                 users.findOne({"email":friend},"name",function (error_,fName) {
                     if (!error_) {
-                        fNames.push(fName);
-                        console.log(fName);
+                        fNames.push(fName.name);
+                        console.log("user friend name from db "+fName.name);
                     }else {
                         console.log("error while retrieving friend names:" + error_);
                     }
@@ -114,15 +115,25 @@ router.get("/",function(req,resp){
         }
 
     })
-    var x=new orders();
-    y=orders.find({
-
-        }
-    ).sort(
-        {
-            _id:-1
-        }
-    ).limit(1)._id + 1;
+    // var x=new orders();
+    // var newid;
+    // orders.find({
+    //
+    // },
+    // ['_id'],
+    // {
+    //     sort:{
+    //         _id:-1
+    //     }
+    // },function (err,y) {
+    //
+    //     console.log("orders y from db "+y);
+    //
+    //             newid=y[0]._id;
+    //         }
+    //
+    //
+    // );
 
     resp.render("add_order",{ title: "Make Order", username:req.session.name , img:req.session.img});
 
@@ -130,11 +141,11 @@ router.get("/",function(req,resp){
 
 
 router.use(function (req,res,next) {
-    console.log(req.method);
+    console.log("req method "+req.method);
     if (req.method.startsWith("POST")) {
-        router.use(uploadedfileMiddleware.single("menu"))
-        console.log("uploadedfileMiddleware added");
-        console.log(req.body);
+        //router.use(uploadedfileMiddleware.single("menu"))
+        //console.log("uploadedfileMiddleware added");
+        console.log("req body "+req.body);
         //console.log(req.body.stuff);
         //req.body=JSON.parse(req.body.stuff);
         //temporary... just for testing...
@@ -188,7 +199,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
     // store all uploads in the /uploads directory
     form.uploadDir =  './public/img/menu/';
     form.on('file', function(field, file) {
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
+    //fs.rename(file.path, path.join(form.uploadDir, file.name));
 
     // fs.writeFile(file.path, 'Hello World!', function (err) {
     // if (err)
@@ -201,7 +212,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 //     //     return console.log(err);
 //     // }
 //
-//     console.log("The file was saved!");
+    console.log("file recieved!");
 // });
     });
 
@@ -216,116 +227,171 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
   });
     form.parse(req, function(err, fields, file) {
         // ...
-        console.log(file.path);
-        console.log(fields);
+        req.file=file;
+        console.log("file neme"+file.menu.name);
+        console.log("file "+file);
+        console.log(file);
+
+        console.log("req file neme"+req.file.menu.name);
+        //console.log(fields);
 
 ////////////////////////////////////////////////////////////////////////
 var new_order=new orders();
-new_order._id=orders.find({
 
-    },
-        {
-            _id:true
-        }
-).sort(
-    {
+orders.find({
+
+},
+['_id'],
+{
+    sort:{
         _id:-1
     }
-).limit(1)._id + 1;
-new_order.owner=fields.email;
-new_order.meal=fields.order_type;
-new_order.restaurant_name=fields.restaurant_name;
-new_order.users_invited=JSON.parse(fields.invited_friends);
-new_order.users_joined=[];
-new_order.status="waiting";
-new_order.menu=file.path; // to be checked..
-new_order.order_detail=[];
-new_order.save(function (err) {
-    if(err){
-        console.log("order saving in db failed !!");
-    }else {
-        console.log("order saved !!");
+},function (err,y) {
 
-        //insert into activity...
-        var activitySc=new schema(
-            {
-                _id:Number,
-                name:String,
-                email:String,
-                img:String,
-                activity:String
+    console.log("orders y from db "+y);
 
-            }
-        );
-        var activity=mongoose.model("activities", activitySc);
-        var new_activity=new activity();
-        new_activity._id=activity.find({
+            new_order._id=y[0]._id+1;
+            console.log("new_order._id  "+new_order._id);
+            new_order.owner=fields.email;
+            new_order.meal=fields.order_type;
+            new_order.restaurant_name=fields.restaurant_name;
+            new_order.users_invited=JSON.parse(fields.invited_friends);
+            new_order.users_joined=[];
+            new_order.status="waiting";
+            new_order.menu_image=req.file.menu.path; // to be checked..
+            new_order.order_detail=[];
+            new_order.save(function (err) {
+                if(err){
+                    console.log("order saving in db failed !! "+err);
+                }else {
+                    console.log("order saved !!");
 
-            },
-                {
-                    _id:true
-                }
-        ).sort(
-            {
-                    _id:-1
-            }
-        ).limit(1)._id + 1;
-        new_activity.name=mongoose.model("users").find({email:fields.email},{name:true}).name;
-        new_activity.email=fields.email;
-        new_activity.img=file.path; // tbc..
-        new_activity.activity="create new order";
-        new_activity.save(function (err) {
-            if (err) {
-                console.log("error saving activity in db : " + err);
-            }else {
-                console.log("activity saved successfully in db");
-            }
-        });
+                    //insert into activity...
+                    var activitySc=new schema(
+                        {
+                            _id:Number,
+                            name:String,
+                            email:String,
+                            img:String,
+                            activity:String
 
-        // save notifications :
-        for (var mail in JSON.parse(fields.invited_friends)) {
+                        }
+                    );
+                    var activity=mongoose.model("activities", activitySc);
+                    var new_activity=new activity();
+                    activity.find({
 
-            notifications.update(
-                {
-                    _id:mail
-                },
-                {
-                    "$push":{
-                        notifications:{
-                            message:users.find({
+                    },
+                    ['_id'],
+                    {
+                        sort:{
+                            _id:-1
+                        }
+                    },function (err,y) {
+
+                        console.log("activity y "+y);
+
+                                new_activity._id=y[0]._id+1;
+                                console.log("query email "+ fields.email);
+                                mongoose.model("users").find({email:fields.email},['name',"img"],{},function (err,u) {
+                                    console.log("activity user "+u);
+                                    console.log("activity user _id"+u[0]._id);
+                                    //console.log("activity user "+JSON.parse(u));
+                                    console.log("activity user name "+u[0].name);
+                                    console.log(u.name);
+                                    console.log("activity user image "+u[0].img);
+                                    console.log(u.img);
+                                    new_activity.name=u[0].name;
+                                    new_activity.email=fields.email;
+                                    new_activity.img=u[0].img; // tbc..
+                                    new_activity.activity="create new order";
+                                    new_activity.save(function (err) {
+                                        if (err) {
+                                            console.log("error saving activity in db : " + err);
+                                        }else {
+                                            console.log("activity saved successfully in db");
+                                        }
+                                });
+
+                                });
+                            }
+
+
+                    );
+
+
+                    // save notifications :
+                    var arr=JSON.parse(fields.invited_friends);
+                    for (var name in arr) {
+
+                        mongoose.model("users").find({name:arr[name]},["_id"],{},function (err,mailarr) {
+                            var mail= mailarr[0]._id;
+                            console.log("notification mail "+ mail);
+                            console.log("notification mailarr "+ mailarr);
+                            console.log("notification mail "+ mailarr._id);
+                            console.log("notification name "+ name);
+                            console.log("notification mail "+ arr[name]);
+                            var usr1;
+                            console.log("mail "+mail);
+                            users.find({
                                 email:fields.email
                             },
-                            {
-                                name:true
-                            }).name
-                            +
-                            " invites you to "
-                            +
-                            fields.order_type,
-                            is_invited:true,
-                            is_read:false
-                        }
+                            ['name'],{},function (err,u) {
+                                usr1=u[0].name;
+                                console.log("usr1 "+ usr1);
+                                notifications.update(
+                                    {
+                                        _id:mail
+                                    },
+                                    {
+                                        "$push":{
+                                            notifications:{
+                                                message:
+                                                usr1
+                                                +
+                                                " invites you to "
+                                                +
+                                                fields.order_type,
+                                                is_invited:true,
+                                                is_read:false
+                                            }
+                                        }
+                                    },
+                                    {
+                                         multi: true ,
+                                         upsert: true
+                                     },
+                                     function (err,n) {
+                                        if (err) {
+                                            console.log("error notifications update"+err);
+                                        }else {
+                                            console.log("updated " + n + " fields !");
+                                        }
+                                    }
+                                );
+                            });
+
+                        });
+
                     }
-                },
-                {
-                     multi: true ,
-                     upsert: true
-                 },
-                 function (err,n) {
-                    if (err) {
-                        console.log(err);
-                    }else {
-                        console.log("updated " + n + " fields !");
-                    }
+                    //notifications._id=fields.email;
+
+
                 }
-            );
+            });
 
         }
-        //notifications._id=fields.email;
 
 
-    }
-});
+);
+
+console.log("fields.email "+fields.email);
+console.log("fields.order_type "+ fields.order_type);
+console.log("fields.restaurant_name "+fields.restaurant_name);
+console.log("fields.invited_friends " +JSON.parse(fields.invited_friends));
+console.log( fields.menu);
+console.log(req.file.path);
+
 ///////////////////////////////////////////////////////////////////////
 
 
@@ -468,7 +534,7 @@ new_order.save(function (err) {
                              },
                              function (err,n) {
                                 if (err) {
-                                    console.log(err);
+                                    console.log("error notifications update"+err);
                                 }else {
                                     console.log("updated " + n + " fields !");
                                 }
@@ -485,12 +551,12 @@ new_order.save(function (err) {
     console.log("POST tests failed");
 }
      });
-    console.log(form);
-    console.log(form.menu);
-    console.log(form.email);
-    console.log(form.order_type);
-    console.log(form.restaurant_name);
-    console.log(form.invited_friends);
+    console.log("form "+form);
+    console.log("form.menu "+form.menu);
+    console.log("form.email "+form.email);
+    console.log("form.order_type "+form.order_type);
+    console.log("form.restaurant_name "+form.restaurant_name);
+    console.log("form.invited_friends "+form.invited_friends);
     // testing tests !!!
     //var body = JSON.parse(re);
     // if((req.body.order_type=="Breakfast")||(req.body.order_type=="Lunch")||(req.body.order_type=="Dinner"))
@@ -689,7 +755,7 @@ new_order.save(function (err) {
                          },
                          function (err,n) {
                             if (err) {
-                                console.log(err);
+                                console.log("error notifications update"+err);
                             }else {
                                 console.log("updated " + n + " fields !");
                             }
