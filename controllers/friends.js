@@ -9,10 +9,10 @@ var async = require("async");
 var id = "ahmed@gmail.com";
 
 router.use("/",(req,resp,next)=>{
-    if(!(req.session.user)){
+    if(!(req.session.passport.user)){
         resp.redirect("/login");
     }else{
-        users.find({"_id":req.session.user},(err,data)=>{
+        users.find({"_id":req.session.passport.user},(err,data)=>{
             console.log(data)
             if(data.length < 1){
                 resp.send("user doesnt exit");

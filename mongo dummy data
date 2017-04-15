@@ -23,12 +23,25 @@ db.notifications.insert([
     },
     {
         _id : "heba@gmail.com",
-      notifications:[{message:"omar invite you to a lunch",is_invited:true,is_read:false}]
+      notifications:[{message:"omar invite you to a breakfast",is_invited:true,is_read:false}]
     },
     {
         _id : "omar@gmail.com",
-        notifications:[{message:"ahmed joined your lunch",is_invited:false,is_read:true}]
+        notifications:[{message:"ahmed joined your lunch",is_invited:false,is_read:false}]
+    },
+    {
+        _id : "heba@gmail.com",
+        notifications:[{message:"omer invite you to a breakfast",is_invited:false,is_read:false}]
+    },
+    {
+        _id : "heba@gmail.com",
+      notifications:[{message:"ahmed invite you to a lunch",is_invited:true,is_read:false}]
+    },
+    {
+        _id : "omar@gmail.com",
+        notifications:[{message:"heba joined your diner",is_invited:false,is_read:false}]
     }
+
 ])
 
 
