@@ -77,6 +77,8 @@ db.orders.insert([
         order_detail:[
             {
                 _id:"heba@gmail.com",name:"Heba Bahaa",item:"Big Mac" , amount:1 , price:43 , comment:"no cheese"
+            },{
+                _id:"ahmed@gmail.com",name:"Ahemd Essam",item:"Big Mac" , amount:1 , price:43 , comment:"no cheese"
             }
         ],
 	date: "13/1/2013"

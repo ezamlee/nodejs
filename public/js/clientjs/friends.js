@@ -88,8 +88,6 @@ $(document).ready(() => {
     $("html").on("click", ".removeFriend", (e) => {
         $('span.text-info:nth-child(1)').text(e.target.value);
         frndName = e.target.value;
-        console.log("friend name = ", frndName);
-
     })
 
     $("html").on("click", "button#remove", (e) => {
@@ -112,7 +110,6 @@ $(document).ready(() => {
         $.ajax({
             url:"friends/list",
             success:(data)=>{
-                console.log("array of friends ", data);
                 data.forEach((obj) => {
                     my_friend_list[my_friend_list.length] = obj;
                 })
