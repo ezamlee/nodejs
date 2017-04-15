@@ -79,7 +79,6 @@ $(document).ready(()=>{
 		}
 	})
 	load();
-
 	$("html").on("click",".btdel" , (ev)=>{
 		var index = ev.target.value;
 		if(dong){
@@ -106,7 +105,6 @@ $(document).ready(()=>{
 			$(".btdel").remove();
 		}
 	})
-
 	$("html").on("click","#btadd" , (ev)=>{
 		$("#item").val()
 		$("#amount").val()
@@ -122,6 +120,7 @@ $(document).ready(()=>{
 				{
 					display_error(data);
 					load();
+					socket.emit("detail_update",{"update":true});
 				}else{
 					display_error(data);
 				}
@@ -130,7 +129,6 @@ $(document).ready(()=>{
 				display_error("Internal server error")
 			}
 		})
-
 	})
 	$("html").on("click","#btfinish" , (ev)=>{
 		$.ajax({
@@ -142,6 +140,7 @@ $(document).ready(()=>{
 					load();
 					$("#btfinish").remove();
 					$("#btcancel").remove();
+					socket.emit("detail_update",{"update":true});
 				}else{
 					display_error("you are not allowed to finish this order");
 				}
@@ -158,6 +157,7 @@ $(document).ready(()=>{
 			success:(data)=>{
 				if(data == "canceled"){
 					display_error("Order canceled successfuly");
+					socket.emit("detail_update",{"update":true});
 					window.location.href = "http://localhost:8090/order";
 
 				}else{
