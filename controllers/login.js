@@ -103,7 +103,7 @@ app.post('/reset/:token', function(req, res) {
           return res.redirect('back');
         }
 
-        user.password = req.body.password;
+        user.password = user.generateHash(req.body.password);
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
 
@@ -159,7 +159,7 @@ app.post('/reset/:token', function(req, res) {
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect : '/profile',
+    successRedirect : '/home',
     failureRedirect : '/signup' // redirect back to the signup page if there is an error
     // failureFlash : true // allow flash messages
   }));
@@ -172,7 +172,7 @@ app.post('/reset/:token', function(req, res) {
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback',
       passport.authenticate('facebook', {
-        successRedirect : '/profile',
+        successRedirect : '/home',
         failureRedirect : '/'
       }));
 
@@ -197,7 +197,7 @@ app.post('/reset/:token', function(req, res) {
     // the callback after google has authenticated the user
     app.get('/auth/google/callback',
       passport.authenticate('google', {
-        successRedirect : '/profile',
+        successRedirect : '/home',
         failureRedirect : '/'
       }));
 
@@ -223,7 +223,7 @@ app.post('/reset/:token', function(req, res) {
     // handle the callback after facebook has authorized the user
     app.get('/connect/facebook/callback',
       passport.authorize('facebook', {
-        successRedirect : '/profile',
+        successRedirect : '/home',
         failureRedirect : '/'
       }));
 
@@ -248,7 +248,7 @@ app.post('/reset/:token', function(req, res) {
     // the callback after google has authorized the user
     app.get('/connect/google/callback',
       passport.authorize('google', {
-        successRedirect : '/profile',
+        successRedirect : '/home',
         failureRedirect : '/'
       }));
 
