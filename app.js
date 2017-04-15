@@ -48,6 +48,10 @@ io.on('connection', function (socket) {
 		socket.emit("detail_update", data);
 	})
 
+	socket.on("detail_room",(data)=>{
+		
+	})
+
 	
 });
 
