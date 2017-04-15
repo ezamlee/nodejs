@@ -4,11 +4,20 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var flash    = require('connect-flash');
+var cloudinary = require('cloudinary');
 // load up the user model
 var User = require('../models/users');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
+
+
+cloudinary.config({
+  cloud_name: 'dip9g4cnf',
+  api_key: '447373841977557',
+  api_secret: 'Kq_-2E65PhnHBMkMur3iF-E4Ezg'
+});
+
 
 module.exports = function(passport) {
 
@@ -109,7 +118,12 @@ console.log("notok");
                     var newUser   = new User();
                     newUser._id= email;
                     newUser.email = email;
+                    newUser.name=req.body.uname;
                     newUser.password = newUser.generateHash(password);
+                    // newUser.img=
+                    // cloudinary.uploader.upload(img, function(result) {
+                    //             console.log(result)
+                    //           });
                     newUser.friends=[];
                     newUser.orders=[];
                     newUser.groups=[];
@@ -175,6 +189,8 @@ console.log("notok");
                         newUser.facebook.token = token;
                         newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
                         newUser.facebook.email = profile.emails[0].value;
+                        var arr = profile.emails[0].value.split("@");
+                        newUser.name=arr[0];
                         newUser._id=profile.emails[0].value;
                         newUser.email=profile.emails[0].value;
                         newUser.friends=[];
@@ -335,6 +351,7 @@ console.log("notok");
                         newUser.google.email = profile.emails[0].value; // pull the first email
                         newUser._id=profile.emails[0].value;
                         newUser.email=profile.emails[0].value;
+                        newUser.name=profile.displayName;
                         newUser.friends=[];
                         newUser.orders=[];
                         newUser.groups=[];
