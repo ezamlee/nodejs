@@ -33,10 +33,12 @@ router.get("/list",function(req,resp){
     resp.send(data)
   })
 })
-router.get("/listnotification",function(req,resp){
-  notifications.find({'_id': {$ne:req.session.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
-    resp.send(data)
-  })
-})
+
+
+// router.get("/listnotification",function(req,resp){
+//   notifications.find({'_id': {$ne:req.session.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+//     resp.send(data)
+//   })
+// })
 
 module.exports = router;

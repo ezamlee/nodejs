@@ -43,7 +43,6 @@ require('./controllers/passport')(passport);
 io.on('connection', function (socket) {
 	socket.on("detail_update",(data)=>{
 		console.log(data)
-
 		io.to(data.detail).emit("detail_update", data);
 	})
 	socket.on("detail_room",(data)=>{
