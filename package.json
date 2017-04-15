@@ -29,10 +29,7 @@
     "querystring": "^0.2.0",
     "sendgrid": "^5.0.0",
     "session": "^0.1.0",
-<<<<<<< HEAD
     "socket.io": "^1.7.3",
-=======
->>>>>>> 53c9021efe708ba19f83cfbf64213bce68852cca
     "static-favicon": "^2.0.0-alpha"
   },
   "repository": "https://github.com/dohaes/nodejs.git",

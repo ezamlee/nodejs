@@ -7,20 +7,24 @@ var router = express.Router();
 var async = require("async");
 
 router.use("/",(req,resp,next)=>{
-    if(!(req.session.passport.user)){
-        resp.send("no page to be loaded");
-    }else{
-        users.find({"_id":req.session.passport.user},(err,data)=>{
-            if(data.length < 1){
-                resp.send("user doesn't exit");
-            }else{
-                console.log(data);
-                req.session.name = data[0].name;
-                req.session.img  = data[0].img;
-                next()        
-            }
-        })
+    try{
+        if(!(req.session.passport.user)){
+            resp.send("no page to be loaded");
+        }else{
+            users.find({"_id":req.session.passport.user},(err,data)=>{
+                if(data.length < 1){
+                    resp.send("user doesn't exit");
+                }else{
+                    console.log(data);
+                    req.session.name = data[0].name;
+                    req.session.img  = data[0].img;
+                    next()        
+                }
+            })
+        }
     }
+    catch(err){resp.send("error")}
+
 })
 
 router.get("/", function (req, resp) {
