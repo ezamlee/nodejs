@@ -2,7 +2,7 @@ var mongoose=require("mongoose");
 
 var notificationsSchema = new mongoose.Schema({
   _id:String
-  ,notifications:[Object]
+  ,notifications:{}
 });
 var notifications = mongoose.model('notifications', notificationsSchema);
 
