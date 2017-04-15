@@ -6,11 +6,12 @@ var notifications = require("../models/notifications");
 var express = require("express");
 var qs = require("querystring");
 var bodyParser = require('body-parser');
+var multer = require("multer");
+var uploadedFile = multer({dest: __dirname + "/../public/img/profile"})
 
 var router = express.Router();
 var app = express();
 
-app.use(bodyParser.urlencoded());
 var id = "ahmed@gmail.com";
 
 router.use("/",(req,resp,next)=>{
@@ -25,6 +26,7 @@ router.use("/",(req,resp,next)=>{
                 console.log("user loaded successfully")
                 req.session.name = data[0].name;
                 req.session.img  = data[0].img;
+                req.session.password  = data[0].password;
                 next()
             }
         })
@@ -32,13 +34,17 @@ router.use("/",(req,resp,next)=>{
 })
 
 router.get("/", function (req, resp) {
-        resp.render("profile", { title: "Profile", username:req.session.name , img:req.session.img});
+  resp.render("profile", { title: "Profile", email:req.session.user, username:req.session.name , img:req.session.img, pass: req.session.password});
 })
 
 
-router.post("/",function(req,resp){
-  console.log("the post request data = ", req.body);
-    // resp.render("profile",{title:"Profile"});
+router.post("/", uploadedFile.single("img"), bodyParser.urlencoded({extended: false}),function(req,resp){
+
+  users.update({_id: req.body.email},{password: req.body.password, img:req.file.filename}, function(err,affectedRows) {
+    // console.log('affected rows %d', affectedRows);
+    resp.render("profile", { title: "Profile", email:req.session.user, username:req.session.name, username:req.body.name , img:req.file.filename, pass: req.body.password});
+  });
+
 })
 
 

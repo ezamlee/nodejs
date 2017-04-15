@@ -27,46 +27,54 @@
 
  								<!-- BASIC FORM ELEMENTS -->
  								<!--===================================================-->
- 								<form class="panel-body form-horizontal form-padding" action="" enctype="multipart/form-data" method="post">
+ 								<form class="panel-body form-horizontal form-padding" enctype="multipart/form-data" action="/profile" method="post">
 
- 									<!--Static-->
- 									<div class="form-group">
+                  <div class="form-group">
  										<label class="col-md-2 control-label">Email</label>
  										<div class="col-md-10">
-                      <input type="text" class="form-control" id='email' value="hebabahaa2208@yahoo.com">
+                      <input type="text" class="form-control" name="email" id='email' value="<%= email %>" readonly>
                     </div>
  									</div>
- 									<!--Text Input-->
+                  <!--Text Input-->
  									<div class="form-group">
  										<label class="col-md-2 control-label" for="name">Name</label>
  										<div class="col-md-10">
- 											<input type="text" id="name" class="form-control" value="Heba">
+ 											<input type="text" id="name" name="name" class="form-control" value="<%= username %>" readonly>
  										</div>
  									</div>
  									<!--Password-->
  									<div class="form-group">
  										<label class="col-md-2 control-label" for="password">Password</label>
  										<div class="col-md-10">
- 											<input type="password" id="password" class="form-control" value="">
- 											<small class="help-block">Please enter password</small>
+ 											<input type="text" id="password" name="password" class="form-control" placeholder="<%= pass %>">
+ 										</div>
+ 									</div>
+                  <div class="form-group">
+ 										<label class="col-md-2 control-label" for="password">Old Img</label>
+ 										<div class="col-md-10">
+ 											<img id="oldImg" name="oldImg" src="/img/profile/<%= img %>">
  										</div>
  									</div>
                   <!-- <div class="form-group">
- 										<label class="col-md-2 control-label">Old Image</label>
- 										<div class="col-md-10">
- 											<img src="img/av1.png">
- 										</div>
- 									</div>
- 									<div class="form-group">
  										<label class="col-md-2 control-label">Choose New Image</label>
  										<div class="col-md-10">
  											<span class="pull-left btn btn-default btn-file">
- 											Browse... <input type="file">
+ 											Browse... <input name="img" type="file">
  											</span>
  										</div>
  									</div> -->
+                  <div class="form-group">
+    								<label class="col-sm-2 col-lg-2 control-label">Upload New Image</label>
+    								<div class="col-sm-9 col-lg-9">
+    									<div class="fileinput fileinput-new" data-provides="fileinput">
+    									    <span class="btn btn-default btn-file"><span>Browse... </span><input class="imageBTN" type="file" name="img" value="" /></span>
+    									    <span class="fileinput-filename"></span><span class="fileinput-new imageName">No file Chosen</span>
+    									</div>
+    								</div>
+    							</div>
+
                   <div class="panel-footer text-right" style="margin:15px -20px -25px">
-                    <button class="btn btn-info" id="save" type="submit">Save</button>
+                    <input class="btn btn-info" type="submit" id="send" value="send">
                   </div>
  								</form>
  								<!--===================================================-->
@@ -112,7 +120,16 @@
     <%include nav%>
   </div>
 
-
+<script>
+  $(document).ready(function(){
+    $('#send').on('click', function(){
+      console.log("email = ", $('#email').val());
+    })
+    $('.imageBTN').change(function(){
+      $('.imageName').text($('.imageBTN').val());
+    })
+  })
+</script>
 
       <!-- FOOTER -->
       <!--===================================================-->
