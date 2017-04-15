@@ -11,11 +11,9 @@ router.use("/",(req,resp,next)=>{
         resp.send("no page to be loaded");
     }else{
         users.find({"_id":req.session.user},(err,data)=>{
-            console.log(data)
             if(data.length < 1){
                 resp.send("user doesnt exit");
             }else{
-                console.log("user loaded successfully")
                 req.session.name = data[0].name;
                 req.session.img  = data[0].img;
                 next()
@@ -72,7 +70,6 @@ router.get("/menu/:id",(req,resp)=>{
 })
 router.get("/invited/:id",(req,resp)=>{
 	orders.find({"_id":req.params.id},{"users_invited":1,"_id":0},(err,data)=>{
-		console.log(data)
 		resp.send(data[0]);
 	})
 })

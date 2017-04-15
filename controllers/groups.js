@@ -11,7 +11,6 @@ router.use("/",(req,resp,next)=>{
         resp.send("no page to be loaded");
     }else{
         users.find({"_id":req.session.user},(err,data)=>{
-            console.log(data)
             if(data.length < 1){
                 resp.send("user doesn't exit");
             }else{
