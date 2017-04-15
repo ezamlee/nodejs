@@ -10,10 +10,10 @@ var postParser = bodyParser.urlencoded({extended: true})
 
 router.use("/",(req,resp,next)=>{
 	try{
-	    if(!(req.session.user)){
+	    if(!(req.session.passport.user)){
 	        resp.send("no page to be loaded");
 	    }else{
-	        users.find({"_id":req.session.user},(err,data)=>{
+	        users.find({"_id":req.session.passport.user},(err,data)=>{
 	            if(data.length < 1){
 	                resp.send("user doesnt exit");
 	            }else{
@@ -37,7 +37,7 @@ router.get("/", (req, resp)=> {
 router.get("/list/:id",(req,resp)=>{
 	try{
 		orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1,"status":1},(err,data)=>{
-			if(req.session.user == data[0].owner && data[0].status == "ongoing"){
+			if(req.session.passport.user == data[0].owner && data[0].status == "ongoing"){
 				var respond = [data[0] ,true]
 				resp.send(respond);
 			}else{
@@ -73,7 +73,7 @@ router.get("/menu/:id",(req,resp)=>{
 })
 router.put("/update/:id",postParser,(req,resp)=>{
 	try{
-		req.body._id  = req.session.user;
+		req.body._id  = req.session.passport.user;
 		req.body.name = req.session.name;
 		console.log(req.body)
 		orders.update({"_id":parseInt(req.params.id),"status":"ongoing"},{"$push":{"order_detail":req.body}},(err,rr)=>{
@@ -90,7 +90,7 @@ router.put("/update/:id",postParser,(req,resp)=>{
 })
 router.post("/finish/:id",postParser,(req,resp)=>{
 	try{
-		orders.update({"_id":parseInt(req.params.id),"status":"ongoing","owner":req.session.user},{$set:{"status":"finished"}},(err,mod)=>{
+		orders.update({"_id":parseInt(req.params.id),"status":"ongoing","owner":req.session.passport.user},{$set:{"status":"finished"}},(err,mod)=>{
 			if(mod.nModified < 1)
 				resp.send("error");
 			else{
@@ -103,7 +103,7 @@ router.post("/finish/:id",postParser,(req,resp)=>{
 })
 router.delete("/cancel/:id",(req,resp)=>{
 	try{
-		orders.remove({"_id":parseInt(req.params.id),"status":"ongoing","owner":req.session.user},(err)=>{
+		orders.remove({"_id":parseInt(req.params.id),"status":"ongoing","owner":req.session.passport.user},(err)=>{
 			if(err)
 				resp.send("error");
 			else{

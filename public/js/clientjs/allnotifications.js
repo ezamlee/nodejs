@@ -18,7 +18,7 @@ var listAllNotifications = function(){
   $('#allnotifications').html();
   $.ajax({
     url:"allnotifications/list",
-    method:"",
+    method:"get",
     success:(data)=>{
       data.forEach((obj) => {
           console.log("obj.notifications = ", obj.notifications[0].message);
