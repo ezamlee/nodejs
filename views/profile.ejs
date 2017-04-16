@@ -1,0 +1,148 @@
+<%include header %>
+    <%include topNav %>
+
+  <div class="boxed">
+
+    <!--CONTENT CONTAINER-->
+    <!--===================================================-->
+    <div id="content-container">
+
+      <!--Page Title-->
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <div id="page-title">
+        <h1 class="page-header text-overflow" ><%= title%></h1>
+      </div>
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!--End page title-->
+
+      <!--Page content-->
+      <!--===================================================-->
+      <div id="page-content">
+           <div class="row">
+             <div class="col-lg-8 col-lg-offset-2">
+ 							<div class="panel">
+ 								<div class="panel-heading">
+ 									<h3 class="panel-title text-center">Profile</h3>
+ 								</div>
+
+ 								<!-- BASIC FORM ELEMENTS -->
+ 								<!--===================================================-->
+ 								<form class="panel-body form-horizontal form-padding" enctype="multipart/form-data" action="/profile" method="post">
+
+                  <div class="form-group">
+ 										<label class="col-md-2 control-label">Email</label>
+ 										<div class="col-md-10">
+                      <input type="text" class="form-control" name="email" id='email' value="<%= email %>" readonly>
+                    </div>
+ 									</div>
+                  <!--Text Input-->
+ 									<div class="form-group">
+ 										<label class="col-md-2 control-label" for="name">Name</label>
+ 										<div class="col-md-10">
+ 											<input type="text" id="name" name="name" class="form-control" value="<%= username %>" readonly>
+ 										</div>
+ 									</div>
+ 									<!--Password-->
+ 									<div class="form-group">
+ 										<label class="col-md-2 control-label" for="password">Password</label>
+ 										<div class="col-md-10">
+ 											<input type="text" id="password" name="password" class="form-control" placeholder="<%= pass %>">
+ 										</div>
+ 									</div>
+                  <div class="form-group">
+ 										<label class="col-md-2 control-label" for="password">Old Img</label>
+ 										<div class="col-md-10">
+ 											<img id="oldImg" name="oldImg" src="/img/profile/<%= img %>">
+ 										</div>
+ 									</div>
+                  <!-- <div class="form-group">
+ 										<label class="col-md-2 control-label">Choose New Image</label>
+ 										<div class="col-md-10">
+ 											<span class="pull-left btn btn-default btn-file">
+ 											Browse... <input name="img" type="file">
+ 											</span>
+ 										</div>
+ 									</div> -->
+                  <div class="form-group">
+    								<label class="col-sm-2 col-lg-2 control-label">Upload New Image</label>
+    								<div class="col-sm-9 col-lg-9">
+    									<div class="fileinput fileinput-new" data-provides="fileinput">
+    									    <span class="btn btn-default btn-file"><span>Browse... </span><input class="imageBTN" type="file" name="img" value="" /></span>
+    									    <span class="fileinput-filename"></span><span class="fileinput-new imageName">No file Chosen</span>
+    									</div>
+    								</div>
+    							</div>
+
+                  <div class="panel-footer text-right" style="margin:15px -20px -25px">
+                    <input class="btn btn-info" type="submit" id="send" value="send">
+                  </div>
+ 								</form>
+ 								<!--===================================================-->
+ 								<!-- END BASIC FORM ELEMENTS -->
+
+
+ 							</div>
+ 						</div>
+           </div>
+      </div>
+      <!--===================================================-->
+      <!--End page content-->
+
+
+    </div>
+    <!--===================================================-->
+    <!--END CONTENT CONTAINER-->
+
+    <!-- start profile Modal -->
+    <div id="profile" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end profile modal -->
+
+
+
+    <%include nav%>
+  </div>
+
+<script>
+  $(document).ready(function(){
+    $('#send').on('click', function(){
+      console.log("email = ", $('#email').val());
+    })
+    $('.imageBTN').change(function(){
+      $('.imageName').text($('.imageBTN').val());
+    })
+  })
+</script>
+
+      <!-- FOOTER -->
+      <!--===================================================-->
+      <footer id="footer">
+          <p class="pad-lft">&#0169; 2017 Yala Otlob</p>
+      </footer>
+      <!--===================================================-->
+      <!-- END FOOTER -->
+
+
+      <!-- SCROLL TOP BUTTON -->
+      <!--===================================================-->
+      <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+      <!--===================================================-->
+
+<%include footer%>

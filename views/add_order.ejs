@@ -1,0 +1,77 @@
+<% include header %>
+    <% include topNav %>
+        <div style="height:10vh;"></div>
+        <!--Page content-->
+        <!--===================================================-->
+        <div id="page-content">
+            <div style="height:5vh"></div>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
+                    <!--<form method="post" action="/add" enctype="multipart/form-data">-->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Add Order</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group pad-ver">
+                                    <label style="font-size:15px" class="col-md-12 control-label">Choose Your Order Type</label>
+                                    <div class="col-md-9">
+                                        <div class="radio" id="order_type">
+                                            <!-- Inline radio buttons -->
+                                            <label style="font-size:15px" class="form-radio form-normal active"><input type="radio" checked="" name="order-type"> Breakfast</label>
+                                            <label style="font-size:15px" class="form-radio form-normal"><input type="radio" name="order-type"> Lunch</label>
+                                            <label style="font-size:15px" class="form-radio form-normal"><input type="radio" name="order-type"> Dinner</label>
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                </div>
+                                    <label style="font-size:15px" class="col-md-12 control-label" for="demo-text-input">Restaurant Name</label>
+                                    <div class="col-md-9" id="restaurant_name">
+                                        <input type="text" id="demo-text-input" class="form-control" placeholder="Text">
+                                        <small class="help-block">This is a help text</small>
+                                    </div>
+                                </div>
+                                <!--===================================================-->
+
+                                <div class="col-xs-12">
+                                    <p style="font-size:15px">Invite People</p>
+                                    <select id="demo-cs-multiselect" data-placeholder="Select Friends or Groups" multiple tabindex="4">
+                                        <!--<option value="Heba">Heba</option>
+                                        <option value="Omar">Omar</option>-->
+                                        <% usrData.groups.forEach(function(x){ %>
+                                            <option value="<%=x%>"><%=x%></option>
+                                        <%});%>
+                                        <% usrData.friends.forEach(function(x){ %>
+                                            <option value="<%=x%>"><%=x%></option>
+                                        <%});%>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+    								<label style="font-size:15px" class="col-md-12 control-label">Upload Menu</label>
+    								<div class="col-md-9">
+    									<span class="pull-left btn btn-default btn-file">
+    										Browse... <input type="file" name="menu" id="menu">
+    									</span>
+    								</div>
+    							</div>
+                                <!--===================================================-->
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button id="logbtsubmit" type="submit" class="btn btn-lg btn-primary pull-right">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+        <!--===================================================-->
+        <!--End page content-->
+        <!--===================================================-->
+        <!--END CONTENT CONTAINER-->
+        <script type="text/javascript" src="js/clientjs/add_order.js">
+
+        </script>
+    <% include nav %>
+<% include footer %>

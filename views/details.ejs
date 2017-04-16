@@ -1,0 +1,127 @@
+<%include header %>
+    <%include topNav %>
+    <script>
+      var orderid = <%= orderid %> ;
+      console.log(orderid);
+    </script>
+  <div class="boxed">
+    <!--CONTENT CONTAINER-->
+    <!--===================================================-->
+    <div id="content-container">
+
+      <!--Page Title-->
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <div id="page-title">
+        <h1 class="page-header text-overflow"><%= title%></h1>
+        <button id="modaladd" class="btn btn-primary btn-labeled fa fa-plus-square" data-toggle="modal" data-target="#addItem">Add Item</button>
+        <button id="btmenu" class="btn btn-info btn-labeled fa fa-eye" data-toggle="modal" data-target="#menu">View Menu</button>
+      </div>
+      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!--End page title-->
+
+      <!--Page content-->
+      <!--===================================================-->
+      <div id="page-content">
+           <h3 class="text-thin"></h3>
+           <div class="row">
+               <div id="details">
+               </div>
+           </div>
+           <div class="text-center" style="margin-top: 30px;">
+             <ul class="pagination mar-no">
+               <li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
+               <li class="active"><a href="#">1</a></li>
+               <li><a class="fa fa-angle-double-right" href="#"></a></li>
+             </ul>
+           </div>
+      </div>
+      <!--===================================================-->
+      <!--End page content-->
+
+
+    </div>
+    <!--===================================================-->
+    <!--END CONTENT CONTAINER-->
+
+
+    <!-- start new Itam Modal -->
+    <div id="addItem" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Item</h4>
+          </div>
+          <div class="modal-body">
+            <div action="" method="post">
+               <div class="form-group">
+                 <label for="item">Item:</label>
+                 <input type="text" class="form-control" id="item" required>
+               </div>
+               <div class="form-group">
+                 <label for="amount">Amount:</label>
+                 <input type="number" class="form-control" id="amount" required>
+               </div>
+               <div class="form-group">
+                 <label for="price">Price:</label>
+                 <input type="number" class="form-control" id="price" required>
+               </div>
+               <div class="form-group">
+                 <label for="comment">Comment:</label>
+                 <input type="text" class="form-control" id="comment" required>
+               </div>
+               <button id="btadd" class="btn btn-success">Add Item</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end new Itam modal -->
+
+    <!-- start view menu Modal -->
+    <div id="menu" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Restaurant Menu</h4>
+          </div>
+          <div class="modal-body">
+            <img id="resmenu" src="" class="img-responsive">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end view menu modal -->
+    <%include nav%>
+  </div>
+
+
+
+      <!-- FOOTER -->
+      <!--===================================================-->
+      <footer id="footer">
+          <p class="pad-lft">&#0169; 2017 Yala Otlob</p>
+      </footer>
+      <!--===================================================-->
+      <!-- END FOOTER -->
+
+
+      <!-- SCROLL TOP BUTTON -->
+      <!--===================================================-->
+      <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+      <!--===================================================-->
+<script src="js/clientjs/details.js"></script>
+<%include footer%>
