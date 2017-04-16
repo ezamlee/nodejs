@@ -53,7 +53,7 @@ router.post("/", uploadedFile.single("img"), bodyParser.urlencoded({extended: fa
       resp.render("profile", { title: "Profile", email:req.session.passport.user, username:req.session.name, username:req.body.name , img:req.file.filename, pass: req.session.password});
     });
   }else if (req.file != "undefined" && req.body.password != '') {
-    users.update({_id: req.body.email},{img:req.file.filename}, function(err,affectedRows) {
+    users.update({_id: req.body.email},{password: req.body.password, img:req.file.filename}, function(err,affectedRows) {
       resp.render("profile", { title: "Profile", email:req.session.passport.user, username:req.session.name, username:req.body.name , img:req.file.filename, pass: req.body.password});
     });
   }
