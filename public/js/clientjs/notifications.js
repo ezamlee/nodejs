@@ -29,19 +29,22 @@ var listNotifications = function(){
     url:"allnotifications/list",
     method:"get",
     success:(data)=>{
-      data.forEach((obj) => {
-          console.log("n= ",data.length);
-          if (obj.notifications[0].is_invited == false) {
-            $("#Notifications").append(notificationType1(obj._id, obj.notifications[0].message));
-          }
-          else {
-            $("#Notifications").append(notificationType2(obj._id, obj.notifications[0].message));
-          }
-          $(".notify").append(notificationsNumber(data.length));
-      })
+      if (data.length >= 1) {
+        data.forEach((obj) => {
+            console.log("n= ",data.length);
+            if (obj.notifications[0].is_invited == false) {
+              $("#Notifications").append(notificationType1(obj._id, obj.notifications[0].message));
+            }
+            else {
+              $("#Notifications").append(notificationType2(obj._id, obj.notifications[0].message));
+            }
+            $(".notify").append(notificationsNumber(data.length));
+        })
+      }
+
     },
     fail:(err)=>{
-      console.log(err);
+      display_error("server error");
     }
   })
 }

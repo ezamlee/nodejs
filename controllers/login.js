@@ -158,6 +158,12 @@ app.post('/reset/:token', function(req, res) {
     res.render('login.ejs', { title: req.flash('loginMessage') });
   });
 
+  app.get('/logout', function(req, res) {
+    req.session.destroy()
+    req.logout()
+    res.redirect('/')
+  });
+
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/home',

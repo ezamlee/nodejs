@@ -20,12 +20,28 @@ $(document).ready(function ()  {
         console.log($('#menu')[0].files[0]);
         var menu = JSON.stringify($('#menu')[0].files[0]);
         console.log(menu);
-        var invited_friends=JSON.stringify(["Heba Bahaa"]);
+        var i_f=[];
+        $("#demo-cs-multiselect option:selected").each(function (op) {
+            console.log("==================="+$(this).attr("value"));
+            console.log($(this).attr("selected"));
+            //if ($(this).attr("selected")) {
+                i_f.push($(this).attr("value"));
+            //}
+        });
+        var o_t="";
+        $("#ordertype input:checked").each(function (inp) {
+            console.log("--------------"+$(this).attr("value"));
+            //if ($(this).checked) {
+                o_t=$(this).attr("value");
+            //}
+        });
+        var r_n=$("#demo-text-input").val();
+        var invited_friends=JSON.stringify(i_f);
         var formData = new FormData();
         formData.append('menu', $('#menu')[0].files[0]);
-        formData.append('email', "ahmed@gmail.com");
-        formData.append('order_type', "Lunch");
-        formData.append('restaurant_name', "KFC");
+        //formData.append('email', req.session.passport.user);
+        formData.append('order_type', o_t);
+        formData.append('restaurant_name', r_n);
         formData.append('invited_friends', invited_friends);
 
         // console.log(formData);
@@ -71,10 +87,10 @@ $(document).ready(function ()  {
         usrData.groups.forEach(function (gr) {
             if (this.value==gr) {
                 g=gr;
-                break;
+                //break;
             }
         });
-        
+
     });
 
 })
