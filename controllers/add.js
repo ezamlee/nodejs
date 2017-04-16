@@ -24,22 +24,22 @@ var async = require("async");
 function dummyData(req) {
     var id = "ahmed@gmail.com";
     //router.use("/",function (req,res,next) {
-        req.session.user=id;
+        req.session.passport.user=id;
     //    next();
     //});
 }
-//
+//req.session.passport.user
 router.use("/",(req,resp,next)=>{
 
     //initialize dummy data..
     //dummyData(req);
     //
+//req.session.user=req.session.passport.user;
 
-
-    if(!(req.session.user)){
+    if(!(req.session.passport.user)){
         resp.redirect("/login");
     }else{
-        users.find({"_id":req.session.user},(err,data)=>{
+        users.find({"_id":req.session.passport.user},(err,data)=>{
             console.log("retrived session user from db "+data)
             if(data.length < 1){
                 resp.send("user doesnt exit");
@@ -97,7 +97,7 @@ router.use("/",(req,resp,next)=>{
 // .. need to know how is the session managed in order to identify the requestig user ... since we're using "client-sessions" then data is sent on request body ...
 router.get("/",function(req,resp){
     var tmpdata;
-    users.findOne({"email": req.session.user
+    users.findOne({"email": req.session.passport.user
                                         /*email using data from session..*/
                                     },"name img groups friends",function (err,data) {
         if (!err) {
@@ -296,15 +296,17 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
             )
         )) {
             console.log("==================================\n\nmeal type OK..");
+            console.log(fields.order_type);
         }else {
             console.log("==================================\n\nmeal type FAIL..");
+            console.log(fields.order_type);
             //resp.writeHead(400);
             resp.statusCode=400;
             ok=false;
             resp.locals={"error":"meal type error"};
             resp.write("meal type error");
             resp.end("error");
-            resp.abort();
+            //resp.abort();
         }
 
 
@@ -316,15 +318,17 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
             fields.restaurant_name != ""
         )) {
             console.log("==================================\n\nrestaurant name OK..");
+            console.log(fields.restaurant_name);
         }else {
             console.log("==================================\n\nrestaurant name FAIL..");
+            console.log(fields.restaurant_name);
             //resp.writeHead(400);
             resp.statusCode=400;
             ok=false;
             resp.locals={"error":"restaurant name error"};
             resp.write("restaurant name error");
             resp.end("error");
-            resp.abort();
+            //resp.abort();
         }
 
         if ((
@@ -335,15 +339,17 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
             JSON.parse(fields.invited_friends).length > 0
         )) {
             console.log("==================================\n\ninvited_friends name OK..");
+            console.log(fields.invited_friends);
         } else {
             console.log("==================================\n\ninvited_friends name FAIL..");
+            console.log(fields.invited_friends);
             //resp.writeHead(400);
             resp.statusCode=400;
             ok=false;
             resp.locals={"error":"invited friends error"};
             resp.write("invited friends error");
             resp.end("error");
-            resp.abort();
+            //resp.abort();
         }
 
         if ((
@@ -389,7 +395,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
                     new_order._id=y[0]._id+1;
                     console.log("new_order._id  "+new_order._id);
-                    new_order.owner=fields.email;
+                    new_order.owner=req.session.passport.user;
                     new_order.meal=fields.order_type;
                     new_order.restaurant_name=fields.restaurant_name;
                     new_order.users_invited=JSON.parse(fields.invited_friends);
@@ -429,8 +435,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                 console.log("activity y "+y);
 
                                         new_activity._id=y[0]._id+1;
-                                        console.log("query email "+ fields.email);
-                                        mongoose.model("users").find({email:fields.email},['name',"img"],{},function (err,u) {
+                                        console.log("query email "+ req.session.passport.user);
+                                        mongoose.model("users").find({email:req.session.passport.user},['name',"img"],{},function (err,u) {
                                             console.log("activity user "+u);
                                             console.log("activity user _id"+u[0]._id);
                                             //console.log("activity user "+JSON.parse(u));
@@ -439,7 +445,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                             console.log("activity user image "+u[0].img);
                                             console.log(u.img);
                                             new_activity.name=u[0].name;
-                                            new_activity.email=fields.email;
+                                            new_activity.email=req.session.passport.user;
                                             new_activity.img=u[0].img; // tbc..
                                             new_activity.activity="create new order";
                                             new_activity.save(function (err) {
@@ -471,7 +477,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                     var usr1;
                                     console.log("mail "+mail);
                                     users.find({
-                                        email:fields.email
+                                        email:req.session.passport.user
                                     },
                                     ['name'],{},function (err,u) {
                                         usr1=u[0].name;
@@ -511,7 +517,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                 });
 
                             }
-                            //notifications._id=fields.email;
+                            //notifications._id=req.session.passport.user;
 
 
                         }
@@ -525,7 +531,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
             console.log("nothing saved .. wrong data from client !!");
 
         }
-        // console.log("fields.email "+fields.email);
+        // console.log("req.session.passport.user "+req.session.passport.user);
         // console.log("fields.order_type "+ fields.order_type);
         // console.log("fields.restaurant_name "+fields.restaurant_name);
         // console.log("fields.invited_friends " +JSON.parse(fields.invited_friends));
@@ -593,7 +599,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     //         _id:-1
                     //     }
                     // ).limit(1)._id + 1;
-                    // new_order.owner=fields.email;
+                    // new_order.owner=req.session.passport.user;
                     // new_order.meal=fields.order_type;
                     // new_order.restaurant_name=fields.restaurant_name;
                     // new_order.users_invited=JSON.parse(fields.invited_friends);
@@ -631,8 +637,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     //                     _id:-1
                     //             }
                     //         ).limit(1)._id + 1;
-                    //         new_activity.name=mongoose.model("users").find({email:fields.email},{name:true}).name;
-                    //         new_activity.email=fields.email;
+                    //         new_activity.name=mongoose.model("users").find({email:req.session.passport.user},{name:true}).name;
+                    //         new_activity.email=req.session.passport.user;
                     //         new_activity.img=req.file.path; // tbc..
                     //         new_activity.activity="create new order";
                     //         new_activity.save(function (err) {
@@ -654,7 +660,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     //                     "$push":{
                     //                         notifications:{
                     //                             message:users.find({
-                    //                                 email:fields.email
+                    //                                 email:req.session.passport.user
                     //                             },
                     //                             {
                     //                                 name:true
@@ -682,7 +688,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     //             );
                     //
                     //         }
-                    //         //notifications._id=fields.email;
+                    //         //notifications._id=req.session.passport.user;
                     //
                     //
                     //     }
