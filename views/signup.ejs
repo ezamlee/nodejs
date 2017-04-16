@@ -1,4 +1,5 @@
 <%include header %>
+
 	<div id="container" class="cls-container">
 
 		<% if (title.length > 0) { %>
@@ -50,16 +51,17 @@
       										</div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-envelope fa-lg"></i></span>
-                            <input type="texr" class="form-control input-lg" placeholder="Email" name="email">
+                            <input type="email" class="form-control input-lg" placeholder="Email" name="email">
                           </div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
-                            <input type="password" class="form-control input-lg" placeholder="NaPasswordme" name="password">
+                            <input type="password" class="form-control input-lg" placeholder="NaPasswordme" name="password" id="password">
                           </div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
-                            <input type="password" class="form-control input-lg" placeholder="Confirm Password">
-                          </div>
+                            <input type="password" class="form-control input-lg" placeholder="Confirm Password" id="confirm_password">
+													 <span id='message'></span>
+													 </div>
                           <div class="input-group mar-btm text-center">
                             <span class="input-group-addon"><i class="fa fa-upload fa-lg"></i></span>
                             <span class="pull-left btn btn-default btn-file">
@@ -83,6 +85,13 @@
 
 
 	</div>
+	<script>
+	$('#confirm_password').on('keyup', function () {
+    if ($(this).val() == $('#password').val()) {
+        $('#message').html('matching').css('color', 'green');
+    } else $('#message').html('not matching').css('color', 'red');
+});
+	</script>
 	<!--===================================================-->
 	<!-- END OF CONTAINER -->
 
