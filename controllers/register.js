@@ -22,7 +22,7 @@ module.exports = function (app, passport,session) {
    // show the signup form
    app.get('/signup', function(req, res) {
      console.log(req.flash('loginMessage'));
-     res.render('signup.ejs',{ title: "error"});
+     res.render('signup.ejs',{ title: "sign-up"});
 
    });
 
