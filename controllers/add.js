@@ -147,8 +147,9 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
   // once all the files have been uploaded, send a response to the client
   form.on('end', function() {
     if (ok) {
-            resp.end('success');
+
             console.log("form end success");
+            //end
     }
   });
 
@@ -273,8 +274,12 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
             },function (err,y) {
 
                 console.log("orders y from db "+y);
-
+                if (err) {
+                        new_order._id=1;
+                }else {
                     new_order._id=y[0]._id+1;
+                }
+
                     console.log("new_order._id  "+new_order._id);
                     new_order.owner=req.session.passport.user;
                     new_order.meal=fields.order_type;
@@ -314,8 +319,11 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                             },function (err,y) {
 
                                 console.log("activity y "+y);
-
+                                if (err) {
+                                        new_order._id=1;
+                                }else {
                                         new_activity._id=y[0]._id+1;
+                                    }
                                         console.log("query email "+ req.session.passport.user);
                                         mongoose.model("users").find({email:req.session.passport.user},['name',"img"],{},function (err,u) {
                                             console.log("activity user "+u);
@@ -390,6 +398,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                     console.log("error notifications update"+err);
                                                 }else {
                                                     console.log("updated " + n + " fields !");
+
                                                 }
                                             }
                                         );
@@ -408,6 +417,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
 
         );
+
         }else {
             console.log("nothing saved .. wrong data from client !!");
 
@@ -420,7 +430,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
 
 
-
+resp.render("orders",{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
 
 });
 
