@@ -18,9 +18,11 @@ var async = require("async");
 //
 
 function dummyData(req) {
-    var id = "ahmed@gmail.com";
-
-        req.session.passport.user=id;
+    var id = req.session.passport.user;
+    //router.use("/",function (req,res,next) {
+        req.session.user=id;
+    //    next();
+    //});
 }
 
 router.use("/",(req,resp,next)=>{

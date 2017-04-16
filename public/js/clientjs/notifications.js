@@ -29,6 +29,7 @@ var listNotifications = function(){
     url:"allnotifications/list",
     method:"get",
     success:(data)=>{
+      console.log(data);
       if (data.length >= 1) {
         data.forEach((obj) => {
             console.log("n= ",data.length);
