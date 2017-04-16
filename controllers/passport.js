@@ -87,7 +87,7 @@ console.log("notok");
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
-      console.log("here aha");
+
         // asynchronous
         process.nextTick(function() {
 
@@ -100,9 +100,10 @@ console.log("notok");
                     return done(err);
 
                 // check to see if there's already a user with that email
-                if (existingUser)
+                if (existingUser){
+                console.log("user is exist");
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-
+}
                 //  If we're logged in, we're connecting a new local account.
                 if(req.user) {
                     var user = req.user;
@@ -130,8 +131,12 @@ console.log("notok");
                     newUser.orders=[];
                     newUser.groups=[];
                     console.log(req.file);
-                    newUser.img=req.file.originalname;
-
+                    if(req.file!=undefined){
+                        newUser.img=req.file.originalname;
+                    }
+                    else {
+                      newUser.img="av2.png";
+                    }
                     newUser.save(function(err) {
                         if (err)
                             throw err;
