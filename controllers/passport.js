@@ -5,6 +5,8 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var flash    = require('connect-flash');
 var cloudinary = require('cloudinary');
+var multer =require('multer');
+var uploadedFile = multer({dest: __dirname + "/../public/img/profile"});
 // load up the user model
 var User = require('../models/users');
 
@@ -85,7 +87,7 @@ console.log("notok");
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
-      console.log("here");
+      console.log("here aha");
         // asynchronous
         process.nextTick(function() {
 
@@ -127,6 +129,8 @@ console.log("notok");
                     newUser.friends=[];
                     newUser.orders=[];
                     newUser.groups=[];
+                    console.log(req.file);
+                    newUser.img=req.file.originalname;
 
                     newUser.save(function(err) {
                         if (err)
@@ -196,6 +200,7 @@ console.log("notok");
                         newUser.friends=[];
                         newUser.orders=[];
                         newUser.groups=[];
+                        newUser.img="av2.png";
 
                         newUser.save(function(err) {
                             if (err)
@@ -355,6 +360,7 @@ console.log("notok");
                         newUser.friends=[];
                         newUser.orders=[];
                         newUser.groups=[];
+                        newUser.img="av2.png";
                         newUser.save(function(err) {
                             if (err)
                                 throw err;
