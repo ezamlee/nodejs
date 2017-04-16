@@ -18,7 +18,7 @@ router.use("/",(req,resp,next)=>{
                     console.log(data);
                     req.session.name = data[0].name;
                     req.session.img  = data[0].img;
-                    next()        
+                    next()
                 }
             })
         }

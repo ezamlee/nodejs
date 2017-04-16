@@ -16,21 +16,28 @@ var notificationType2 = function(id, message){
             </li>
                     `;
 };
+var notificationsNumber = function(n){
+    return `
+            <span class="badge badge-header badge-danger">${n}</span>
+                    `;
+};
 
 
-var listAllNotifications = function(){
+var listNotifications = function(){
   $('#Notifications').html();
   $.ajax({
     url:"allnotifications/list",
-    method:"",
+    method:"get",
     success:(data)=>{
       data.forEach((obj) => {
+          console.log("n= ",data.length);
           if (obj.notifications[0].is_invited == false) {
-            $("#Notifications").append(messageWithBtn(obj._id, obj.notifications[0].message));
+            $("#Notifications").append(notificationType1(obj._id, obj.notifications[0].message));
           }
           else {
-            $("#Notifications").append(messageWithoutBtn(obj._id, obj.notifications[0].message));
+            $("#Notifications").append(notificationType2(obj._id, obj.notifications[0].message));
           }
+          $(".notify").append(notificationsNumber(data.length));
       })
     },
     fail:(err)=>{
@@ -41,5 +48,5 @@ var listAllNotifications = function(){
 
 
 $(function(){
-  listAllNotifications();
+  listNotifications();
 })

@@ -1,3 +1,16 @@
+var multer =require('multer');
+
+var storage = multer.diskStorage({
+        destination: function(req, file, cb) {
+            cb(null, __dirname + '/../public/img/profile'); // Make sure this folder exists
+        },
+        filename: function(req, file, cb) {
+            var ext = file.originalname.split('.').pop();
+            cb(null, file.originalname);
+        }
+    }),
+    upload = multer({ storage: storage }).single('img');
+
 module.exports = function (app, passport,session) {
 
 //=============================================================================
@@ -15,7 +28,7 @@ module.exports = function (app, passport,session) {
 
 
    // process the signup form
-   app.post('/signup', passport.authenticate('local-signup', {
+   app.post('/signup',upload, passport.authenticate('local-signup', {
 
      successRedirect : '/profile', // redirect to the secure profile section
      failureRedirect : '/signup', // redirect back to the signup page if there is an error
