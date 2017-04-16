@@ -1,10 +1,14 @@
-var activityBlock = function(ownerId, ownerImg, ownerName, activityStat){
+var activityBlock = function(ownerId, ownerImg, ownerName, restaurant_name, activityStat){
     return `
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="activity">
                   <a href="" data-toggle="modal" data-target="#${ownerId}"><img src="img/profile/${ownerImg}"></a>
                   <h4><a href="" class="text-primary text-thin" data-toggle="modal" data-target="#${ownerId}">${ownerName}</a></h4>
-                  <h5>${activityStat}</h5>
+                  <h4>has created an order</h4>
+                  <h6>from</h6>
+                  <h4 class="text-pink"><u>${restaurant_name}</u></h4>
+                  <h6>for</h6>
+                  <h4 class="text-pink"><u>${activityStat}</u></h4>
                 </div>
               </div>
                     `;
@@ -60,22 +64,23 @@ var activityList = function(){
         success:(data)=>{
 
           data.forEach(function(obj){
+            //console.log(obj);
             $.ajax({
                 url:"/api/user/"+obj.owner,
                 method:'get',
                 success:(userData)=>{
-                  $("#activities").append(activityBlock(obj._id, userData[0].img, userData[0].name, obj.meal));
+                  $("#activities").append(activityBlock(obj._id, userData[0].img, userData[0].name, obj.restaurant_name, obj.meal));
                   $(".boxed").append(friendModal(obj._id, userData[0].img, userData[0].name, userData[0]._id));
                 },
                 fail:(err) => {
-                    console.log(err);
+                    display_error("server error");
                 }
             });
           })
 
         },
         fail:(err) => {
-            console.log(err);
+            display_error("server error");
         }
     });
 };
@@ -88,10 +93,9 @@ var latestActivity = function(){
             data.forEach(function(obj){
               $("#latestOrders").append(latestOrder(obj._id, obj.meal, obj.date));
             })
-            console.log(data);
         },
         fail:(err) => {
-            console.log(err);
+            display_error("server error");
         }
     });
 };

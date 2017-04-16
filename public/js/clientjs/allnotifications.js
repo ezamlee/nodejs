@@ -31,7 +31,7 @@ var listAllNotifications = function(){
       })
     },
     fail:(err)=>{
-      console.log(err);
+      display_error("server error");
     }
   })
 }

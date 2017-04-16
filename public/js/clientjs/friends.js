@@ -132,7 +132,7 @@ $(document).ready(() => {
                 }
             },
             fail:(err) => {
-                console.log(err);
+                display_error("server error");
             }
         });
 
