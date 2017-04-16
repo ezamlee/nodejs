@@ -47,30 +47,36 @@ router.put("/:friendname",(req,resp)=>{
   }
   if(!validateEmail(req.params.friendname))resp.send("Not an Email")
   else{
-    var obj = req.params.friendname
-    users.find({},{"_id":'true'},(err,data) => {
+    if (req.params.friendname == req.session.passport.user) {
+      display_error("This is your email address!!");
+    }
+    else {
+      var obj = req.params.friendname
+      users.find({},{"_id":'true'},(err,data) => {
 
-      var inArray= function(needle,haystack)
-      {
-          var count=haystack.length;
-          for(var i=0;i<count;i++)
-          {
-              if(haystack[i]._id===needle){return true;}
-          }
-          return false;
-      }
+        var inArray= function(needle,haystack)
+        {
+            var count=haystack.length;
+            for(var i=0;i<count;i++)
+            {
+                if(haystack[i]._id===needle){return true;}
+            }
+            return false;
+        }
 
-      var res = inArray(obj, data);
-      if (res) {
-          users.update({"_id":id},{"$push":{"friends":obj}}, (err,data) => {
-              if(!err)resp.send("Friend Added");
-              else resp.send("Server Error Please try again later");
-          })
-      }
-      else {
-        resp.send("User doesnt exist");
-      }
-    })
+        var res = inArray(obj, data);
+        if (res) {
+            users.update({"_id":id},{"$push":{"friends":obj}}, (err,data) => {
+                if(!err)resp.send("Friend Added");
+                else resp.send("Server Error Please try again later");
+            })
+        }
+        else {
+          resp.send("User doesnt exist");
+        }
+      })
+    }
+
 
 }
 })
