@@ -22,7 +22,7 @@ var async = require("async");
 //
 
 function dummyData(req) {
-    var id = "ahmed@gmail.com";
+    var id = req.session.passport.user;
     //router.use("/",function (req,res,next) {
         req.session.user=id;
     //    next();
