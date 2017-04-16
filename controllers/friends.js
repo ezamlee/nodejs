@@ -6,9 +6,12 @@ var orders = require("../models/orders.js");
 var notifications = require("../models/notifications.js");
 var async = require("async");
 
-var id = "ahmed@gmail.com";
+
+// var id =  req.session.passport.user;
 
 router.use("/",(req,resp,next)=>{
+  var id =  req.session.passport.user;
+
     if(!(req.session.passport.user)){
         resp.redirect("/login");
     }else{
@@ -33,12 +36,16 @@ router.get("/", function (req, resp) {
 
 router.get("/list",function(req,resp){
 
+var id =  req.session.passport.user;
+
   users.find({"_id":id},(err,data) => {
     resp.send(data[0].friends);
   })
 })
 
 router.put("/:friendname",(req,resp)=>{
+  var id =  req.session.passport.user;
+
   var validateEmail = function (email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
@@ -74,6 +81,8 @@ router.put("/:friendname",(req,resp)=>{
 })
 
 router.delete("/:friendname",(req,resp)=>{
+  var id =  req.session.passport.user;
+
     var obj = req.params.friendname
     users.find({"_id":id},(err,data) => {
       var list = data[0].friends;

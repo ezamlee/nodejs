@@ -27,7 +27,11 @@ router.get("/", function (req, resp) {
 })
 
 router.get("/list",(req,resp)=>{
-	var id = "ahmed@gmail.com";
+
+//	var id = "ahmed@gmail.com";
+
+var id =  req.session.passport.user;
+
 	async.waterfall(
 		[
 		    function(callback) {

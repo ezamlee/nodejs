@@ -32,7 +32,7 @@ function dummyData(req) {
 router.use("/",(req,resp,next)=>{
 
     //initialize dummy data..
-    dummyData(req);
+    //dummyData(req);
     //
 
 
