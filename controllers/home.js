@@ -38,8 +38,8 @@ var allData;
 
 router.get("/activityList",function(req,resp){
     var id = "heba@gmail.com";
-
     users.find({"_id":id},(err,data) => {
+        console.log(data)
         friendsArray = data[0].friends;
         orders.find({"owner": {$in: friendsArray}}, (err, data)=>{
           resp.send(data);
