@@ -8,7 +8,7 @@ $(document).ready(function ()  {
 
     //testing
 
-    var invited_friends=["heba"];
+    var invited_friends=["Heba Bahaa"];
     var obj={email:"ahmed@gmail.com",order_type:"Lunch",restaurant_name:"KFC",invited_friends:invited_friends};
     console.log(JSON.stringify(obj));
     var stuff = JSON.stringify(obj);
@@ -20,13 +20,13 @@ $(document).ready(function ()  {
         console.log($('#menu')[0].files[0]);
         var menu = JSON.stringify($('#menu')[0].files[0]);
         console.log(menu);
-        var invited_friends=JSON.stringify(["heba"]);
+        var invited_friends=JSON.stringify(["Heba Bahaa"]);
         var formData = new FormData();
         formData.append('menu', $('#menu')[0].files[0]);
         formData.append('email', "ahmed@gmail.com");
         formData.append('order_type', "Lunch");
         formData.append('restaurant_name', "KFC");
-        formData.append('invited_friends', JSON.stringify(invited_friends));
+        formData.append('invited_friends', invited_friends);
 
         console.log(formData);
         console.log(formData.menu);
