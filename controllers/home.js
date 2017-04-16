@@ -47,7 +47,6 @@ router.get("/activityList",function(req,resp){
     })
 
 })
-
 router.get("/userData",function(req,resp){
     var friendEmail = req.query.q;
     users.find({"_id":friendEmail},(err,data) => {
@@ -55,7 +54,6 @@ router.get("/userData",function(req,resp){
     })
 
 })
-
 router.get("/latestActivity",function(req,resp){
     var id = "ahmed@gmail.com";
     orders.find({"owner":id},(err,data) => {
