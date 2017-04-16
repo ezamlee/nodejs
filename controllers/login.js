@@ -4,6 +4,7 @@ var User = require("../models/users");
 var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+
 module.exports = function (app, passport) {
 app.get("/",function(req,resp){
     resp.render("login",{title:"Login"});
