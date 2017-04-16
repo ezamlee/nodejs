@@ -28,12 +28,12 @@ $(document).ready(function ()  {
         formData.append('restaurant_name', "KFC");
         formData.append('invited_friends', invited_friends);
 
-        console.log(formData);
-        console.log(formData.menu);
-        console.log(formData.email);
-        console.log(formData.order_type);
-        console.log(formData.restaurant_name);
-        console.log(formData.invited_friends);
+        // console.log(formData);
+        // console.log(formData.menu);
+        // console.log(formData.email);
+        // console.log(formData.order_type);
+        // console.log(formData.restaurant_name);
+        // console.log(formData.invited_friends);
 
         $.ajax({
             url:"/add",
@@ -43,10 +43,24 @@ $(document).ready(function ()  {
             data:formData,
             success : (data) =>{
 
+                console.log("success.. response from server ..");
                 console.log(data);
+                console.log(data.error);
+                //console.log(JSON.parse(data));
+                console.log(JSON.stringify(data));
+
+
+
             },
             fail : (err) => {
                 console.log(err);
+                display_error(err)
+            },
+            complete:(msg)=>{
+                if (msg) {
+                    console.log(msg.error);
+                    console.log(msg);
+                }
             }
         })
     })
