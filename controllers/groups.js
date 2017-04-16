@@ -28,14 +28,14 @@ router.get("/", function (req, resp) {
 })
 
 router.get("/list",function(req,resp){
-    var id = "ahmed@gmail.com";
+    var id =  req.session.passport.user;
     users.find({"_id":id},(err,data) => {
         resp.send(data[0].groups);
     })
 })
 
 router.delete("/:groupname",(req,resp) => {
-    var id = "ahmed@gmail.com";
+    var id =  req.session.passport.user;
     users.update( {"_id":id},{ $pull: { "groups" : { "name": req.params.groupname } } }, (err,data) =>{
         if(err){
             resp.send("0");
@@ -50,7 +50,7 @@ router.put("/:groupname",(req,resp)=>{
         name:req.params.groupname,
         members:[]
     }
-    var id = "ahmed@gmail.com";
+    var id =  req.session.passport.user;
     users.update({"_id":id},{"$push":{"groups":obj}}, (err,data) => {
 
         if(!err)resp.send("1");
@@ -58,13 +58,13 @@ router.put("/:groupname",(req,resp)=>{
     })
 })
 router.get("/m/:groupname",(req,resp)=>{
-    var id = "ahmed@gmail.com";
+    var id =  req.session.passport.user;
     users.find({"_id":id}, {"groups":{"$elemMatch":{"name":req.params.groupname}},"_id":0},(err,data)=>{
       resp.send(data);
     })
 })
 router.delete("/remove/:g/:m",(req,resp)=>{
-    var id = "ahmed@gmail.com";
+  var id =  req.session.passport.user;
     users.find({"_id":id},(err,data) => {
         var i = 0,j=0;
         data[0].groups.forEach((obj)=>{
@@ -86,7 +86,7 @@ router.put("/add/:g/:email",(req,resp)=>{
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
-    var id = "ahmed@gmail.com";
+    var id =  req.session.passport.user;
     if(!validateEmail(req.params.email)){
         resp.send("Not Proper mail");
     }
