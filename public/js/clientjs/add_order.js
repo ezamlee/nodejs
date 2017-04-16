@@ -65,6 +65,16 @@ $(document).ready(function ()  {
         })
     })
 
+    $("#demo-cs-multiselect option").on("select",function(e){
 
+        var g;
+        usrData.groups.forEach(function (gr) {
+            if (this.value==gr) {
+                g=gr;
+                break;
+            }
+        });
+        
+    });
 
 })
