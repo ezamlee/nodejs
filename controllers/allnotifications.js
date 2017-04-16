@@ -7,13 +7,12 @@ var notifications = require("../models/notifications.js");
 var async = require("async");
 
 router.use("/",(req,resp,next)=>{
-    if(!(req.session.user)){
+    if(!(req.session.passport.user)){
         resp.redirect("/login");
     }else{
-        users.find({"_id":req.session.user},(err,data)=>{
-            console.log(data)
+        users.find({"_id":req.session.passport.user},(err,data)=>{
             if(data.length < 1){
-                resp.send("user doesnt exit");
+                resp.send("user doesn't exit");
             }else{
                 console.log("user loaded successfully")
                 req.session.name = data[0].name;
@@ -29,14 +28,14 @@ router.get("/", function (req, resp) {
 })
 
 router.get("/list",function(req,resp){
-  notifications.find({'_id': {$ne:req.session.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+  notifications.find({'_id': {$ne:req.session.passport.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
     resp.send(data)
   })
 })
 
 
 // router.get("/listnotification",function(req,resp){
-//   notifications.find({'_id': {$ne:req.session.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+//   notifications.find({'_id': {$ne:req.session.passport.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
 //     resp.send(data)
 //   })
 // })

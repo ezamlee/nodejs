@@ -24,13 +24,12 @@ var notificationsNumber = function(n){
 
 
 var listNotifications = function(){
-  $('#Notifications').html();
   $.ajax({
     url:"allnotifications/list",
     method:"get",
     success:(data)=>{
       console.log(data);
-      if (data.length >= 1) {
+    //  if (data.length >= 1) {
         data.forEach((obj) => {
             console.log("n= ",data.length);
             if (obj.notifications[0].is_invited == false) {
@@ -41,7 +40,7 @@ var listNotifications = function(){
             }
             $(".notify").append(notificationsNumber(data.length));
         })
-      }
+      //  }
 
     },
     fail:(err)=>{

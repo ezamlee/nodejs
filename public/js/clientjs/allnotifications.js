@@ -21,7 +21,6 @@ var listAllNotifications = function(){
     method:"get",
     success:(data)=>{
       data.forEach((obj) => {
-          console.log("obj.notifications = ", obj.notifications[0].message);
           if (obj.notifications[0].is_invited == false) {
             $("#allnotifications").append(messageWithBtn(obj._id, obj.notifications[0].message));
           }
