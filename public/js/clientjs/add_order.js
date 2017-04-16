@@ -10,27 +10,27 @@ $(document).ready(function ()  {
 
     var invited_friends=["Heba Bahaa"];
     var obj={email:"ahmed@gmail.com",order_type:"Lunch",restaurant_name:"KFC",invited_friends:invited_friends};
-    console.log(JSON.stringify(obj));
+    // console.log(JSON.stringify(obj));
     var stuff = JSON.stringify(obj);
 
 //data:{email:"ahmed@gmail.com",order_type:"Lunch",restaurant_name:"KFC",invited_friends:invited_friends,menu:formData}
     //////
     $("#logbtsubmit").on("click",function(e){
-        console.log("submit");
-        console.log($('#menu')[0].files[0]);
+        // console.log("submit");
+        // console.log($('#menu')[0].files[0]);
         var menu = JSON.stringify($('#menu')[0].files[0]);
-        console.log(menu);
+        // console.log(menu);
         var i_f=[];
         $("#demo-cs-multiselect option:selected").each(function (op) {
-            console.log("==================="+$(this).attr("value"));
-            console.log($(this).attr("selected"));
+            // console.log("==================="+$(this).attr("value"));
+            // console.log($(this).attr("selected"));
             //if ($(this).attr("selected")) {
                 i_f.push($(this).attr("value"));
             //}
         });
         var o_t="";
         $("#ordertype input:checked").each(function (inp) {
-            console.log("--------------"+$(this).attr("value"));
+            // console.log("--------------"+$(this).attr("value"));
             //if ($(this).checked) {
                 o_t=$(this).attr("value");
             //}
@@ -59,11 +59,11 @@ $(document).ready(function ()  {
             data:formData,
             success : (data) =>{
 
-                console.log("success.. response from server ..");
-                console.log(data);
-                console.log(data.error);
-                //console.log(JSON.parse(data));
-                console.log(JSON.stringify(data));
+                // console.log("success.. response from server ..");
+                // console.log(data);
+                // console.log(data.error);
+                // //console.log(JSON.parse(data));
+                // console.log(JSON.stringify(data));
 
 
 
@@ -74,8 +74,8 @@ $(document).ready(function ()  {
             },
             complete:(msg)=>{
                 if (msg) {
-                    console.log(msg.error);
-                    console.log(msg);
+                    // console.log(msg.error);
+                    // console.log(msg);
                 }
             }
         })

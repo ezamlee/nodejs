@@ -286,135 +286,154 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     new_order.owner=req.session.passport.user;
                     new_order.meal=fields.order_type;
                     new_order.restaurant_name=fields.restaurant_name;
-                    new_order.users_invited=JSON.parse(fields.invited_friends);
+
+                    var farr=[];
+                    for (var name in JSON.parse(fields.invited_friends)) {
+
+                        mongoose.model("users").find({name:JSON.parse(fields.invited_friends)[name]},["_id"],{},function (err,mailarr) {
+                            farr.push(mailarr[0]._id) ;
+
+
+
+                        });
+
+                    }
+
+
+
                     new_order.users_joined=[];
-                    new_order.status="waiting";
+                    new_order.status="ongoing";
                     new_order.menu_image=req.file.menu.path; // to be checked..
                     new_order.order_detail=[];
-                    new_order.save(function (err) {
-                        if(err){
-                            console.log("order saving in db failed !! "+err);
-                        }else {
-                            console.log("order saved !!");
 
-                            //insert into activity...
-                            var activitySc=new schema(
+                    setTimeout(function () {
+                        new_order.users_invited=farr;
+                        new_order.save(function (err) {
+                            if(err){
+                                console.log("order saving in db failed !! "+err);
+                            }else {
+                                console.log("order saved !!");
+
+                                //insert into activity...
+                                var activitySc=new schema(
+                                    {
+                                        _id:Number,
+                                        name:String,
+                                        email:String,
+                                        img:String,
+                                        activity:String
+
+                                    }
+                                );
+                                var activity=mongoose.model("activities", activitySc);
+                                var new_activity=new activity();
+                                activity.find({
+
+                                },
+                                ['_id'],
                                 {
-                                    _id:Number,
-                                    name:String,
-                                    email:String,
-                                    img:String,
-                                    activity:String
-
-                                }
-                            );
-                            var activity=mongoose.model("activities", activitySc);
-                            var new_activity=new activity();
-                            activity.find({
-
-                            },
-                            ['_id'],
-                            {
-                                sort:{
-                                    _id:-1
-                                }
-                            },function (err,y) {
-
-                                console.log("activity y "+y);
-                                if (y.length<1) {
-                                        new_order._id=1;
-                                }else {
-                                        new_activity._id=y[0]._id+1;
+                                    sort:{
+                                        _id:-1
                                     }
-                                        console.log("query email "+ req.session.passport.user);
-                                        mongoose.model("users").find({email:req.session.passport.user},['name',"img"],{},function (err,u) {
-                                            console.log("activity user "+u);
-                                            console.log("activity user _id"+u[0]._id);
-                                            //console.log("activity user "+JSON.parse(u));
-                                            console.log("activity user name "+u[0].name);
-                                            console.log(u.name);
-                                            console.log("activity user image "+u[0].img);
-                                            console.log(u.img);
-                                            new_activity.name=u[0].name;
-                                            new_activity.email=req.session.passport.user;
-                                            new_activity.img=u[0].img; // tbc..
-                                            new_activity.activity="create new order";
-                                            new_activity.save(function (err) {
-                                                if (err) {
-                                                    console.log("error saving activity in db : " + err);
-                                                }else {
-                                                    console.log("activity saved successfully in db");
-                                                }
-                                        });
+                                },function (err,y) {
 
-                                        });
-                                    }
+                                    console.log("activity y "+y);
+                                    if (y.length<1) {
+                                            new_order._id=1;
+                                    }else {
+                                            new_activity._id=y[0]._id+1;
+                                        }
+                                            console.log("query email "+ req.session.passport.user);
+                                            mongoose.model("users").find({email:req.session.passport.user},['name',"img"],{},function (err,u) {
+                                                console.log("activity user "+u);
+                                                console.log("activity user _id"+u[0]._id);
+                                                //console.log("activity user "+JSON.parse(u));
+                                                console.log("activity user name "+u[0].name);
+                                                console.log(u.name);
+                                                console.log("activity user image "+u[0].img);
+                                                console.log(u.img);
+                                                new_activity.name=u[0].name;
+                                                new_activity.email=req.session.passport.user;
+                                                new_activity.img=u[0].img; // tbc..
+                                                new_activity.activity="create new order";
+                                                new_activity.save(function (err) {
+                                                    if (err) {
+                                                        console.log("error saving activity in db : " + err);
+                                                    }else {
+                                                        console.log("activity saved successfully in db");
+                                                    }
+                                            });
+
+                                            });
+                                        }
 
 
-                            );
+                                );
 
 
-                            // save notifications :
-                            var arr=JSON.parse(fields.invited_friends);
-                            for (var name in arr) {
+                                // save notifications :
+                                var arr=JSON.parse(fields.invited_friends);
+                                for (var name in arr) {
 
-                                mongoose.model("users").find({name:arr[name]},["_id"],{},function (err,mailarr) {
-                                    var mail= mailarr[0]._id;
-                                    console.log("notification mail "+ mail);
-                                    console.log("notification mailarr "+ mailarr);
-                                    console.log("notification mail "+ mailarr._id);
-                                    console.log("notification name "+ name);
-                                    console.log("notification mail "+ arr[name]);
-                                    var usr1;
-                                    console.log("mail "+mail);
-                                    users.find({
-                                        email:req.session.passport.user
-                                    },
-                                    ['name'],{},function (err,u) {
-                                        usr1=u[0].name;
-                                        console.log("usr1 "+ usr1);
-                                        notifications.update(
-                                            {
-                                                _id:mail
-                                            },
-                                            {
-                                                "$push":{
-                                                    notifications:{
-                                                        message:
-                                                        usr1
-                                                        +
-                                                        " invites you to "
-                                                        +
-                                                        fields.order_type,
-                                                        is_invited:true,
-                                                        is_read:false
+                                    mongoose.model("users").find({name:arr[name]},["_id"],{},function (err,mailarr) {
+                                        var mail= mailarr[0]._id;
+                                        console.log("notification mail "+ mail);
+                                        console.log("notification mailarr "+ mailarr);
+                                        console.log("notification mail "+ mailarr._id);
+                                        console.log("notification name "+ name);
+                                        console.log("notification mail "+ arr[name]);
+                                        var usr1;
+                                        console.log("mail "+mail);
+                                        users.find({
+                                            email:req.session.passport.user
+                                        },
+                                        ['name'],{},function (err,u) {
+                                            usr1=u[0].name;
+                                            console.log("usr1 "+ usr1);
+                                            notifications.update(
+                                                {
+                                                    _id:mail
+                                                },
+                                                {
+                                                    "$push":{
+                                                        notifications:{
+                                                            message:
+                                                            usr1
+                                                            +
+                                                            " invites you to "
+                                                            +
+                                                            fields.order_type,
+                                                            is_invited:true,
+                                                            is_read:false
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                     multi: true ,
+                                                     upsert: true
+                                                 },
+                                                 function (err,n) {
+                                                    if (err) {
+                                                        console.log("error notifications update"+err);
+                                                    }else {
+                                                        console.log("updated " + n + " fields !");
+
                                                     }
                                                 }
-                                            },
-                                            {
-                                                 multi: true ,
-                                                 upsert: true
-                                             },
-                                             function (err,n) {
-                                                if (err) {
-                                                    console.log("error notifications update"+err);
-                                                }else {
-                                                    console.log("updated " + n + " fields !");
+                                            );
+                                        });
 
-                                                }
-                                            }
-                                        );
                                     });
 
-                                });
+                                }
+
+
 
                             }
+                        });
 
-
-
-                        }
-                    });
-
+                    },200
+                    );
                 }
 
 
@@ -432,7 +451,9 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
 
 
-resp.render("orders",{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
+        resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
+
+
 
 });
 
