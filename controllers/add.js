@@ -276,7 +276,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
             },function (err,y) {
 
                 console.log("orders y from db "+y);
-                if (err) {
+                if (y.length<1) {
                         new_order._id=1;
                 }else {
                     new_order._id=y[0]._id+1;
@@ -321,7 +321,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                             },function (err,y) {
 
                                 console.log("activity y "+y);
-                                if (err) {
+                                if (y.length<1) {
                                         new_order._id=1;
                                 }else {
                                         new_activity._id=y[0]._id+1;
