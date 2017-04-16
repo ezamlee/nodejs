@@ -11,8 +11,8 @@ var uploadedFile = multer({dest: __dirname + "/../public/img/profile"})
 
 var router = express.Router();
 var app = express();
-
-var id = "ahmed@gmail.com";
+//
+// var id =  req.session.passport.user;
 
 router.use("/",(req,resp,next)=>{
     if(!(req.session.passport.user)){

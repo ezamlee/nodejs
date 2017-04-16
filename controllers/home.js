@@ -37,7 +37,7 @@ var newData;
 var allData;
 
 router.get("/activityList",function(req,resp){
-    var id = "heba@gmail.com";
+    var id =  req.session.passport.user;
     users.find({"_id":id},(err,data) => {
         console.log(data)
         friendsArray = data[0].friends;
@@ -55,7 +55,7 @@ router.get("/userData",function(req,resp){
 
 })
 router.get("/latestActivity",function(req,resp){
-    var id = "ahmed@gmail.com";
+    var id = req.session.passport.user;
     orders.find({"owner":id},(err,data) => {
         resp.send(data);
     })
