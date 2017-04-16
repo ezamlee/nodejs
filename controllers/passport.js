@@ -123,10 +123,6 @@ console.log("notok");
                     newUser.email = email;
                     newUser.name=req.body.uname;
                     newUser.password = newUser.generateHash(password);
-                    // newUser.img=
-                    // cloudinary.uploader.upload(img, function(result) {
-                    //             console.log(result)
-                    //           });
                     newUser.friends=[];
                     newUser.orders=[];
                     newUser.groups=[];

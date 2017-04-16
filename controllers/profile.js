@@ -41,7 +41,7 @@ router.get("/", function (req, resp) {
 
 router.post("/", uploadedFile.single("img"), bodyParser.urlencoded({extended: false}),function(req,resp){
   console.log("for test ",req.body);
-  if(req.file == "undefined" && req.body.password != '')
+  if(req.file == undefined && req.body.password != '')
   {   var User   = new users();
     var hash= User.generateHash(req.body.password);
     users.update({_id: req.body.email},{password:hash}, function(err,affectedRows) {
@@ -49,12 +49,12 @@ router.post("/", uploadedFile.single("img"), bodyParser.urlencoded({extended: fa
       resp.render("profile", { title: "Profile", email:req.session.passport.user, username:req.session.name, username:req.body.name , img:req.session.img, pass:hash});
     });
   }
-  else if (req.file != "undefined" && req.body.password == '') {
+  else if (req.file != undefined && req.body.password == '') {
     users.update({_id: req.body.email},{img:req.file.filename}, function(err,affectedRows) {
       // console.log('affected rows %d', affectedRows);
       resp.render("profile", { title: "Profile", email:req.session.passport.user, username:req.session.name, username:req.body.name , img:req.file.filename, pass: req.session.password});
     });
-  }else if (req.file != "undefined" && req.body.password != '') {
+  }else if (req.file != undefined && req.body.password != '') {
     var User   = new users();
     var hash= User.generateHash(req.body.password);
     users.update({_id: req.body.email},{password:hash, img:req.file.filename}, function(err,affectedRows) {
