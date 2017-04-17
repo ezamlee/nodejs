@@ -49,13 +49,17 @@ router.get("/update",function(req,resp){
       console.log("obj.is_read", obj.is_read);
       console.log(" obj['is_read']", obj["is_read"]);
       var read = obj["is_read"];
-      notifications.update( {'_id': req.session.passport.user } , {$set : {read : true} }, function(err, count){
-        console.log(count);
-      })
-    })
+      // notifications.update( {'_id': req.session.passport.user } , {$set : { : true} }, function(err, count){
+      //   console.log(count);
+      // })
 
+    })
   })
 
+
+  notifications.update({"notifications": {$elemMatch: { "is_read": false}}},{ $set : {"notifications.$0.is_read" : true}}, function(err, count){
+    console.log("count = ", count);
+  });
   // db.notifications.update( {'_id': req.session.passport.user } , {$set : {"notifications.$.is_read" : true} }, function(err, count){
   //   console.log(count);
   // })
