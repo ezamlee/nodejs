@@ -87,7 +87,7 @@
 
 	</div>
 	<script>
-	$('#password, #confirm_password').on('keyup', function () {
+	$('#confirm_password').on('blur', function () {
 	    if ($('#password').val() == $('#confirm_password').val()) {
 	        $('#message').html('Matching').css('color', 'green');
 	    } else
