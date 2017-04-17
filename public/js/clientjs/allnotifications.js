@@ -20,12 +20,12 @@ var listAllNotifications = function(){
     url:"allnotifications/list",
     method:"get",
     success:(data)=>{
-      data.forEach((obj) => {
-          if (obj.notifications[0].is_invited == false) {
-            $("#allnotifications").append(messageWithBtn(obj._id, obj.notifications[0].message));
+      data[0].notifications.forEach((obj) => {
+          if (obj.is_invited == true) {
+            $("#allnotifications").append(messageWithBtn(obj._id, obj.message));
           }
           else {
-            $("#allnotifications").append(messageWithoutBtn(obj._id, obj.notifications[0].message));
+            $("#allnotifications").append(messageWithoutBtn(obj._id, obj.message));
           }
       })
     },

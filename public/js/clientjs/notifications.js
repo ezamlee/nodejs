@@ -31,7 +31,7 @@ var listNotifications = function(){
       console.log(data);
       if (data.length > 0) {
         data[0].notifications.forEach((obj) => {
-            if (obj.is_invited == false) {
+            if (obj.is_invited == true) {
               $("#Notifications").append(notificationType1(obj._id, obj.message));
             }
             else {

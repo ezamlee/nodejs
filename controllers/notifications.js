@@ -37,24 +37,28 @@ var async = require("async");
 
 router.get("/list",function(req,resp){
   notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
-    console.log("data of notifications", data);
     resp.send(data)
   })
 })
 
 
 router.get("/update",function(req,resp){
-
   notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
 
-    data.forEach((obj)=>{
-      console.log("obj= ", obj);
-      console.log("obj.notifications", obj.notifications);
-      // notifications.update({notifications.is_read:true}, function(err,affectedRows) {
-      //   console.log("affectedRows = ", affectedRows);
-      // });
+    data[0].notifications.forEach((obj)=>{
+      console.log("obj.is_read", obj.is_read);
+      console.log(" obj['is_read']", obj["is_read"]);
+      var read = obj["is_read"];
+      notifications.update( {'_id': req.session.passport.user } , {$set : {read : true} }, function(err, count){
+        console.log(count);
+      })
     })
+
   })
+
+  // db.notifications.update( {'_id': req.session.passport.user } , {$set : {"notifications.$.is_read" : true} }, function(err, count){
+  //   console.log(count);
+  // })
 
 
 })
