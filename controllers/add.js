@@ -431,7 +431,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             is_invited:true,
                                                             id:incr,
                                                             is_read:false,
-                                                            orderId:new_order._id;
+                                                            orderId:new_order._id
                                                         }
                                                     }
                                                 },
