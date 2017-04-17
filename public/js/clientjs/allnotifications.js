@@ -36,6 +36,11 @@ var listAllNotifications = function(){
 }
 
 
-$(function(){
-  listAllNotifications();
+$(document).ready(()=>{
+    socket.on("upNotify",(data)=>{
+      if(data.toUpdate){
+        listAllNotifications();
+      }
+    })
+    listAllNotifications();
 })

@@ -78,6 +78,7 @@ $(document).ready(()=>{
 						url:"/api/user/"+obj,
 						method:"get",
 						success:(data)=>{
+							console.log(data)
 							modal_body.append(person_template(data[0].img,data[0].name))
 						},
 						fail:(data)=>{

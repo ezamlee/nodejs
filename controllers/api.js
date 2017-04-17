@@ -12,4 +12,8 @@ router.get("/user/:id",(req,resp) => {
     })
 })
 
+router.get("/email",(req,resp)=>{
+	resp.send(req.session.passport.user);
+})
+
 module.exports = router;
