@@ -18,7 +18,7 @@ $(document).ready(function() {
 	$('#demo-chosen-select').chosen();
 	$('#demo-cs-multiselect').chosen({width:'100%'});
 
-
+/*
 
 	// DEFAULT RANGE SLIDER
 	// =================================================================
@@ -361,7 +361,5 @@ $(document).ready(function() {
 	// =================================================================
 	$('#demo-summernote').summernote({height: 250});
 
-
-
-
+	*/
 });

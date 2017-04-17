@@ -37,6 +37,8 @@ var notifications = require("./models/notifications");
 
 
 
+
+
 require('./controllers/passport')(passport);
 // end of passport configuartion
 
@@ -49,6 +51,16 @@ io.on('connection', function (socket) {
 		console.log(data)
 		socket.join(data.detail);
 	})
+
+	socket.on("identify", (data)=>{
+		socket.join(data.user);
+	})
+	socket.on("notify",(data)=>{
+		data.users.forEach((user)=>{
+			io.to(user).emit("upNotify",{toUpdate : true})
+		})
+	})
+
 });
 
 
