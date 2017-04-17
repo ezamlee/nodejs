@@ -25,22 +25,22 @@ var notificationsNumber = function(n){
 
 var listNotifications = function(){
   $.ajax({
-    url:"allnotifications/list",
+    url:"notifications/list",
     method:"get",
     success:(data)=>{
       console.log(data);
-    //  if (data.length >= 1) {
-        data.forEach((obj) => {
-            console.log("n= ",data.length);
-            if (obj.notifications[0].is_invited == false) {
-              $("#Notifications").append(notificationType1(obj._id, obj.notifications[0].message));
+      if (data.length > 0) {
+        data[0].notifications.forEach((obj) => {
+            if (obj.is_invited == false) {
+              $("#Notifications").append(notificationType1(obj._id, obj.message));
             }
             else {
-              $("#Notifications").append(notificationType2(obj._id, obj.notifications[0].message));
+              $("#Notifications").append(notificationType2(obj._id, obj.message));
             }
-            $(".notify").append(notificationsNumber(data.length));
+            $(".notify").append(notificationsNumber(data[0].notifications.length));
         })
-      //  }
+      }
+
 
     },
     fail:(err)=>{
@@ -50,6 +50,23 @@ var listNotifications = function(){
 }
 
 
+var updateNotifications = function(){
+  $.ajax({
+    url:"notifications/update",
+    method:"get",
+    success:(data)=>{
+      console.log(data);
+    },
+    fail:(data)=>{
+      display_error("server error");
+    }
+  })
+}
+
+
 $(function(){
   listNotifications();
+  $(".notify").on('click', function(){
+    updateNotifications();
+  })
 })

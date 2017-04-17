@@ -52,8 +52,6 @@ router.post("/", uploadedFile.single("img"), bodyParser.urlencoded({extended: fa
   //   resp.render("profile", { title: "Profile", email:req.session.passport.user, username:req.session.name, username:req.body.name , img:req.file.filename, pass: req.body.password});
   // });
 
-  console.log("for test ",req.body);
-
   if(req.file == undefined && req.body.password != '')
   {   var User   = new users();
     var hash= User.generateHash(req.body.password);

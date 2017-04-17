@@ -87,6 +87,7 @@ require('./controllers/register.js')(app, passport,session);
 // app.use("/register" , require("./controllers/register.js"));
 
 app.use("/allnotifications",require("./controllers/allnotifications.js"));
+app.use("/notifications",require("./controllers/notifications.js"));
 app.use("/add",require("./controllers/add.js"));
 app.use("/details",require("./controllers/details.js"));
 app.use("/friends",require("./controllers/friends.js"));

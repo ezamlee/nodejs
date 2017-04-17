@@ -28,7 +28,7 @@ router.get("/", function (req, resp) {
 })
 
 router.get("/list",function(req,resp){
-  notifications.find({'_id': {$ne:req.session.passport.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+  notifications.find({'_id': req.session.passport.user},(err, data)=>{
     resp.send(data)
   })
 })
