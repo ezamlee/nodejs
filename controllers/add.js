@@ -259,12 +259,12 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
         } else {
             console.log("==================================\n\nmenu FAIL..");
             //resp.writeHead(400);
-            resp.statusCode=400;
+            //resp.statusCode=400;
             ok=false;
 
             resp.locals={"error":"menu image error"}
             resp.write("menu image error");
-            resp.status(400).end();
+            resp.end();
 
         }
 
@@ -313,7 +313,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
                     new_order.users_joined=[];
                     new_order.status="ongoing";
-                    new_order.menu_image=req.file.menu.path; // to be checked..
+                    new_order.menu=req.file.menu.path.substring(16); // to be checked..
                     new_order.order_detail=[];
 
                     setTimeout(function () {
@@ -453,7 +453,11 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
 
         //resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
-        resp.end();
+    setTimeout(function () {
+        if (ok) {
+                    resp.end();
+            }
+    },300);    
 
 
 });
