@@ -44,7 +44,7 @@ router.get("/list",function(req,resp){
 
 router.get("/update",function(req,resp){
 
-  notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+  notifications.find({'_id': req.session.passport.user},(err, data)=>{
 
      for(var i = 1; i < (data[0].notifications.length+1); i++) {
 
