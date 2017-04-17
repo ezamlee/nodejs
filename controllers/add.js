@@ -13,7 +13,7 @@ var orders = require("../models/orders");
 var notifications = require("../models/notifications");
 var mongoose = require("mongoose");
 var schema = mongoose.Schema;
-
+var farr;
 var async = require("async");
 //
 var activitySc=new schema(
@@ -29,10 +29,7 @@ var activitySc=new schema(
 var activity=mongoose.model("activities", activitySc);
 function dummyData(req) {
     var id = req.session.passport.user;
-    //router.use("/",function (req,res,next) {
         req.session.user=id;
-    //    next();
-    //});
 }
 
 router.use("/",(req,resp,next)=>{
@@ -57,6 +54,13 @@ router.use("/",(req,resp,next)=>{
         })
     }
 })
+
+router.get("/invited",function (req,resp) {
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
+    resp.send(JSON.stringify(farr));
+});
 
 //opening the page...
 
@@ -297,7 +301,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     new_order.meal=fields.order_type;
                     new_order.restaurant_name=fields.restaurant_name;
 
-                    var farr=[];
+                    farr=[];
                     for (var name in JSON.parse(fields.invited_friends)) {
 
                         mongoose.model("users").find({name:JSON.parse(fields.invited_friends)[name]},["_id"],{},function (err,mailarr) {
@@ -308,8 +312,6 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                         });
 
                     }
-
-
 
                     new_order.users_joined=[];
                     new_order.status="ongoing";
@@ -325,7 +327,6 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                 console.log("order saved !!");
 
                                 //insert into activity...
-
 
                                 var new_activity=new activity();
                                 activity.find({
@@ -450,15 +451,11 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
      });
 
-
-
-        //resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
     setTimeout(function () {
         if (ok) {
                     resp.end();
             }
-    },300);    
-
+    },300);
 
 });
 

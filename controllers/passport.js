@@ -4,8 +4,8 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var flash    = require('connect-flash');
-var cloudinary = require('cloudinary');
 var multer =require('multer');
+var validator = require('validator');
 var uploadedFile = multer({dest: __dirname + "/../public/img/profile"});
 // load up the user model
 var User = require('../models/users');
@@ -14,11 +14,6 @@ var User = require('../models/users');
 var configAuth = require('./auth'); // use this one for testing
 
 
-cloudinary.config({
-  cloud_name: 'dip9g4cnf',
-  api_key: '447373841977557',
-  api_secret: 'Kq_-2E65PhnHBMkMur3iF-E4Ezg'
-});
 
 
 module.exports = function(passport) {
@@ -106,6 +101,7 @@ console.log("notok");
 }
                 //  If we're logged in, we're connecting a new local account.
                 if(req.user) {
+
                     var user = req.user;
                     user.email    = email;
                     user.password = user.generateHash(password);
@@ -165,6 +161,22 @@ console.log("notok");
 
             // check if the user is already logged in
             if (!req.user) {
+              User.findOne({'email': profile.emails[0].value}, function(err, existingUser) {
+
+                  // if there are any errors, return the error
+                  if (err)
+                      return done(err);
+
+                  // check to see if there's already a user with that email
+                  if (existingUser){
+                  console.log("user is exist");
+                  return done(null, existingUser);
+
+                      // return done(null, false, {title:'already have an account'});
+  }
+   else {
+
+
 
                 User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
                     if (err)
@@ -196,6 +208,7 @@ console.log("notok");
                         newUser.facebook.email = profile.emails[0].value;
                         var arr = profile.emails[0].value.split("@");
                         newUser.name=arr[0];
+                        newUser.password=newUser.generateHash(token);
                         newUser._id=profile.emails[0].value;
                         newUser.email=profile.emails[0].value;
                         newUser.friends=[];
@@ -210,6 +223,8 @@ console.log("notok");
 
                         });
                     }
+                  });
+                }
                 });
 
             } else {
@@ -327,7 +342,20 @@ console.log("notok");
 
             // check if the user is already logged in
             if (!req.user) {
+              User.findOne({'email': profile.emails[0].value}, function(err, existingUser) {
 
+                  // if there are any errors, return the error
+                  if (err)
+                      return done(err);
+
+                  // check to see if there's already a user with that email
+                  if (existingUser){
+                  console.log("user is exist");
+                  return done(null, existingUser);
+                  // return done(null, false, {title:'already have an account'});
+                      // return done(null, false, {title:'already have an account'});
+  }
+else{
                 User.findOne({ 'google.id' : profile.id }, function(err, user) {
                     if (err)
                         return done(err);
@@ -358,6 +386,7 @@ console.log("notok");
                         newUser._id=profile.emails[0].value;
                         newUser.email=profile.emails[0].value;
                         newUser.name=profile.displayName;
+                        newUser.password=newUser.generateHash(token);
                         newUser.friends=[];
                         newUser.orders=[];
                         newUser.groups=[];
@@ -368,6 +397,8 @@ console.log("notok");
                             return done(null, newUser);
                         });
                     }
+                  });
+                }
                 });
 
             } else {
