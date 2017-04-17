@@ -77,9 +77,18 @@ $(document).ready(function ()  {
 
                     if (!er) {
                         console.log("no error");
-                        update_all();
+                        $.ajax({
+                            url:"/add/invited",
+                            method:"GET",
+                            success : (data) =>{
 
-                        $("#sbmtfrm").submit();
+                                update_all(JSON.parse(data));
+                                console.log(JSON.parse(data)[0]);
+                            }
+                        })
+
+
+                        //$("#sbmtfrm").submit();
                     }
                 },
                 fail : (err) => {

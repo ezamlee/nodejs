@@ -13,7 +13,7 @@ var orders = require("../models/orders");
 var notifications = require("../models/notifications");
 var mongoose = require("mongoose");
 var schema = mongoose.Schema;
-
+var farr;
 var async = require("async");
 //
 var activitySc=new schema(
@@ -54,6 +54,13 @@ router.use("/",(req,resp,next)=>{
         })
     }
 })
+
+router.get("/invited",function (req,resp) {
+    console.log("invited ::::");
+    console.log(JSON.stringify(farr));
+    console.log(farr);
+    resp.send(JSON.stringify(farr));
+});
 
 //opening the page...
 
@@ -294,7 +301,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     new_order.meal=fields.order_type;
                     new_order.restaurant_name=fields.restaurant_name;
 
-                    var farr=[];
+                    farr=[];
                     for (var name in JSON.parse(fields.invited_friends)) {
 
                         mongoose.model("users").find({name:JSON.parse(fields.invited_friends)[name]},["_id"],{},function (err,mailarr) {
