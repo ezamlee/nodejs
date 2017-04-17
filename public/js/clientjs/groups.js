@@ -28,8 +28,8 @@ var list_m = function(groupname){
 var memberTem = function (img, name, email) {
     return `
                         <div class="col-xs-4" style="margin:2px 0px">
-                            <a href="img/${img}">
-                                <img src="img/${img}" class="img-responsive">
+                            <a href="img/profile/${img}">
+                                <img src="img/profile/${img}" class="img-responsive">
                             </a>
                             <h4>${name}</h4>
                             <h4>${email}</h4>
