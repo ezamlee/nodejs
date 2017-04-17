@@ -53,7 +53,6 @@ router.get("/update",function(req,resp){
               { $set:  { 'notifications.$.is_read': true}},
               (err, result) => {
                 if (err) {
-
                 console.log(err);
                 } else {
                   console.log(result);
