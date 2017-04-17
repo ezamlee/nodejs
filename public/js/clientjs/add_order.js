@@ -83,12 +83,11 @@ $(document).ready(function ()  {
                             success : (data) =>{
 
                                 update_all(JSON.parse(data));
-                                console.log(JSON.parse(data)[0]);
+                                //console.log(JSON.parse(data)[0]);
                             }
                         })
 
-
-                        //$("#sbmtfrm").submit();
+                        $("#sbmtfrm").submit();
                     }
                 },
                 fail : (err) => {

@@ -56,9 +56,9 @@ router.use("/",(req,resp,next)=>{
 })
 
 router.get("/invited",function (req,resp) {
-    console.log("invited ::::");
-    console.log(JSON.stringify(farr));
-    console.log(farr);
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
     resp.send(JSON.stringify(farr));
 });
 
