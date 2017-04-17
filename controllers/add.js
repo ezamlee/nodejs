@@ -29,10 +29,7 @@ var activitySc=new schema(
 var activity=mongoose.model("activities", activitySc);
 function dummyData(req) {
     var id = req.session.passport.user;
-    //router.use("/",function (req,res,next) {
         req.session.user=id;
-    //    next();
-    //});
 }
 
 router.use("/",(req,resp,next)=>{
@@ -309,8 +306,6 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
                     }
 
-
-
                     new_order.users_joined=[];
                     new_order.status="ongoing";
                     new_order.menu=req.file.menu.path.substring(16); // to be checked..
@@ -325,7 +320,6 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                 console.log("order saved !!");
 
                                 //insert into activity...
-
 
                                 var new_activity=new activity();
                                 activity.find({
@@ -450,15 +444,11 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
      });
 
-
-
-        //resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
     setTimeout(function () {
         if (ok) {
                     resp.end();
             }
-    },300);    
-
+    },300);
 
 });
 
