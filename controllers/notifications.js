@@ -43,23 +43,25 @@ router.get("/list",function(req,resp){
 
 
 router.get("/update",function(req,resp){
+
   notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
 
-    data[0].notifications.forEach((obj)=>{
-      console.log("obj.is_read", obj.is_read);
-      console.log(" obj['is_read']", obj["is_read"]);
-      var read = obj["is_read"];
-      notifications.update( {'_id': req.session.passport.user } , {$set : {read : true} }, function(err, count){
-        console.log(count);
-      })
-    })
+     for(var i = 1; i < (data[0].notifications.length+1); i++) {
 
-  })
+        notifications.update({ '_id': req.session.passport.user,'notifications.id':i},
+              { $set:  { 'notifications.$.is_read': true}},
+              (err, result) => {
+                if (err) {
 
-  // db.notifications.update( {'_id': req.session.passport.user } , {$set : {"notifications.$.is_read" : true} }, function(err, count){
-  //   console.log(count);
-  // })
+                console.log(err);
+                } else {
+                  console.log(result);
+                }
+             }
+            );
+     }
 
+  });
 
 })
 
