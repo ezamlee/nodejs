@@ -16,6 +16,7 @@ $(document).ready(function ()  {
 //data:{email:"ahmed@gmail.com",order_type:"Lunch",restaurant_name:"KFC",invited_friends:invited_friends,menu:formData}
     //////
     $("#logbtsubmit").on("click",function(e){
+        //e.preventDefault();
         // console.log("submit");
         // console.log($('#menu')[0].files[0]);
         var menu = JSON.stringify($('#menu')[0].files[0]);
@@ -59,7 +60,7 @@ $(document).ready(function ()  {
             data:formData,
             success : (data) =>{
 
-                // console.log("success.. response from server ..");
+                 console.log("success.. response from server ..");
                 // console.log(data);
                 // console.log(data.error);
                 // //console.log(JSON.parse(data));
@@ -79,7 +80,30 @@ $(document).ready(function ()  {
                 }
             }
         })
+        $("#logbtsubmit").trigger("submit");
     })
+    // $("#logbtsubmit").on("submit",function (e) {
+    //     //e.preventDefault();
+    //     $.ajax({
+    //         url:"/order",
+    //         method:"GET",
+    //         success : (data) =>{
+    //
+    //              console.log("success.. response from server ..");
+    //             // console.log(data);
+    //             // console.log(data.error);
+    //             // //console.log(JSON.parse(data));
+    //             // console.log(JSON.stringify(data));
+    //
+    //
+    //
+    //         },
+    //         fail : (err) => {
+    //             console.log(err);
+    //             display_error(err)
+    //         }
+    //     });
+    // })
 
     $("#demo-cs-multiselect option").on("select",function(e){
 

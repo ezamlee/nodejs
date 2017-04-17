@@ -16,7 +16,17 @@ var schema = mongoose.Schema;
 
 var async = require("async");
 //
+var activitySc=new schema(
+    {
+        _id:Number,
+        name:String,
+        email:String,
+        img:String,
+        activity:String
 
+    }
+);
+var activity=mongoose.model("activities", activitySc);
 function dummyData(req) {
     var id = req.session.passport.user;
     //router.use("/",function (req,res,next) {
@@ -315,17 +325,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                 console.log("order saved !!");
 
                                 //insert into activity...
-                                var activitySc=new schema(
-                                    {
-                                        _id:Number,
-                                        name:String,
-                                        email:String,
-                                        img:String,
-                                        activity:String
 
-                                    }
-                                );
-                                var activity=mongoose.model("activities", activitySc);
+
                                 var new_activity=new activity();
                                 activity.find({
 
@@ -451,8 +452,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
 
 
-        resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
-
+        //resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
+        resp.end();
 
 
 });
