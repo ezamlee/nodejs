@@ -430,7 +430,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             fields.order_type,
                                                             is_invited:true,
                                                             id:incr,
-                                                            is_read:false
+                                                            is_read:false,
+                                                            orderId:new_order._id;
                                                         }
                                                     }
                                                 },
