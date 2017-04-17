@@ -43,27 +43,26 @@ router.get("/list",function(req,resp){
 
 
 router.get("/update",function(req,resp){
-  notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
-
-    data[0].notifications.forEach((obj)=>{
-      console.log("obj.is_read", obj.is_read);
-      console.log(" obj['is_read']", obj["is_read"]);
-      var read = obj["is_read"];
-      // notifications.update( {'_id': req.session.passport.user } , {$set : { : true} }, function(err, count){
-      //   console.log(count);
-      // })
-
-    })
-  })
 
 
-  notifications.update({"notifications": {$elemMatch: { "is_read": false}}},{ $set : {"notifications.$0.is_read" : true}}, function(err, count){
-    console.log("count = ", count);
+  notifications.find({'_id': req.session.passport.user},(err, data)=>{
+
+     for(var i = 1; i < (data[0].notifications.length+1); i++) {
+
+        notifications.update({ '_id': req.session.passport.user,'notifications.id':i},
+              { $set:  { 'notifications.$.is_read': true}},
+              (err, result) => {
+                if (err) {
+
+                console.log(err);
+                } else {
+                  console.log(result);
+                }
+             }
+            );
+     }
+
   });
-  // db.notifications.update( {'_id': req.session.passport.user } , {$set : {"notifications.$.is_read" : true} }, function(err, count){
-  //   console.log(count);
-  // })
-
 
 })
 

@@ -56,7 +56,8 @@
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
                             <input type="password" class="form-control input-lg" placeholder="NaPasswordme" name="password" id="password">
-                          </div>
+														<span id='len'></span>
+													</div>
                           <div class="input-group mar-btm">
                             <span class="input-group-addon"><i class="fa fa-key fa-lg"></i></span>
                             <input type="password" class="form-control input-lg" placeholder="Confirm Password" id="confirm_password">
@@ -86,12 +87,22 @@
 
 	</div>
 	<script>
-	$('#password, #confirm_password').on('keyup', function () {
+	$('#confirm_password').on('blur', function () {
 	    if ($('#password').val() == $('#confirm_password').val()) {
 	        $('#message').html('Matching').css('color', 'green');
 	    } else
 	        $('#message').html('Not Matching').css('color', 'red');
 	});
+
+	$('#password').on('blur', function(){
+    if(this.value.length < 4){ // checks the password value length
+       $('#len').html('password must be more than 4 character').css('color', 'red');
+       $(this).focus(); // focuses the current field.
+       return false; // stops the execution.
+    }
+		else
+		$('#len').html(' ')
+});
 	</script>
 	<!--===================================================-->
 	<!-- END OF CONTAINER -->
