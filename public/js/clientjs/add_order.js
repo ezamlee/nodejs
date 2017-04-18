@@ -84,7 +84,7 @@ $(document).ready(function ()  {
                                 console.log("update_all");
 
                                 console.log(data);
-                                update_all(data);
+                                update_all(JSON.parse(data));
                             }
                         })
 
