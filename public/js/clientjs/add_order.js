@@ -20,9 +20,9 @@ $(document).ready(function ()  {
         }
 
         var i_f=[];
-        $("#demo-cs-multiselect option:selected").each(function (op) {
+        $("ul.chosen-choices li.search-choice").each(function (op) {
 
-                i_f.push($(this).attr("value"));
+                i_f.push($(this).find("span").text());
 
         });
         if (i_f.length<1) {
@@ -81,13 +81,17 @@ $(document).ready(function ()  {
                             url:"/add/invited",
                             method:"GET",
                             success : (data) =>{
-
+                                // console.log("update_all");
+                                //
+                                // console.log(data);
                                 update_all(JSON.parse(data));
-                                //console.log(JSON.parse(data)[0]);
+
                             }
                         })
 
-                        $("#sbmtfrm").submit();
+                        setTimeout(function () {
+                                $("#sbmtfrm").submit();
+                        },200);
                     }
                 },
                 fail : (err) => {
@@ -107,15 +111,98 @@ $(document).ready(function ()  {
 
     })
 
-    $("#demo-cs-multiselect option").on("select",function(e){
+    $("#demo-cs-multiselect").on("change",function(e){
 
-        var g;
-        usrData.groups.forEach(function (gr) {
-            if (this.value==gr) {
-                g=gr;
-                //break;
+        console.log("change");
+        var g="";
+        //$("ul.chosen-choices .search-choice").forEach(function (li) {
+        $("ul.chosen-choices li.search-choice").each(function (li) {
+            //var g2=li.find("span").innerText;
+            var g2 = $(this).find("span").text();
+
+            console.log("group= "+g2);
+            //"<%usrData.groups.forEach(function (gr) {%>"
+            $.ajax({
+            url:"/add/getgroupnames",
+            method:"GET",
+                success:(grouparr)=>{
+                    console.log("grouparr "+grouparr);
+                    console.log(grouparr);
+                    console.log(JSON.stringify(grouparr));
+                    console.log(JSON.parse(grouparr));
+                    JSON.parse(grouparr).forEach(function (gr) {
+                        if (g2==gr) {
+                            g=gr;
+                            //break;
+                        }
+                    });
+
+                }
+            });
+
+        setTimeout(function () {
+            if (g!="") {
+                console.log("g!=fadi");
+                console.log(g);
+                $(this).remove();
+                $.ajax({
+                    url:"/add/getgroup",
+                    method:"POST",
+                    data:{gname:g},
+                    success:(gnames)=>{
+                        console.log(gnames);
+                        $("ul.chosen-choices li.search-choice").each(function () {
+                            if ($(this).text().indexOf(g) >= 0 ) {
+                                $(this).remove();
+                            }
+                                // console.log("====================================");
+                                // console.log($(this).attr("selected"));
+                                //
+                                // $(this).attr("selected",true);
+                                // console.log("----------------------------------");
+                                // console.log($(this).attr("selected"));
+                                // $("ul.chosen-choices li.search-choice").each(function () {
+                                //     if ($(this).text().indexOf("g") >= 0) {
+                                //         $(this).remove();
+                                //     }
+                                // })
+                        });
+                        $("ul.chosen-results li.result-selected").each(function () {
+                            if ($(this).text().indexOf(g) >= 0 ) {
+                                $(this).attr("class","active-result");
+                                console.log($(this).attr("class"));
+                            }
+                        });
+
+                        JSON.parse(gnames).forEach(function (ggname) {
+                            //display_error(gname);
+
+                            $("ul.chosen-choices").prepend($("<li class='search-choice'><span>"+ggname+"</span> <a data-option-array-index='0' class='search-choice-close'></a></li>"));
+
+                            $("ul.chosen-results li.result-selected").each(function () {
+                                if ($(this).text().indexOf(ggname) >= 0 ) {
+                                    $(this).attr("class","result-selected");
+                                    console.log($(this).attr("class"));
+                                }
+                            });
+                            //console.log($("#demo-cs-multiselect").text());
+
+                            // $("ul.chosen-choices").innerText="<li class='search-choice'><span><%=gname%></span> <a data-option-array-index='0' class='search-choice-close'>::before</a></li>"+ $("ul.chosen-choices").innerText;
+                            // console.log($("ul.chosen-choices").innerText);
+                        });
+
+                    }
+                });
+            }else {
+                console.log("g = fadi");
             }
+        },200);
+
+            //"<%});%>"
+
+
         });
+
 
     });
 

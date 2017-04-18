@@ -12,8 +12,6 @@ var messageWithoutBtn = function(orderId, message){
             </div>
                     `;
 };
-
-
 var listAllNotifications = function(){
   $('#allnotifications').html();
   $.ajax({
@@ -35,7 +33,6 @@ var listAllNotifications = function(){
   })
 }
 
-
 $(document).ready(()=>{
     socket.on("upNotify",(data)=>{
       if(data.toUpdate){
@@ -47,6 +44,7 @@ $(document).ready(()=>{
     $("#allnotifications").on('click', ".join", function(e){
 
       var ordId = e.target.value;
+      console.log(e.target)
       $.ajax({
         url:"allnotifications/updateOrder",
         method:"post",
@@ -60,9 +58,8 @@ $(document).ready(()=>{
           display_error("server error");
         }
       })
-
-      e.target.disabled = true
-
+      window.location.href = "http://localhost:8090/order";
+      e.target.remove();
     })
 
 })

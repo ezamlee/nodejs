@@ -56,10 +56,15 @@ io.on('connection', function (socket) {
 		socket.join(data.user);
 	})
 	socket.on("notify",(data)=>{
-		data.users.forEach((user)=>{
-			io.to(user).emit("upNotify",{toUpdate : true})
-		})
+    console.log(data)
+    if(data.users.length > 0)
+  		data.users.forEach((user)=>{
+        console.log(user)
+  			socket.broadcast.emit("upNotify",{toUpdate : true})
+        io.to(user).emit("noti",{toUpdate:true})
+  		})
 	})
+
 
 });
 

@@ -4,7 +4,7 @@ var multer=require("multer");
 var formidable=require("formidable");
 var fs = require("fs");
 var path = require("path");
-var uploadedfileMiddleware=multer({dest:"../public/img/menu"});
+//var uploadedfileMiddleware=multer({dest:"../public/img/menu"});
 var router = express.Router();
 
 var login = require("../models/logins");
@@ -15,6 +15,7 @@ var mongoose = require("mongoose");
 var schema = mongoose.Schema;
 var farr;
 var async = require("async");
+var new_id;
 //
 var activitySc=new schema(
     {
@@ -61,6 +62,64 @@ router.get("/invited",function (req,resp) {
     // console.log(farr);
     resp.send(JSON.stringify(farr));
 });
+
+
+router.get("/getgroupnames",function (req,resp) {
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
+    var garr=[];
+    mongoose.model("users").find({name:req.session.name},["groups"],{},function (err,grarr) {
+        console.log("grarr");
+        console.log(grarr);
+        console.log(grarr[0].groups);
+        //console.log(grarr.name);
+        console.log(JSON.stringify(grarr));
+        grarr[0].groups.forEach(function (gr) {
+                garr.push(gr.name) ;
+        });
+
+    });
+
+    setTimeout(function () {
+        resp.send(JSON.stringify(garr));
+    },100);
+});
+router.post("/getgroup",bodyParser.urlencoded({extended:false}),function (req,resp) {
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
+
+    var garr=[];
+    mongoose.model("users").find({name:req.session.name},["groups"],{},function (err,grarr) {
+        console.log(req.gname);
+        console.log(req.body.gname);
+        console.log(grarr[0].groups[0].name);
+        console.log(grarr[0].groups[0].members);
+        grarr[0].groups.forEach(function (gr) {
+            console.log(gr.name);
+            console.log(gr.members);
+            if (gr.name==req.body.gname) {
+                gr.members.forEach(function (m) {
+                    console.log(m);
+
+                    mongoose.model("users").find({_id:m},["name"],{},function (err,usr) {
+                        garr.push(usr[0].name);
+                    })
+
+                })
+
+            }
+        });
+
+    });
+
+    setTimeout(function () {
+        resp.send(JSON.stringify(garr));
+    },200);
+});
+
+
 
 //opening the page...
 
@@ -292,8 +351,11 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                 console.log("orders y from db "+y);
                 if (y.length<1) {
                         new_order._id=1;
+                        new_id=new_order._id;
+                        console.log("new_id 1  "+new_id);
                 }else {
                     new_order._id=y[0]._id+1;
+                    new_id=new_order._id;
                 }
 
                     console.log("new_order._id  "+new_order._id);
@@ -415,6 +477,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                         ['name'],{},function (err,u) {
                                             usr1=u[0].name;
                                             console.log("usr1 "+ usr1);
+                                            console.log("new_id 2  "+new_id);
                                             notifications.update(
                                                 {
                                                     _id:mail
@@ -428,10 +491,12 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             " invites you to "
                                                             +
                                                             fields.order_type,
+
                                                             is_invited:true,
                                                             id:incr,
                                                             is_read:false,
-                                                            orderId:new_order._id
+                                                            orderId:new_id
+
                                                         }
                                                     }
                                                 },
