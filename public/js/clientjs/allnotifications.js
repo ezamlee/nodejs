@@ -44,22 +44,20 @@ $(document).ready(()=>{
     $("#allnotifications").on('click', ".join", function(e){
 
       var ordId = e.target.value;
+      console.log(e.target)
       $.ajax({
         url:"allnotifications/updateOrder",
         method:"post",
         data:{'id':ordId},
         success:(data)=>{
           console.log(data);
-
-
+          e.target.remove();
         },
         fail:(err)=>{
           display_error("server error");
         }
       })
-
-      e.target.disabled = true
-
+      window.location.href = "http://localhost:8090/order"
     })
 
 })
