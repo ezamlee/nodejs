@@ -13,7 +13,7 @@ var orders = require("../models/orders");
 var notifications = require("../models/notifications");
 var mongoose = require("mongoose");
 var schema = mongoose.Schema;
-
+var farr;
 var async = require("async");
 //
 var activitySc=new schema(
@@ -29,10 +29,7 @@ var activitySc=new schema(
 var activity=mongoose.model("activities", activitySc);
 function dummyData(req) {
     var id = req.session.passport.user;
-    //router.use("/",function (req,res,next) {
         req.session.user=id;
-    //    next();
-    //});
 }
 
 router.use("/",(req,resp,next)=>{
@@ -57,6 +54,13 @@ router.use("/",(req,resp,next)=>{
         })
     }
 })
+
+router.get("/invited",function (req,resp) {
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
+    resp.send(JSON.stringify(farr));
+});
 
 //opening the page...
 
@@ -259,12 +263,12 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
         } else {
             console.log("==================================\n\nmenu FAIL..");
             //resp.writeHead(400);
-            resp.statusCode=400;
+            //resp.statusCode=400;
             ok=false;
 
             resp.locals={"error":"menu image error"}
             resp.write("menu image error");
-            resp.status(400).end();
+            resp.end();
 
         }
 
@@ -297,7 +301,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                     new_order.meal=fields.order_type;
                     new_order.restaurant_name=fields.restaurant_name;
 
-                    var farr=[];
+                    farr=[];
                     for (var name in JSON.parse(fields.invited_friends)) {
 
                         mongoose.model("users").find({name:JSON.parse(fields.invited_friends)[name]},["_id"],{},function (err,mailarr) {
@@ -309,11 +313,9 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
                     }
 
-
-
                     new_order.users_joined=[];
                     new_order.status="ongoing";
-                    new_order.menu_image=req.file.menu.path; // to be checked..
+                    new_order.menu=req.file.menu.path.substring(16); // to be checked..
                     new_order.order_detail=[];
 
                     setTimeout(function () {
@@ -325,7 +327,6 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                 console.log("order saved !!");
 
                                 //insert into activity...
-
 
                                 var new_activity=new activity();
                                 activity.find({
@@ -374,6 +375,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
                                 // save notifications :
                                 var arr=JSON.parse(fields.invited_friends);
+
+
                                 for (var name in arr) {
 
                                     mongoose.model("users").find({name:arr[name]},["_id"],{},function (err,mailarr) {
@@ -384,6 +387,27 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                         console.log("notification name "+ name);
                                         console.log("notification mail "+ arr[name]);
                                         var usr1;
+                                        //insert here
+                                        var incr = 1  ;
+                                        notifications.find({'_id':mail},(err, data)=>{
+                                       if(err)
+                                       console.log(err);
+
+                                       else {
+                                         if(data[0] == undefined  ){
+
+                                           incr=1;
+                                         }
+
+                                         else{
+
+                                        incr = data[0].notifications.length+1;
+                                        console.log("query result here");
+                                        console.log(data[0]);
+}
+                                       }
+                                     })
+                                     //5alas
                                         console.log("mail "+mail);
                                         users.find({
                                             email:req.session.passport.user
@@ -405,7 +429,9 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             +
                                                             fields.order_type,
                                                             is_invited:true,
-                                                            is_read:false
+                                                            id:incr,
+                                                            is_read:false,
+                                                            orderId:new_order._id
                                                         }
                                                     }
                                                 },
@@ -450,11 +476,11 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
      });
 
-
-
-        //resp.redirect("/order");//,{title:"Orders",username:req.session.passport.name , img:req.session.passport.img});
-        resp.end();
-
+    setTimeout(function () {
+        if (ok) {
+                    resp.end();
+            }
+    },300);
 
 });
 

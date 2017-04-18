@@ -4,7 +4,10 @@ var logins = require("../models/logins.js");
 var users = require("../models/users.js");
 var orders = require("../models/orders.js");
 var notifications = require("../models/notifications.js");
+var qs = require("querystring");
+var bodyParser = require('body-parser');
 var async = require("async");
+
 
 router.use("/",(req,resp,next)=>{
     if(!(req.session.passport.user)){
@@ -28,16 +31,21 @@ router.get("/", function (req, resp) {
 })
 
 router.get("/list",function(req,resp){
-  notifications.find({'_id': {$ne:req.session.passport.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+  notifications.find({'_id': req.session.passport.user},(err, data)=>{
     resp.send(data)
   })
 })
 
-
-// router.get("/listnotification",function(req,resp){
-//   notifications.find({'_id': {$ne:req.session.passport.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
-//     resp.send(data)
-//   })
-// })
+router.post("/updateOrder", bodyParser.urlencoded({extended: false}),function(req,resp){
+  console.log(req.session.name);
+  orders.update({'_id': req.body.id}, {$push:{"users_joined": req.session.passport.user}},(err, data)=>{
+    // resp.send(data)
+    // try{
+    //       resp.render("details", { title: "Order Details", orderid:req.body.id ,username:req.session.name , img:req.session.img});
+  	// }catch(err){
+  	// 	resp.send("error")
+  	// }
+  })
+})
 
 module.exports = router;

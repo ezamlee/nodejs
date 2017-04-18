@@ -7,7 +7,7 @@ _id:Number
 , users_invited: {}
 ,users_joined: {}
 ,status:String
-,menu_image:String
+,menu:String
 ,date:{ type: Date, default: Date.now }
 ,order_detail:{}
 });

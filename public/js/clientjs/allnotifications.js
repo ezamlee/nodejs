@@ -1,13 +1,13 @@
-var messageWithBtn = function(id, message){
+var messageWithBtn = function(orderId, message){
     return `
-            <div class="notification" id="${id}">
-              <p class="text-lg">${message}<button class="btn btn-sm btn-primary pull-right">join</button</p>
+            <div class="notification" id="${orderId}">
+              <p class="text-lg">${message}<button class="btn btn-sm btn-primary pull-right join" value="${orderId}" >join</button</p>
             </div>
                     `;
 };
-var messageWithoutBtn = function(id, message){
+var messageWithoutBtn = function(orderId, message){
     return `
-            <div class="notification" id="${id}">
+            <div class="notification" id="${orderId}">
               <p class="text-lg">${message}</p>
             </div>
                     `;
@@ -18,12 +18,12 @@ var listAllNotifications = function(){
     url:"allnotifications/list",
     method:"get",
     success:(data)=>{
-      data.forEach((obj) => {
-          if (obj.notifications[0].is_invited == false) {
-            $("#allnotifications").append(messageWithBtn(obj._id, obj.notifications[0].message));
+      data[0].notifications.forEach((obj) => {
+          if (obj.is_invited == true) {
+            $("#allnotifications").append(messageWithBtn(obj.orderId, obj.message));
           }
           else {
-            $("#allnotifications").append(messageWithoutBtn(obj._id, obj.notifications[0].message));
+            $("#allnotifications").append(messageWithoutBtn(obj.orderId, obj.message));
           }
       })
     },
@@ -40,4 +40,26 @@ $(document).ready(()=>{
       }
     })
     listAllNotifications();
+
+    $("#allnotifications").on('click', ".join", function(e){
+
+      var ordId = e.target.value;
+      $.ajax({
+        url:"allnotifications/updateOrder",
+        method:"post",
+        data:{'id':ordId},
+        success:(data)=>{
+          console.log(data);
+
+
+        },
+        fail:(err)=>{
+          display_error("server error");
+        }
+      })
+
+      e.target.disabled = true
+
+    })
+
 })

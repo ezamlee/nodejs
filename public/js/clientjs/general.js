@@ -1,4 +1,4 @@
-var display_error = function (mir) {    
+var display_error = function (mir) {
     var errmsg = `
     <div id="shade" style="background-color: rgba(0, 0, 0, 0.2); width: 100%; height: 100vh; position: absolute; z-index: 9999999999; display: block;">
     <div style="height:25vh"></div>
