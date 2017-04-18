@@ -82,12 +82,14 @@ $(document).ready(function ()  {
                             method:"GET",
                             success : (data) =>{
                                 console.log("update_all");
+                                console.log(data);
                                 update_all(data);
-                                //console.log(JSON.parse(data)[0]);
                             }
                         })
 
-                        $("#sbmtfrm").submit();
+                        setTimeout(function () {
+                                $("#sbmtfrm").submit();
+                        },200);
                     }
                 },
                 fail : (err) => {
