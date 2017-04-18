@@ -19,7 +19,7 @@ router.use("/",(req,resp,next)=>{
 	            }else{
 	                req.session.name = data[0].name;
 	                req.session.img  = data[0].img;
-	                next()        
+	                next()
 	            }
 	        })
 	    }
@@ -37,16 +37,18 @@ router.get("/", (req, resp)=> {
 router.get("/list/:id",(req,resp)=>{
 	try{
 		orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1,"status":1},(err,data)=>{
-			if(data[0].users_joined.includes(req.session.passport.user)){
-				resp.send(403,"You do not have rights to visit this page");
-			}else{
-
-				if(req.session.passport.user == data[0].owner){
-					var respond = [data[0] ,true]
-					resp.send(respond);
+			if(data.length > 0){
+				if(data[0].users_joined.includes(req.session.passport.user)){
+					resp.send(403,"You do not have rights to visit this page");
 				}else{
-					var respond = [data[0] ,false]
-					resp.send(respond);
+
+					if(req.session.passport.user == data[0].owner){
+						var respond = [data[0] ,true]
+						resp.send(respond);
+					}else{
+						var respond = [data[0] ,false]
+						resp.send(respond);
+					}
 				}
 			}
 		})
@@ -55,7 +57,7 @@ router.get("/list/:id",(req,resp)=>{
 	}
 })
 router.delete("/update/:id",postParser,(req,resp)=>{
-	try{	
+	try{
 		orders.update({"_id":parseInt(req.params.id),"status":"ongoing"},{$set:{"order_detail":req.body.order}},(err,result)=>{
 			if(result.nModified == 0 )
 				resp.send("Sorry You are not allowed to edit order anymore");
@@ -87,7 +89,7 @@ router.put("/update/:id",postParser,(req,resp)=>{
 			}else{
 				resp.send("You are not allowed to add to this order")
 			}
-			
+
 		})
 	}catch(err){
 		resp.send("error");

@@ -37,7 +37,11 @@ var async = require("async");
 
 router.get("/list",function(req,resp){
   notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
-    resp.send(data)
+    if(data.length > 0)
+      resp.send(data)
+    else{
+      resp.send([]);
+    }
   })
 })
 

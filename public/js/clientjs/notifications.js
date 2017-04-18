@@ -30,6 +30,7 @@ var listNotifications = function(){
     success:(data)=>{
       console.log(data);
       if (data.length > 0) {
+        $("#Notifications").html("")
         data[0].notifications.forEach((obj) => {
             if (obj.is_invited == true) {
               $("#Notifications").append(notificationType1(obj._id, obj.message));
@@ -40,8 +41,6 @@ var listNotifications = function(){
             $(".notify").append(notificationsNumber(data[0].notifications.length));
         })
       }
-
-
     },
     fail:(err)=>{
       display_error("server error");
@@ -56,6 +55,7 @@ var updateNotifications = function(){
     method:"get",
     success:(data)=>{
       console.log(data);
+
     },
     fail:(data)=>{
       display_error("server error");
@@ -63,9 +63,12 @@ var updateNotifications = function(){
   })
 }
 
-
-$(function(){
+$(document).ready(()=>{
   listNotifications();
+  socket.on("upNotify",(data)=>{
+      listAllNotifications();
+      console.log("updating");
+  })
   $(".notify").on('click', function(){
     updateNotifications();
   })

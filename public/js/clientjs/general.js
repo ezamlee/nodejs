@@ -14,5 +14,6 @@ var display_error = function (mir) {
 }
 
 var update_all =function( array_of_users){
+  console.log(array_of_users)
 	socket.emit("notify",{"users":array_of_users})
 }
