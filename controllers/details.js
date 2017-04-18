@@ -37,7 +37,7 @@ router.get("/", (req, resp)=> {
 router.get("/list/:id",(req,resp)=>{
 	try{
 		orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1,"status":1},(err,data)=>{
-			if(req.session.passport.user == data[0].owner && data[0].status == "ongoing"){
+			if(req.session.passport.user == data[0].owner){
 				var respond = [data[0] ,true]
 				resp.send(respond);
 			}else{

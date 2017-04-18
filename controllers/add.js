@@ -15,6 +15,7 @@ var mongoose = require("mongoose");
 var schema = mongoose.Schema;
 var farr;
 var async = require("async");
+var new_id;
 //
 var activitySc=new schema(
     {
@@ -292,8 +293,10 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                 console.log("orders y from db "+y);
                 if (y.length<1) {
                         new_order._id=1;
+                        new_id=new_order._id;
                 }else {
                     new_order._id=y[0]._id+1;
+                    new_id=new_order._id;
                 }
 
                     console.log("new_order._id  "+new_order._id);
@@ -428,10 +431,12 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             " invites you to "
                                                             +
                                                             fields.order_type,
+
                                                             is_invited:true,
                                                             orderId:new_order._id,
                                                             id:incr,
                                                             is_read:false
+
 
                                                         }
                                                     }
