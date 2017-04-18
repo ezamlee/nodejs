@@ -42,9 +42,11 @@ var load= function(){
 					`<button class="btn btn-success btn-labeled" id="btfinish" style="padding:5px 20px;float:right;margin:0px 5px" > Finish </button>
 			        <button class="btn btn-danger btn-labeled" id="btcancel"  style="padding:5px 20px;float:right"> Cancel </button>
 				`)
-			}else{
+			}
+			if (data[0].status != "ongoing"){
 				$("#modaladd").remove()
 			}
+
 			$("#details").html("");
 			var i = 0;
 			data[0].order_detail.forEach((obj)=>{
@@ -53,7 +55,8 @@ var load= function(){
 					method:"GET",
 					success:(user)=>{
 						user =user[0]
-						if(obj._id == data[0].owner && data[1])
+						
+						if(obj._id == data[0].owner && data[1] && data[0].status == "ongoing")
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,true));
 						else{
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,false));
@@ -73,7 +76,6 @@ var load= function(){
 
 $(document).ready(()=>{
 	socket.on("detail_update",(data)=>{
-		console.log("data triger: " + data);
 		if(data.update){
 			load();
 		}
@@ -94,11 +96,10 @@ $(document).ready(()=>{
 						display_error("This Order is already Closed")
 						$(".btdel").remove();
 					}
-					console.log(data);
 					socket.emit("detail_update",{detail:""+orderid+"","update":true});
 				},
 				fail: (err)=>{
-					console.log(err);
+					display_error("Server Internal Error");
 				}
 			})
 		}
@@ -175,7 +176,6 @@ $(document).ready(()=>{
 			url:"details/menu/"+orderid,
 			method:"get",
 			success:(data)=>{
-				console.log(data)
 				$("#resmenu").attr("src","img/menu/"+data.menu)
 			},
 			fail:(err)=>{

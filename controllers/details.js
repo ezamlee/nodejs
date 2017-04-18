@@ -37,12 +37,17 @@ router.get("/", (req, resp)=> {
 router.get("/list/:id",(req,resp)=>{
 	try{
 		orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1,"status":1},(err,data)=>{
-			if(req.session.passport.user == data[0].owner && data[0].status == "ongoing"){
-				var respond = [data[0] ,true]
-				resp.send(respond);
+			if(data[0].users_joined.includes(req.session.passport.user)){
+				resp.send(403,"You do not have rights to visit this page");
 			}else{
-				var respond = [data[0] ,false]
-				resp.send(respond);
+
+				if(req.session.passport.user == data[0].owner){
+					var respond = [data[0] ,true]
+					resp.send(respond);
+				}else{
+					var respond = [data[0] ,false]
+					resp.send(respond);
+				}
 			}
 		})
 	}catch(err){
