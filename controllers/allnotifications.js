@@ -36,16 +36,23 @@ router.get("/list",function(req,resp){
   })
 })
 
+
+
 router.post("/updateOrder", bodyParser.urlencoded({extended: false}),function(req,resp){
-  console.log(req.session.name);
+console.log("id is here");
+  console.log(req.body.id);
   orders.update({'_id': req.body.id}, {$push:{"users_joined": req.session.passport.user}},(err, data)=>{
-    resp.send(data)
+
+      })
+    notifications.update({'_id':req.session.passport.user,'notifications.orderId':parseInt(req.body.id)}, { $set: {'notifications.$.is_invited': false}}, (err, data1)=>{
+        resp.send(data1)
+    })
     // try{
     //       resp.render("details", { title: "Order Details", orderid:req.body.id ,username:req.session.name , img:req.session.img});
   	// }catch(err){
   	// 	resp.send("error")
   	// }
-  })
+
 })
 
 module.exports = router;

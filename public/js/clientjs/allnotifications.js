@@ -51,13 +51,14 @@ $(document).ready(()=>{
         data:{'id':ordId},
         success:(data)=>{
           console.log(data);
-          e.target.remove();
+
         },
         fail:(err)=>{
           display_error("server error");
         }
       })
-      window.location.href = "http://localhost:8090/order"
+      window.location.href = "http://localhost:8090/order";
+      e.target.remove();
     })
 
 })

@@ -30,16 +30,23 @@ var listNotifications = function(){
     success:(data)=>{
       console.log(data);
       if (data.length > 0) {
-        $("#Notifications").html("")
+        $("#Notifications").html("");
+        var i=0;
         data[0].notifications.forEach((obj) => {
+          console.log(obj)
+          console.log(obj.is_read)
+          if(!obj.is_read){
+            console.log("in if")
             if (obj.is_invited == true) {
               $("#Notifications").append(notificationType1(obj._id, obj.message));
             }
             else {
               $("#Notifications").append(notificationType2(obj._id, obj.message));
             }
-            $(".notify").append(notificationsNumber(data[0].notifications.length));
+            i++;
+          }
         })
+        $(".notify").append(notificationsNumber(i));
       }
     },
     fail:(err)=>{
@@ -71,5 +78,6 @@ $(document).ready(()=>{
   })
   $(".notify").on('click', function(){
     updateNotifications();
+    listNotifications();
   })
 })
