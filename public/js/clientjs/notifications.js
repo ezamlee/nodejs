@@ -66,7 +66,7 @@ var updateNotifications = function(){
 $(document).ready(()=>{
   listNotifications();
   socket.on("upNotify",(data)=>{
-      listAllNotifications();
+      listNotifications();
       console.log("updating");
   })
   $(".notify").on('click', function(){
