@@ -12,8 +12,6 @@ var messageWithoutBtn = function(id, message){
             </div>
                     `;
 };
-
-
 var listAllNotifications = function(){
   $('#allnotifications').html();
   $.ajax({
@@ -34,7 +32,6 @@ var listAllNotifications = function(){
     }
   })
 }
-
 
 $(document).ready(()=>{
     socket.on("upNotify",(data)=>{

@@ -13,6 +13,6 @@ var display_error = function (mir) {
     $("#krp").html(errmsg);
 }
 
-var update_all =function(array_of_users){
+var update_all =function( array_of_users){
 	socket.emit("notify",{"users":array_of_users})
 }
