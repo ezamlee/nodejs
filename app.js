@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
     if(data.users.length > 0)
   		data.users.forEach((user)=>{
         console.log(user)
-  			io.to(user).emit("upNotify",{toUpdate : true})
+  			socket.broadcast.emit("upNotify",{toUpdate : true})
         io.to(user).emit("noti",{toUpdate:true})
   		})
 	})

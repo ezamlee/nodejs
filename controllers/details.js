@@ -36,9 +36,10 @@ router.get("/", (req, resp)=> {
 })
 router.get("/list/:id",(req,resp)=>{
 	try{
-		orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1,"status":1},(err,data)=>{
+		orders.find({"_id":parseInt(req.params.id)},{"order_detail":1,"_id":0,"owner":1,"status":1,"users_joined":1},(err,data)=>{
 			if(data.length > 0){
-				if(data[0].users_joined.includes(req.session.passport.user)){
+				console.log("checking",data[0],data[0].owner != req.session.passport.user ,!data[0].users_joined.includes(req.session.passport.user))
+				if(!data[0].users_joined.includes(req.session.passport.user) && data[0].owner != req.session.passport.user){
 					resp.send(403,"You do not have rights to visit this page");
 				}else{
 
