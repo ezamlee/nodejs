@@ -41,7 +41,7 @@ var id =  req.session.passport.user;
 				})
 		    },
 		    function(arg1, callback) {
-		    	orders.find( {users_invited:id},{ id:1,owner:1,meal:1,restaurant_name:1,users_invited:1,users_joined:1,status:1,menu:1 },(err,data)=>{
+		    	orders.find( {users_joined:id},{ id:1,owner:1,meal:1,restaurant_name:1,users_invited:1,users_joined:1,status:1,menu:1 },(err,data)=>{
 					callback(null, arg1,data);
 				})
 
