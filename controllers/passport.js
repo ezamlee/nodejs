@@ -161,6 +161,22 @@ console.log("notok");
 
             // check if the user is already logged in
             if (!req.user) {
+              User.findOne({'email': profile.emails[0].value}, function(err, existingUser) {
+
+                  // if there are any errors, return the error
+                  if (err)
+                      return done(err);
+
+                  // check to see if there's already a user with that email
+                  if (existingUser){
+                  console.log("user is exist");
+                  return done(null, existingUser);
+
+                      // return done(null, false, {title:'already have an account'});
+  }
+   else {
+
+
 
                 User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
                     if (err)
@@ -207,6 +223,8 @@ console.log("notok");
 
                         });
                     }
+                  });
+                }
                 });
 
             } else {
@@ -324,7 +342,20 @@ console.log("notok");
 
             // check if the user is already logged in
             if (!req.user) {
+              User.findOne({'email': profile.emails[0].value}, function(err, existingUser) {
 
+                  // if there are any errors, return the error
+                  if (err)
+                      return done(err);
+
+                  // check to see if there's already a user with that email
+                  if (existingUser){
+                  console.log("user is exist");
+                  return done(null, existingUser);
+                  // return done(null, false, {title:'already have an account'});
+                      // return done(null, false, {title:'already have an account'});
+  }
+else{
                 User.findOne({ 'google.id' : profile.id }, function(err, user) {
                     if (err)
                         return done(err);
@@ -366,6 +397,8 @@ console.log("notok");
                             return done(null, newUser);
                         });
                     }
+                  });
+                }
                 });
 
             } else {

@@ -19,29 +19,16 @@ db.logins.insert([
 db.notifications.insert([
     {
         _id : "ahmed@gmail.com",
-        notifications:[{message:"heba invite you to a lunch",is_invited:true,is_read:false}]
+        notifications:[{orderId: 1,message:"heba invite you to a lunch",is_invited:true,is_read:false}, {orderId: 2,message:"omer invite you to a breakfast",is_invited:false,is_read:false}]
+    },
+    {
+        _id : "doha@yahoo.com",
+        notifications:[{orderId: 1,message:"ahmed joined your lunch",is_invited:true,is_read:false},{orderId: 3,message:"heba joined your diner",is_invited:true,is_read:false}]
     },
     {
         _id : "heba@gmail.com",
-      notifications:[{message:"omar invite you to a breakfast",is_invited:true,is_read:false}]
-    },
-    {
-        _id : "omar@gmail.com",
-        notifications:[{message:"ahmed joined your lunch",is_invited:false,is_read:false}]
-    },
-    {
-        _id : "heba@gmail.com",
-        notifications:[{message:"omer invite you to a breakfast",is_invited:false,is_read:false}]
-    },
-    {
-        _id : "heba@gmail.com",
-      notifications:[{message:"ahmed invite you to a lunch",is_invited:true,is_read:false}]
-    },
-    {
-        _id : "omar@gmail.com",
-        notifications:[{message:"heba joined your diner",is_invited:false,is_read:false}]
+        notifications:[{orderId: 2,message:"omer invite you to a breakfast",is_invited:false,is_read:false}, {orderId: 3,message:"ahmed invite you to a lunch",is_invited:true,is_read:false}]
     }
-
 ])
 
 

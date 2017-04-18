@@ -29,11 +29,40 @@ var async = require("async");
 //         resp.render("allNotifications", { title: "All Notifications", username:req.session.name , img:req.session.img});
 // })
 
+// router.get("/list",function(req,resp){
+//   notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+//     resp.send(data)
+//   })
+// })
+
 router.get("/list",function(req,resp){
-  notifications.find({'_id': {$ne:req.session.passport.user}, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
+  notifications.find({'_id': req.session.passport.user, "notifications": {$elemMatch: {"is_read": false}}},(err, data)=>{
     resp.send(data)
   })
 })
 
+
+router.get("/update",function(req,resp){
+
+
+  notifications.find({'_id': req.session.passport.user},(err, data)=>{
+
+     for(var i = 1; i < (data[0].notifications.length+1); i++) {
+
+        notifications.update({ '_id': req.session.passport.user,'notifications.id':i},
+              { $set:  { 'notifications.$.is_read': true}},
+              (err, result) => {
+                if (err) {
+                console.log(err);
+                } else {
+                  console.log(result);
+                }
+             }
+            );
+     }
+
+  });
+
+})
 
 module.exports = router;

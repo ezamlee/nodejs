@@ -1,5 +1,4 @@
 $(document).ready(() => {
-
 	$.ajax({
 		method:"get",
 		url:"/api/email",
@@ -10,5 +9,5 @@ $(document).ready(() => {
 			display_error("Server Error");
 		}
 	})
-	
+
 })

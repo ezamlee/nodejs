@@ -378,6 +378,8 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
 
                                 // save notifications :
                                 var arr=JSON.parse(fields.invited_friends);
+
+
                                 for (var name in arr) {
 
                                     mongoose.model("users").find({name:arr[name]},["_id"],{},function (err,mailarr) {
@@ -388,6 +390,27 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                         console.log("notification name "+ name);
                                         console.log("notification mail "+ arr[name]);
                                         var usr1;
+                                        //insert here
+                                        var incr = 1  ;
+                                        notifications.find({'_id':mail},(err, data)=>{
+                                       if(err)
+                                       console.log(err);
+
+                                       else {
+                                         if(data[0] == undefined  ){
+
+                                           incr=1;
+                                         }
+
+                                         else{
+
+                                        incr = data[0].notifications.length+1;
+                                        console.log("query result here");
+                                        console.log(data[0]);
+}
+                                       }
+                                     })
+                                     //5alas
                                         console.log("mail "+mail);
                                         users.find({
                                             email:req.session.passport.user
@@ -410,7 +433,9 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             fields.order_type,
                                                             order_id:new_id,
                                                             is_invited:true,
-                                                            is_read:false
+                                                            id:incr,
+                                                            is_read:false,
+                                                            orderId:new_order._id
                                                         }
                                                     }
                                                 },
