@@ -431,11 +431,13 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             " invites you to "
                                                             +
                                                             fields.order_type,
-                                                            
+
                                                             is_invited:true,
+                                                            orderId:new_order._id,
                                                             id:incr,
-                                                            is_read:false,
-                                                            orderId:new_id
+                                                            is_read:false
+
+
                                                         }
                                                     }
                                                 },
