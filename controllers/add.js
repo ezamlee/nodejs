@@ -4,7 +4,7 @@ var multer=require("multer");
 var formidable=require("formidable");
 var fs = require("fs");
 var path = require("path");
-var uploadedfileMiddleware=multer({dest:"../public/img/menu"});
+//var uploadedfileMiddleware=multer({dest:"../public/img/menu"});
 var router = express.Router();
 
 var login = require("../models/logins");
@@ -62,6 +62,51 @@ router.get("/invited",function (req,resp) {
     // console.log(farr);
     resp.send(JSON.stringify(farr));
 });
+
+
+router.get("/getgroupnames",function (req,resp) {
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
+    var garr=[];
+    mongoose.model("users").find({name:req.session.name},["groups"],{},function (err,grarr) {
+console.log("grarr");
+console.log(grarr);
+console.log(grarr.groups);
+        //console.log(grarr.name);
+        console.log(JSON.stringify(grarr));
+        grarr[0].groups.forEach(function (gr) {
+                garr.push(gr.name) ;
+        });
+
+    });
+
+    setTimeout(function () {
+        resp.send(JSON.stringify(garr));
+    },100);
+});
+router.get("/getgroup",function (req,resp) {
+    // console.log("invited ::::");
+    // console.log(JSON.stringify(farr));
+    // console.log(farr);
+
+    var garr;
+    mongoose.model("users").find({name:req.session.name},["groups"],{},function (err,grarr) {
+
+        grarr.forEach(function (gr) {
+            if (gr.name=gname) {
+                garr.push(gr.members) ;
+            }
+        })
+
+    });
+
+    setTimeout(function () {
+        resp.send(JSON.stringify(garr));
+    },100);
+});
+
+
 
 //opening the page...
 
@@ -294,6 +339,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                 if (y.length<1) {
                         new_order._id=1;
                         new_id=new_order._id;
+                        console.log("new_id 1  "+new_id);
                 }else {
                     new_order._id=y[0]._id+1;
                     new_id=new_order._id;
@@ -418,6 +464,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                         ['name'],{},function (err,u) {
                                             usr1=u[0].name;
                                             console.log("usr1 "+ usr1);
+                                            console.log("new_id 2  "+new_id);
                                             notifications.update(
                                                 {
                                                     _id:mail
@@ -431,7 +478,7 @@ router.post("/",bodyParser.urlencoded({extended:false}),function(req,resp){
                                                             " invites you to "
                                                             +
                                                             fields.order_type,
-                                                            
+
                                                             is_invited:true,
                                                             id:incr,
                                                             is_read:false,

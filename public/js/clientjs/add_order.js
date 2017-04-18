@@ -81,8 +81,8 @@ $(document).ready(function ()  {
                             url:"/add/invited",
                             method:"GET",
                             success : (data) =>{
-
-                                update_all(JSON.parse(data));
+                                console.log("update_all");
+                                update_all(data);
                                 //console.log(JSON.parse(data)[0]);
                             }
                         })
@@ -107,15 +107,55 @@ $(document).ready(function ()  {
 
     })
 
-    $("#demo-cs-multiselect option").on("select",function(e){
+    $("#demo-cs-multiselect").on("change",function(e){
 
-        var g;
-        usrData.groups.forEach(function (gr) {
-            if (this.value==gr) {
-                g=gr;
-                //break;
+        console.log("change");
+        var g="";
+        //$("ul.chosen-choices .search-choice").forEach(function (li) {
+        $("#demo-cs-multiselect option:selected").each(function (li) {
+            //var g2=li.find("span").innerText;
+            var g2 = $(this).attr("value");
+            console.log("group= "+g2);
+            //"<%usrData.groups.forEach(function (gr) {%>"
+            $.ajax({
+            url:"/add/getgroupnames",
+            method:"GET",
+                success:(grouparr)=>{
+                    console.log("grouparr "+grouparr);
+                    grouparr.forEach(function (gr) {
+                        if (g2==gr) {
+                            g=gr;
+                            //break;
+                        }
+                    });
+
+                }
+            });
+
+        setTimeout(function () {
+            if (g!="") {
+                $(this).remove();
+                $.ajax({
+                    url:"/add/getgroup",
+                    method:"GET",
+                    data:{gname:g},
+                    success:(gnames)=>{
+
+                        gnames.forEach(function (gname) {
+                            $("ul.chosen-choices").innerText="<li class='search-choice'><span><%=gname%></span> <a data-option-array-index='0' class='search-choice-close'>::before</a></li>"+ $("ul.chosen-choices").innerText;
+                            console.log($("ul.chosen-choices").innerText);
+                        });
+
+                    }
+                });
             }
+        },200);
+
+            //"<%});%>"
+
+
         });
+
 
     });
 
