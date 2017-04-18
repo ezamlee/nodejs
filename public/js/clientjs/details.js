@@ -56,7 +56,7 @@ var load= function(){
 					success:(user)=>{
 						user =user[0]
 						
-						if(obj._id == data[0].owner && data[1])
+						if(obj._id == data[0].owner && data[1] && data[0].status == "ongoing")
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,true));
 						else{
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,false));
