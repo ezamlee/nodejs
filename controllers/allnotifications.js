@@ -39,7 +39,7 @@ router.get("/list",function(req,resp){
 router.post("/updateOrder", bodyParser.urlencoded({extended: false}),function(req,resp){
   console.log(req.session.name);
   orders.update({'_id': req.body.id}, {$push:{"users_joined": req.session.passport.user}},(err, data)=>{
-    // resp.send(data)
+     resp.send(data)
     // try{
     //       resp.render("details", { title: "Order Details", orderid:req.body.id ,username:req.session.name , img:req.session.img});
   	// }catch(err){

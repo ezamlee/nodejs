@@ -50,10 +50,10 @@ $(document).ready(()=>{
       $.ajax({
         url:"allnotifications/updateOrder",
         method:"post",
-        data:{'id':ordId},
+        data:{'id':ordId}
+        ,
         success:(data)=>{
           console.log(data);
-
 
         },
         fail:(err)=>{
