@@ -43,13 +43,9 @@ router.get("/list/:id",(req,resp)=>{
 					resp.send(403,"You do not have rights to visit this page");
 				}else{
 
-					if(req.session.passport.user == data[0].owner){
-						var respond = [data[0] ,true]
+						var respond = [data[0] ,req.session.passport.user]
 						resp.send(respond);
-					}else{
-						var respond = [data[0] ,false]
-						resp.send(respond);
-					}
+					
 				}
 			}
 		})

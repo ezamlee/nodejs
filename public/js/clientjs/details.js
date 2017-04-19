@@ -35,7 +35,7 @@ var load= function(){
 		method:'GET',
 		success:(data)=>{
 			console.log(data)
-			if((data[1])){
+			if((data[1]) == data[0].owner ){
 				dong = data[0]
 				$("#btfinish").remove();
 				$("#btcancel").remove();
@@ -62,7 +62,7 @@ var load= function(){
 
 						user =user[0]
 						
-						if(obj._id == data[0].owner && data[1] && data[0].status == "ongoing")
+						if( data[1] == obj._id && data[0].status == "ongoing")
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,true));
 						else{
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,false));
@@ -148,6 +148,7 @@ $(document).ready(()=>{
 					$("#btfinish").remove();
 					$("#btcancel").remove();
 					socket.emit("detail_update",{detail:""+orderid+"","update":true});
+					$("#details").html("");
 					load();
 				}else{
 					display_error("you are not allowed to finish this order");
