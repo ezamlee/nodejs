@@ -9,13 +9,14 @@ var bodyParser = require('body-parser');
 var postParser = bodyParser.urlencoded({extended: true})
 
 router.use("/",(req,resp,next)=>{
+
 	try{
 	    if(!(req.session.passport.user)){
-	        resp.send("no page to be loaded");
+	        resp.redirect("/");
 	    }else{
 	        users.find({"_id":req.session.passport.user},(err,data)=>{
 	            if(data.length < 1){
-	                resp.send("user doesnt exit");
+	                resp.redirect("/");
 	            }else{
 	                req.session.name = data[0].name;
 	                req.session.img  = data[0].img;
@@ -24,14 +25,21 @@ router.use("/",(req,resp,next)=>{
 	        })
 	    }
 	}catch(err){
-		resp.send("error");
+		resp.redirect("/");
 	}
+
 })
 router.get("/", (req, resp)=> {
 	try{
-        resp.render("details", { title: "Order Details", orderid:req.query.id ,username:req.session.name , img:req.session.img});
+		orders.find({"_id":req.query.id},{"users_joined":1,"_id":0},(data)=>{
+			console.log(data);
+			if(data[0].users_joined.includes(req.session.passport.user))
+				resp.render("details", { title: "Order Details", orderid:req.query.id ,username:req.session.name , img:req.session.img});
+			else
+				resp.redirect("/orders");
+		})
 	}catch(err){
-		resp.send("error")
+		resp.redirect("/orders");
 	}
 })
 router.get("/list/:id",(req,resp)=>{
@@ -40,12 +48,10 @@ router.get("/list/:id",(req,resp)=>{
 			if(data.length > 0){
 				console.log("checking",data[0],data[0].owner != req.session.passport.user ,!data[0].users_joined.includes(req.session.passport.user))
 				if(!data[0].users_joined.includes(req.session.passport.user) && data[0].owner != req.session.passport.user){
-					resp.send(403,"You do not have rights to visit this page");
+					resp.redirect("/orders");
 				}else{
-
 						var respond = [data[0] ,req.session.passport.user]
 						resp.send(respond);
-					
 				}
 			}
 		})
@@ -63,7 +69,7 @@ router.delete("/update/:id",postParser,(req,resp)=>{
 			}
 		})
 	}catch(err){
-		resp.send("error");
+		resp.redirect("/");
 	}
 })
 router.get("/menu/:id",(req,resp)=>{
@@ -72,7 +78,7 @@ router.get("/menu/:id",(req,resp)=>{
 			resp.send(data[0]);
 		})
 	}catch(err){
-		resp.send("error");
+		resp.redirect("/");
 	}
 })
 router.put("/update/:id",postParser,(req,resp)=>{
@@ -89,7 +95,7 @@ router.put("/update/:id",postParser,(req,resp)=>{
 
 		})
 	}catch(err){
-		resp.send("error");
+		resp.redirect("/orders");
 	}
 })
 router.post("/finish/:id",postParser,(req,resp)=>{
@@ -102,7 +108,7 @@ router.post("/finish/:id",postParser,(req,resp)=>{
 			}
 		})
 	}catch(err){
-		resp.send("error");
+		rresp.redirect("/home");
 	}
 })
 router.delete("/cancel/:id",(req,resp)=>{
@@ -115,7 +121,7 @@ router.delete("/cancel/:id",(req,resp)=>{
 			}
 		})
 	}catch(err){
-		resp.send("error")
+		resp.redirect("/home");
 	}
 })
 module.exports = router;
