@@ -38,7 +38,7 @@ $.niftyNoty({
   type: dataAlert[dataNum].type,
   container : 'page',
   html : contentHTML,
-  timer : autoClose ? 10000 : 0
+  timer : autoClose ? 4000 : 0
 });
 
 
