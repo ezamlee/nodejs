@@ -7,7 +7,7 @@ var nodemailer = require('nodemailer');
 
 module.exports = function (app, passport) {
 app.get("/",function(req,resp){
-    resp.render("login",{title:"Login"});
+      resp.render('login.ejs', { message: req.flash('loginMessage'),title:"login" });
 })
 // forget
 app.get('/forget', function(req, res) {
@@ -155,7 +155,9 @@ app.post('/reset/:token', function(req, res) {
   // LOGIN ===============================
   // show the login form
   app.get('/login', function(req, res) {
-    res.render('login.ejs', { title: req.flash('loginMessage') });
+    // res.render('login.ejs', { title: req.flash('loginMessage') });
+    res.render('login.ejs', { message: req.flash('loginMessage'),title:"login" });
+    // res.render('signup.ejs', { message: req.flash('signupMessage'),title:"signup" });
   });
 
   app.get('/logout', function(req, res) {
@@ -167,8 +169,8 @@ app.post('/reset/:token', function(req, res) {
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/home',
-    failureRedirect : '/signup' // redirect back to the signup page if there is an error
-    // failureFlash : true // allow flash messages
+    failureRedirect : '/login', // redirect back to the signup page if there is an error
+     failureFlash : true // allow flash messages
   }));
 
   // facebook -------------------------------
