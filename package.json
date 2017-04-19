@@ -1,6 +1,6 @@
 {
   "script": {
-    "start": "app.js"
+    "start": "node app.js"
   },
 
   "name": "Otlobly",
