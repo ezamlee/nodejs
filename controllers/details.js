@@ -31,12 +31,12 @@ router.use("/",(req,resp,next)=>{
 })
 router.get("/", (req, resp)=> {
 	try{
-		orders.find({"_id":req.query.id},{"users_joined":1,"_id":0},(data)=>{
-			console.log(data);
-			if(data[0].users_joined.includes(req.session.passport.user))
+		orders.find({"_id":parseInt(req.query.id)},{"users_joined":1,"_id":0,"owner":1},(err,data)=>{
+			console.log("details wahat"+data , parseInt(req.query.id));
+			if(data && (data[0].users_joined.includes(req.session.passport.user)||data[0].owner == req.session.passport.user))
 				resp.render("details", { title: "Order Details", orderid:req.query.id ,username:req.session.name , img:req.session.img});
 			else
-				resp.redirect("/orders");
+				resp.redirect("/order");
 		})
 	}catch(err){
 		resp.redirect("/orders");
