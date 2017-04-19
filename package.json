@@ -1,4 +1,8 @@
 {
+  "script": {
+    "start": "app.js"
+  },
+
   "name": "Otlobly",
   "description": "Group Ordering Application",
   "version": "1.0.0",
