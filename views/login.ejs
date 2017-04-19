@@ -1,4 +1,10 @@
 <%include header %>
+<script>
+<% if (message.length > 0){  %>
+    display_error(`<%= message %>`)
+<% } %>
+</script>
+
     <div class="horizontal-spacer" style="height:12vh;">
     </div>
 

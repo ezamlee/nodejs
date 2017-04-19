@@ -35,13 +35,15 @@ var load= function(){
 		method:'GET',
 		success:(data)=>{
 			console.log(data)
-			if((data[1])){
+			if((data[1]) == data[0].owner ){
 				dong = data[0]
 				$("#btfinish").remove();
 				$("#btcancel").remove();
 				$("#page-title").append(
 					`<button class="btn btn-success btn-labeled" id="btfinish" style="padding:5px 20px;float:right;margin:0px 5px" > Finish </button>
 			         <button class="btn btn-danger btn-labeled" id="btcancel"  style="padding:5px 20px;float:right"> Cancel </button>
+			         <button class="btn btn-default btn-labeled" id="btrecept"  style="padding:5px 20px;float:right"> view current total </button>
+
 				`)
 			}
 			if (data[0].status != "ongoing"){
@@ -62,7 +64,7 @@ var load= function(){
 
 						user =user[0]
 						
-						if(obj._id == data[0].owner && data[1] && data[0].status == "ongoing")
+						if( data[1] == obj._id && data[0].status == "ongoing")
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,true));
 						else{
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,false));
@@ -148,6 +150,7 @@ $(document).ready(()=>{
 					$("#btfinish").remove();
 					$("#btcancel").remove();
 					socket.emit("detail_update",{detail:""+orderid+"","update":true});
+					$("#details").html("");
 					load();
 				}else{
 					display_error("you are not allowed to finish this order");
@@ -187,6 +190,26 @@ $(document).ready(()=>{
 			},
 			fail:(err)=>{
 				display_error("Internal server Error")
+			}
+		})
+	})
+
+
+
+	$("html").on("click","#btrecept",(ev)=>{
+		$.ajax({
+			url:"/details/list/"+orderid,
+			method:'GET',
+			success: (data)=>{
+				var total = 0;
+				var details = data[0].order_detail;
+				details.forEach((item)=>{
+					total+=item.amount * item.price;
+				})
+				display_error(`Your Current Total for Order is: ${total}`)
+			},
+			fail:(data)=>{
+
 			}
 		})
 	})

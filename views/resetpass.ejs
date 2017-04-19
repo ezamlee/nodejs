@@ -3,13 +3,13 @@
     <style type="text/css">
       label,h3{
         color:white;
-        font-size: 32px: 
+        font-size: 32px:
       }
     </style>
   </head>
   <body>
   <div style="position: absolute;overflow: hidden;height:100vh;overflow:hidden;background-color:rgba(0,0,0,0.3);width:100%;margin-top: -8vh;margin-left: -10px"></div>
-  <div id="container" class="cls-container">
+  <div id="container" class="cls-container" style=" z-index: 999; position: relative;">
 
     <!-- BACKGROUND IMAGE -->
     <!--===================================================-->
@@ -32,13 +32,14 @@
                             <div class="form-group">
                                   <label class="col-sm-3 control-label">New Password</label>
                                   <div class="col-sm-9">
-                                      <input type="password" placeholder="Password" class="form-control input-lg" name="password">
+                                      <input type="password" placeholder="Password" class="form-control input-lg" name="password" id="password">
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="col-sm-3 control-label">Confirm Password</label>
                                   <div class="col-sm-9">
-                                      <input type="password" placeholder="Confirm Password" class="form-control input-lg" name="conpassword">
+                                      <input type="password" placeholder="Confirm Password" class="form-control input-lg" name="conpassword" id="conpassword">
+                                      <span id='message'></span>
                                   </div>
                               </div>
                           </div>
@@ -60,7 +61,18 @@
   	</div>
   	<!--===================================================-->
   	<!-- END OF CONTAINER -->
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/clientjs/general.js"></script>
     <script>
+$(document).ready(function(){
+  $('#conpassword').on('blur', function () {
+      if ($('#password').val() == $('#conpassword').val()) {
+          $('#message').html('Matching').css('color', 'yellow');
+      } else
+          $('#message').html('Not Matching').css('color', 'white');
+  });
+})
+
 
     </script>
   </body>
