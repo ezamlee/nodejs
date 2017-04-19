@@ -103,9 +103,12 @@ $(document).ready(() => {
         })
     })
 
-    $("#btAddFriend").click((e)=>{
+    $('#AddFriend').click((e)=>{
         //to close modal
+        console.log("in function")
         $('.modal').removeClass('in');
+
+
         var my_friend_list = [];
         $.ajax({
             url:"friends/list",

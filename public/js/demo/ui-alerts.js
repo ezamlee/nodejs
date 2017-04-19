@@ -50,7 +50,7 @@ $(document).ready(function() {
 	// =================================================================
 	$('#demo-alert-page').on('click', function(){
 		dataNum = nifty.randomInt(0,8);
-		contentHTML = "heba bahaa Eldin";
+		contentHTML = alertContent.replace("btn-danger", "btn-"+dataAlert[dataNum].type);
 		$.niftyNoty({
 			type: dataAlert[dataNum].type,
 			container : 'page',
