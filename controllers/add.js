@@ -70,9 +70,9 @@ router.get("/getgroupnames",function (req,resp) {
     // console.log(farr);
     var garr=[];
     mongoose.model("users").find({name:req.session.name},["groups"],{},function (err,grarr) {
-console.log("grarr");
-console.log(grarr);
-console.log(grarr.groups);
+        console.log("grarr");
+        console.log(grarr);
+        console.log(grarr[0].groups);
         //console.log(grarr.name);
         console.log(JSON.stringify(grarr));
         grarr[0].groups.forEach(function (gr) {
@@ -85,25 +85,38 @@ console.log(grarr.groups);
         resp.send(JSON.stringify(garr));
     },100);
 });
-router.get("/getgroup",function (req,resp) {
+router.post("/getgroup",bodyParser.urlencoded({extended:false}),function (req,resp) {
     // console.log("invited ::::");
     // console.log(JSON.stringify(farr));
     // console.log(farr);
 
-    var garr;
+    var garr=[];
     mongoose.model("users").find({name:req.session.name},["groups"],{},function (err,grarr) {
+        console.log(req.gname);
+        console.log(req.body.gname);
+        console.log(grarr[0].groups[0].name);
+        console.log(grarr[0].groups[0].members);
+        grarr[0].groups.forEach(function (gr) {
+            console.log(gr.name);
+            console.log(gr.members);
+            if (gr.name==req.body.gname) {
+                gr.members.forEach(function (m) {
+                    console.log(m);
 
-        grarr.forEach(function (gr) {
-            if (gr.name=gname) {
-                garr.push(gr.members) ;
+                    mongoose.model("users").find({_id:m},["name"],{},function (err,usr) {
+                        garr.push(usr[0].name);
+                    })
+
+                })
+
             }
-        })
+        });
 
     });
 
     setTimeout(function () {
         resp.send(JSON.stringify(garr));
-    },100);
+    },200);
 });
 
 
