@@ -2,9 +2,11 @@
 
 	<div id="container" class="cls-container">
 
-		<% if (title.length > 0) { %>
-		<div class="alert alert-danger"><%= title %></div>
-	<% } %>
+	<script>
+	//<% if (message.length > 0){  %>
+			display_error(`<%= message %>`)
+	//<% } %>
+	</script>
 
 		<!-- BACKGROUND IMAGE -->
 		<!--===================================================-->
@@ -86,6 +88,7 @@
 
 
 	</div>
+	<script src="../js/clientjs/general.js"></script>
 	<script>
 	$('#confirm_password').on('blur', function () {
 	    if ($('#password').val() == $('#confirm_password').val()) {
@@ -104,6 +107,7 @@
 		$('#len').html(' ')
 });
 	</script>
+
 	<!--===================================================-->
 	<!-- END OF CONTAINER -->
 
