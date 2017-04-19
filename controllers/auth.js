@@ -7,7 +7,7 @@ module.exports = {
 		'clientID' 		: '122153478327039', // your App ID
 		'clientSecret' 	: 'a2c887c63a4aa1f2973bc2b89de0605a', // your App Secret
 		'profileFields': [ 'emails'],
-		'callbackURL' 	: 'http://localhost:'+process.env.PORT+'/auth/facebook/callback',
+		'callbackURL' 	: 'https://fast-ridge-43931.herokuapp.com/auth/facebook/callback',
 		'passReqToCallback' : true
 	},
 
@@ -20,6 +20,6 @@ module.exports = {
 	'googleAuth' : {
 			'clientID' 		: '865756533627-7b6dcc9esis3j3gr1lnuaviscqhkp5pu.apps.googleusercontent.com',
 			'clientSecret' 	: 'ixm4JS_1u5Va8gSEHev2bSN0',
-			'callbackURL' 	: 'http://localhost:'+process.env.PORT+'/auth/google/callback'
+			'callbackURL' 	: 'https://fast-ridge-43931.herokuapp.com/auth/google/callback'
 		}
 };
