@@ -46,7 +46,14 @@ var listNotifications = function(){
             i++;
           }
         })
-        $(".notify").append(notificationsNumber(i));
+        console.log('i=',i);
+        if (i == 0) {
+          $('#container .badge').css('display', 'none');
+        }
+        else {
+          $(".notify").append(notificationsNumber(i));
+        }
+
       }
     },
     fail:(err)=>{

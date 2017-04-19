@@ -34,11 +34,13 @@ var load= function(){
 		url:"/details/list/"+orderid,
 		method:'GET',
 		success:(data)=>{
+			$("#details").html("");
 			console.log(data)
 			if((data[1]) == data[0].owner ){
 				dong = data[0]
 				$("#btfinish").remove();
 				$("#btcancel").remove();
+				$("#btrecept").remove();
 				$("#page-title").append(
 					`<button class="btn btn-success btn-labeled" id="btfinish" style="padding:5px 20px;float:right;margin:0px 5px" > Finish </button>
 			         <button class="btn btn-danger btn-labeled" id="btcancel"  style="padding:5px 20px;float:right"> Cancel </button>
@@ -52,18 +54,13 @@ var load= function(){
 				$("#btcancel").remove();
 
 			}
-
-			
 			var i = 0;
-			$("#details").html("");
 			data[0].order_detail.forEach((obj)=>{
 				$.ajax({
 					url:"/api/user/"+obj._id,
 					method:"GET",
 					success:(user)=>{
-
 						user =user[0]
-						
 						if( data[1] == obj._id && data[0].status == "ongoing")
 							$("#details").append(detail_temp(user.img,user.name,obj.item,obj.amount,obj.price,obj.comment,i++,true));
 						else{
@@ -83,13 +80,13 @@ var load= function(){
 } 
 
 $(document).ready(()=>{
+	load();
 	socket.on("detail_update",(data)=>{
 		if(data.update){
 			load();
 		}
 	})
-	socket.emit("detail_room",{detail:""+orderid+""})
-	load();
+	socket.emit("detail_room",{detail:""+orderid+""})	
 	$("html").on("click",".btdel" , (ev)=>{
 		var index = ev.target.value;
 		if(dong){
@@ -131,6 +128,7 @@ $(document).ready(()=>{
 				{
 					display_error(data);
 					socket.emit("detail_update",{detail:""+orderid+"","update":true});
+					
 				}else{
 					display_error(data);
 				}
@@ -149,9 +147,7 @@ $(document).ready(()=>{
 					display_error("Order finished successfuly");
 					$("#btfinish").remove();
 					$("#btcancel").remove();
-					socket.emit("detail_update",{detail:""+orderid+"","update":true});
-					$("#details").html("");
-					load();
+					socket.emit("detail_update",{detail:""+orderid+"","update":true});					
 				}else{
 					display_error("you are not allowed to finish this order");
 				}
@@ -159,8 +155,7 @@ $(document).ready(()=>{
 			fail:(err)=>{
 				display_error("Internal server error");
 			}
-		})
-		load();
+		})		
 	})
 	$("html").on("click","#btcancel" , (ev)=>{
 		$.ajax({
@@ -171,7 +166,6 @@ $(document).ready(()=>{
 					display_error("Order canceled successfuly");
 					socket.emit("detail_update",{detail:""+orderid+"","update":true});
 					window.location.href = "http://localhost:8090/order";
-
 				}else{
 					display_error("you are not allowed to cancel this order");
 				}
@@ -193,9 +187,6 @@ $(document).ready(()=>{
 			}
 		})
 	})
-
-
-
 	$("html").on("click","#btrecept",(ev)=>{
 		$.ajax({
 			url:"/details/list/"+orderid,
@@ -213,6 +204,7 @@ $(document).ready(()=>{
 			}
 		})
 	})
+
 
 })
 
