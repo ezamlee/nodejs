@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-var server = app.listen(8090);
+var server = app.listen(process.env.PORT || 8090);
 var io = require('socket.io').listen(server);
 var mongoose=require("mongoose");
 var cors = require("cors");
