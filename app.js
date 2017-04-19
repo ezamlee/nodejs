@@ -13,7 +13,8 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 
 //Database Connections
-mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
+// mongoose.connect("mongodb://127.0.0.1:27017/NodeProject");
+mongoose.connect("mongodb://ahmed:1111@ds139989.mlab.com:39989/nodeproject");
 var login = require("./models/logins");
 var users = require("./models/users");
 var orders = require("./models/orders");
