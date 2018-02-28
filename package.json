@@ -2,7 +2,6 @@
   "scripts": {
     "start": "node app.js"
   },
-
   "name": "Otlobly",
   "description": "Group Ordering Application",
   "version": "1.0.0",
@@ -12,7 +11,7 @@
     "async": "^2.3.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.1",
-    "bson": "^1.0.4",
+    "bson": "^2.0.0",
     "busboy": "^0.2.14",
     "cloudinary": "^1.8.0",
     "concat-stream": "^1.6.0",
