@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
-
   "name": "Otlobly",
   "description": "Group Ordering Application",
   "version": "1.0.0",
@@ -90,8 +91,10 @@
     "vary": "^1.1.1",
     "xmldom": "^0.1.27",
     "xtend": "^4.0.1",
-    "xtraverse": "^0.1.0"
+    "xtraverse": "^0.1.0",
+    "snyk": "^1.316.1"
   },
   "repository": "https://github.com/dohaes/nodejs.git",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "snyk": true
 }
