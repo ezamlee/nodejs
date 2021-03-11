@@ -88,7 +88,7 @@
     "utils-merge": "^1.0.0",
     "validator": "^7.0.0",
     "vary": "^1.1.1",
-    "xmldom": "^0.1.27",
+    "xmldom": "^0.5.0",
     "xtend": "^4.0.1",
     "xtraverse": "^0.1.0"
   },
