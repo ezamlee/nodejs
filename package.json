@@ -42,7 +42,7 @@
     "mkdirp": "^0.5.1",
     "mongodb": "^2.2.25",
     "mongodb-core": "^2.1.9",
-    "mongoose": "^4.9.4",
+    "mongoose": "^5.12.2",
     "morgan": "^1.8.1",
     "mpath": "^0.2.1",
     "ms": "^1.0.0",
