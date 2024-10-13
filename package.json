@@ -18,7 +18,7 @@
     "concat-stream": "^1.6.0",
     "connect-flash": "^0.1.1",
     "content-type": "^1.0.2",
-    "cookie": "^0.3.1",
+    "cookie": "^0.7.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "crc": "^3.4.4",
