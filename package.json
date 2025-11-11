@@ -14,7 +14,7 @@
     "body-parser": "^1.17.1",
     "bson": "^1.0.4",
     "busboy": "^0.2.14",
-    "cloudinary": "^1.8.0",
+    "cloudinary": "^2.7.0",
     "concat-stream": "^1.6.0",
     "connect-flash": "^0.1.1",
     "content-type": "^1.0.2",
